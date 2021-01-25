@@ -1,3 +1,12 @@
+/* Copyright (C) 2020-2021 DmanT (www.dmant.ovh) - All Rights Reserved
+ * You may use, distribute and modify this code under the
+ * terms of the XYZ license, which unfortunately won't be
+ * written for another century.
+ *
+ * You should have received a copy of the XYZ license with
+ * this file. If not, please write to: , or visit :
+ */
+ 
 #include "system.h"
 
 void (*bootloader)( void ) = 0xF000;
@@ -23,14 +32,14 @@ int main (void) {
   DDRA |= (1<<PA0);
   DDRA |= (1<<PA1);
 
-  // Initialisiere System LED (Status LED)
+  // Initialisiere System LED (Status LED)g
   stateled_init();
   toggle(1);
   
   output_enabled = 0;
 
   // INIT UART
-  uart_init( UART_BAUD_SELECT(UART_BAUD_RATE,F_CPU) );
+  uart_init( UART_BAUD_SELECT(UART_BAUD_RATE,F_CPU) );it
   sei();
   
   uart_puts("Welcome to piHOME Mainboard Firmware\n\r");
