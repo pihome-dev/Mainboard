@@ -1,6 +1,6 @@
 TARGET=system
 MCU=atmega128
-SOURCES=system.c timer.c uart.c sensoren.c adc.c boards.c twimaster.c sysled.c
+SOURCES=system.c timer.c uart.c sensoren.c adc.c boards.c twimaster.c sysled.c bme280.c
 
 PROGRAMMER=usbasp
 
@@ -13,7 +13,7 @@ EFUSE=0xFC
 
 #Ab hier nichts verändern
 OBJECTS=$(SOURCES:.c=.o)
-CFLAGS=-c -Os -DF_CPU=16000000UL
+CFLAGS=-c -Os -DF_CPU=12000000UL
 LDFLAGS=
 
 all: hex eeprom

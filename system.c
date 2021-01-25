@@ -1,51 +1,90 @@
-#define F_CPU 16000000UL
 #include "system.h"
 
-#define UART_BAUD_RATE 115200
-
-void (*bootloader)( void ) = 0xF000;  // Achtung Falle: Hier Word-Adresse
+void (*bootloader)( void ) = 0xF000;
 
 void avrrestart(void) {
   bootloader();
 }
 
+void toggle(int doo) {
+  for (int i = 0; i < doo; i++) {
+    PORTA |= (1<<PA0);
+    PORTA |= (1<<PA1);
+    _delay_ms(200);
+    PORTA &= ~(1<<PA0);
+    PORTA &= ~(1<<PA1);
+    _delay_ms(200);
+  }
+  _delay_ms(800);
+}
+
 int main (void) {
+	
+  DDRA |= (1<<PA0);
+  DDRA |= (1<<PA1);
 
   // Initialisiere System LED (Status LED)
   stateled_init();
+  toggle(1);
   
   output_enabled = 0;
 
   // INIT UART
   uart_init( UART_BAUD_SELECT(UART_BAUD_RATE,F_CPU) );
+  sei();
   
-  uart_puts("Welcome to piHOME\n\r");
-  uart_puts("Starting System ...\n\r");
+  uart_puts("Welcome to piHOME Mainboard Firmware\n\r");
+  uart_puts("\n\r");
+  uart_puts("System is starting now\n\r\n\r");
+  uart_puts("Please wait...\n\r");
   
   // Initialisiere the Timer
   timer_init();
-  
+  uart_puts(".");
+
   // Initialisiere I2C
   i2c_init();
+  uart_puts(".");
   
   // Initialisiere Sensoren
   sensoren_init();
+  uart_puts(".");
   
+  // Search Connected BME280
   search_bme280();
+  uart_puts(".");
   
   // Initialisiere Boards
   boards_init();
+  uart_puts(".");
   
   // Search Connected Boards
   rgbwboards_search();
+  uart_puts(".");
+  
   dreizweichpwmboards_search();
+  uart_puts(".");
+  
   vierchampboards_search();
+  uart_puts(".");
   
   // Start the Timer
-  timer_start();
+  timer_start(); 
+  uart_puts(".\n\r");
   
-  uart_puts("System is started and running\n\r");
+  uart_puts("System is started and running\n\r\n\r");
+  
+  toggle(2);
+  _delay_ms(1000);
+  toggle(2);
+  _delay_ms(1000);
+   
+  systemstate = STATE_RUN;
   while(1) {
+  	 
+  	 // Systemled
+  	 stateled();
+  	 // Systemled end
   
 	 // Sensorcode  
   
@@ -98,16 +137,20 @@ int main (void) {
 	 // Sensorcode end
 	 
 	 // Systemcode
-	 
-	 
+
 	 
 	 // Systemcode end
 	 
+	 
 	 //
-	 // Clear the Systemcounter
+	 // Clear the Systemcounters
 	 //
-	 if (sysTimer > 1000) {
+	 if (sysTimer > 20000) {
 	   sysTimer = 0;
+	 }
+	 
+	 if (stateTimer > 2000) {
+	   stateTimer = 0;
 	 }
   
   }
