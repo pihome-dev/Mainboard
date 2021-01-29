@@ -36,21 +36,21 @@ int main (void) {
   sensoren_init();
 
   // Search Connected BME280
-  //search_bme280();
+  search_bme280();
 
   // Search Connected Boards
   //rgbwboards_search();
 
-  //dreizweichpwmboards_search();
+  dreizweichpwmboards_search();
 
-  //vierchampboards_search();
+  vierchampboards_search();
 
   // Start the Timer
   timer_start();
   
   // INIT UART
-  uart_init( UART_BAUD_SELECT(UART_BAUD_RATE,F_CPU) );
-  uart_puts("System is started and running\n\r\n\r");
+  //uart_init( UART_BAUD_SELECT(UART_BAUD_RATE,F_CPU) );
+  //uart_puts("System is started and running\n\r\n\r");
 
   systemstate = STATE_RUN;
   
