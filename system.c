@@ -7,7 +7,7 @@
  * this file. If not, please write to: , or visit :
  * https://dmant.ovh/
  */
- 
+
 #include "system.h"
 
 void (*bootloader)( void ) = 0xF000;
@@ -16,97 +16,64 @@ void avrrestart(void) {
   bootloader();
 }
 
-void toggle(int doo) {
-  for (int i = 0; i < doo; i++) {
-    PORTA |= (1<<PA0);
-    PORTA |= (1<<PA1);
-    _delay_ms(200);
-    PORTA &= ~(1<<PA0);
-    PORTA &= ~(1<<PA1);
-    _delay_ms(200);
-  }
-  _delay_ms(800);
-}
-
 int main (void) {
-	
-  DDRA |= (1<<PA0);
-  DDRA |= (1<<PA1);
-
-  // Initialisiere System LED (Status LED)g
-  stateled_init();
-  toggle(1);
-  
-  output_enabled = 0;
 
   // INIT UART
-  uart_init( UART_BAUD_SELECT(UART_BAUD_RATE,F_CPU) );it
-  sei();
+  uart_init( UART_BAUD_SELECT(UART_BAUD_RATE,F_CPU) );
   
-  uart_puts("Welcome to piHOME Mainboard Firmware\n\r");
-  uart_puts("\n\r");
-  uart_puts("System is starting now\n\r\n\r");
-  uart_puts("Please wait...\n\r");
-  
-  // Initialisiere the Timer
-  timer_init();
-  uart_puts(".");
-
-  // Initialisiere I2C
-  i2c_init();
-  uart_puts(".");
-  
-  // Initialisiere Sensoren
-  sensoren_init();
-  uart_puts(".");
-  
-  // Search Connected BME280
-  search_bme280();
-  uart_puts(".");
+  // Initialisiere System LED (Status LED)
+  stateled_init();
   
   // Initialisiere Boards
   boards_init();
-  uart_puts(".");
-  
+
+  // Initialisiere the Timer
+  timer_init();
+
+  // Initialisiere I2C
+  i2c_init();
+
+  // Initialisiere Sensoren
+  sensoren_init();
+
+  // Search Connected BME280
+  //search_bme280();
+
   // Search Connected Boards
   rgbwboards_search();
-  uart_puts(".");
-  
-  dreizweichpwmboards_search();
-  uart_puts(".");
-  
-  vierchampboards_search();
-  uart_puts(".");
-  
+
+  //dreizweichpwmboards_search();
+
+  //vierchampboards_search();
+
   // Start the Timer
-  timer_start(); 
-  uart_puts(".\n\r");
-  
+  timer_start();
+  sei();
   uart_puts("System is started and running\n\r\n\r");
-  
-  toggle(2);
-  _delay_ms(1000);
-  toggle(2);
-  _delay_ms(1000);
-   
+
   systemstate = STATE_RUN;
+  
+  // Test
+  //output_enabled = 1;
+  //fotosensor_one_enabled = SENSOR_ENABLED;
+  //fotosensor_two_enabled = SENSOR_ENABLED;
+  // Testend
   while(1) {
-  	 
+  	
   	 // Systemled
   	 stateled();
   	 // Systemled end
-  
-	 // Sensorcode  
-  
+
+	 // Sensorcode
     // Read the Temperature if Sensor enabled and exist
     if (ds1820_one_enabled == SENSOR_ENABLED) {
 	   read_ds1820_one();
 	 }
-	 
+
 	 if (ds1820_two_enabled == SENSOR_ENABLED) {
 	   read_ds1820_two();
 	 }
-	 
+
     //
     // Read the Fotowiderstand if Sensor enabled and exist
     //
@@ -115,24 +82,24 @@ int main (void) {
     } else {
       fotosensor_one_value = FOTOSENSOR_DEFAULT_VALUE;
     }
-    
+
     if (fotosensor_two_enabled == SENSOR_ENABLED) {
       read_fotosensor_two();
     } else {
       fotosensor_two_value = FOTOSENSOR_DEFAULT_VALUE;
     }
-    
+
     //
 	 // Read the PIR if Sensor enabled and exist
 	 //
 	 if (pir_one_enabled == SENSOR_ENABLED) {
 	   read_pir_one();
 	 }
-	 
+
 	 if (pir_two_enabled == SENSOR_ENABLED) {
 	   read_pir_two();
 	 }
-	 
+
 	 //
 	 // Read the BME280 if Sensor enabled and exist
 	 //
@@ -143,25 +110,73 @@ int main (void) {
 	   bme280_pressure = 0;
 	   bme280_humidity = 0;
 	 }
-	 
+
 	 // Sensorcode end
-	 
+
 	 // Systemcode
 
-	 
+
 	 // Systemcode end
+
+	 // UART
 	 
+	 uartc = uart_getc();
+    if ( uartc & UART_NO_DATA ){ /* No data */ } else
+    {  	
+	   if (uartcommand == 1) {
+		  if (uartc == '#') {
+		    docommand = 1;
+			 uartcommand = 0;
+		  } else {
+		    maincmd[uartcommandi] = uartc;
+		  }
+		  uartcommandi++;
+		} else {
+        switch (uartc) {
+
+		  	 case '$':
+			   uartcommandi = 0;
+				uartcommand = 1;
+				break;
+
+			 case 'b':
+				uart_puts("\n\rSpringe zum Bootloader...\n\r");
+				timer_stop();
+				cli();
+		      bootloader();
+		      break;
+
+		    case '\n':
+		      break;
+
+		    default:
+		      break;
+          }
+      }
+    }
+    
+    if (docommand == 1) {
+    	
+    	switch (maincmd[0]) {
+	     
+	     default:
+	       break;
+	   }
+	   docommand = 0;
+	 }
 	 
+	 // UART end
+
 	 //
 	 // Clear the Systemcounters
 	 //
 	 if (sysTimer > 20000) {
 	   sysTimer = 0;
 	 }
-	 
+
 	 if (stateTimer > 2000) {
 	   stateTimer = 0;
 	 }
-  
+
   }
 }

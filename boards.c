@@ -35,7 +35,7 @@ void rgbwboards_search(void) {
 	 i2c_stop();
   	 boardsconfig[RGBWBOARDS][RGBWBOARD2] = 0;			   // RGBW Board 2 not exist
   }
-  
+
   // RGBW Board 3
   if(!(i2c_start(RGBWBOARD_THREE_ADDRESS+I2C_WRITE))) {  // RGBW Board 3 bereit zum schreiben?
 	 i2c_stop();
@@ -44,7 +44,7 @@ void rgbwboards_search(void) {
 	 i2c_stop();
   	 boardsconfig[RGBWBOARDS][RGBWBOARD3] = 0;			   // RGBW Board 3 not exist
   }
-  
+ 
   // RGBW Board 4
   if(!(i2c_start(RGBWBOARD_FOUR_ADDRESS+I2C_WRITE))) {   // RGBW Board 4 bereit zum schreiben?
 	 i2c_stop();
@@ -53,7 +53,7 @@ void rgbwboards_search(void) {
 	 i2c_stop();
   	 boardsconfig[RGBWBOARDS][RGBWBOARD4] = 0;			   // RGBW Board 4 not exist
   }
-  
+
   // RGBW Board 5
   if(!(i2c_start(RGBWBOARD_FIVE_ADDRESS+I2C_WRITE))) {   // RGBW Board 5 bereit zum schreiben?
 	 i2c_stop();
@@ -71,7 +71,7 @@ void rgbwboards_search(void) {
 	 i2c_stop();
   	 boardsconfig[RGBWBOARDS][RGBWBOARD6] = 0;			   // RGBW Board 6 not exist
   }
-  
+
   // RGBW Board 7
   if(!(i2c_start(RGBWBOARD_SEVEN_ADDRESS+I2C_WRITE))) {  // RGBW Board 7 bereit zum schreiben?
 	 i2c_stop();

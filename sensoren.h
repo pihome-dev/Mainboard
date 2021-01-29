@@ -13,7 +13,7 @@
 
 #define BME280_DEFAULT_READINTERVAL 10
 
-#define BME280_ADDRESS	0x77
+#define BME280_ADDRESS	0x76
 
 // Fotosensoren
 volatile int fotosensor_one_enabled;

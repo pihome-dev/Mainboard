@@ -14,7 +14,7 @@
 #define STATETIME_ERROR_OFF				300
 #define STATETIME_ERROR_WAIT				0
 
-#define PININVERT								1
+#define PININVERT								0
 
 volatile int statestate;
 volatile int systemstate;

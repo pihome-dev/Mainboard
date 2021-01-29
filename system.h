@@ -1,12 +1,12 @@
 // SYSTEM
-#define F_CPU 12000000UL			// Systemfrequency
+#define F_CPU 16000000UL			// Systemfrequency
 
 // I2C
 #define SCL_CLOCK  100000L			// I2C Clock
 
 // UART
-#define UART_BAUD_RATE 57600		// UART Baudrate
-//#define UART_BAUD_RATE 115200	// UART Baudrate
+//#define UART_BAUD_RATE 57600		// UART Baudrate
+#define UART_BAUD_RATE 115200	// UART Baudrate
 
 // Timer
 #define TIMERFREQ		10				// Timerfrequenz in ms
@@ -29,14 +29,14 @@
 
 #include <util/delay.h>
 
+#include "i2cmaster.h"
 #include "uout.h"
 #include "pins.h"
+#include "boards.h"
 #include "timer.h"
 #include "uart.h"
 #include "sensoren.h"
 #include "adc.h"
-#include "boards.h"
-#include "i2cmaster.h"
 #include "sysled.h"
 #include "bme280.h"
 
@@ -44,5 +44,15 @@ void avrrestart(void);
 
 volatile uint16_t sysTimer;
 volatile int output_enabled;
+
+int uartcommand;
+int uartcommandi;
+
+int uartc;
+char uartbuffer[30];
+char uartrxbuffer[50];
+
+int maincmd[20];
+int docommand;
 
 char buf[40];
