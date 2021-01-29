@@ -17,9 +17,6 @@ void avrrestart(void) {
 }
 
 int main (void) {
-
-  // INIT UART
-  uart_init( UART_BAUD_SELECT(UART_BAUD_RATE,F_CPU) );
   
   // Initialisiere System LED (Status LED)
   stateled_init();
@@ -33,6 +30,8 @@ int main (void) {
   // Initialisiere I2C
   i2c_init();
 
+  sei();
+
   // Initialisiere Sensoren
   sensoren_init();
 
@@ -40,7 +39,7 @@ int main (void) {
   //search_bme280();
 
   // Search Connected Boards
-  rgbwboards_search();
+  //rgbwboards_search();
 
   //dreizweichpwmboards_search();
 
@@ -48,16 +47,20 @@ int main (void) {
 
   // Start the Timer
   timer_start();
-  sei();
+  
+  // INIT UART
+  uart_init( UART_BAUD_SELECT(UART_BAUD_RATE,F_CPU) );
   uart_puts("System is started and running\n\r\n\r");
 
   systemstate = STATE_RUN;
   
   // Test
-  //output_enabled = 1;
+  output_enabled = 1;
   //fotosensor_one_enabled = SENSOR_ENABLED;
   //fotosensor_two_enabled = SENSOR_ENABLED;
+  //bme280_enabled = SENSOR_ENABLED;
   // Testend
+  
   while(1) {
   	
   	 // Systemled

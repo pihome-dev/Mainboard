@@ -45,7 +45,6 @@ void search_bme280(void) {
 	 bme280_exist = 1;			   						// BME280 Sensor exist
    
   } else {
-	 i2c_stop();
   	 bme280_exist = 0;			   						// BME280 Sensor not exist
   }
 }
@@ -53,7 +52,7 @@ void search_bme280(void) {
 void read_bme280(void) {
 
   if ( (sysTimer % bme280_readinterval) == 0) {
-
+    STATELED_PORT ^= (1<<STATELED_PIN);
     bme280_temperature = bme280_readTemperature();
     bme280_pressure = bme280_readPressure();
     bme280_humidity = bme280_readHumidity();

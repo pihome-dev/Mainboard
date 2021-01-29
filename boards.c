@@ -23,71 +23,8 @@ void rgbwboards_search(void) {
 	 i2c_stop();
 	 boardsconfig[RGBWBOARDS][RGBWBOARD1] = 1;			   // RGBW Board 1 exist
   } else {
-	 i2c_stop();
-  	 boardsconfig[RGBWBOARDS][RGBWBOARD1] = 0;			   // RGBW Board 1 not exist
-  }
-  
-  // RGBW Board 2
-  if(!(i2c_start(RGBWBOARD_TWO_ADDRESS+I2C_WRITE))) {    // RGBW Board 2 bereit zum schreiben?
-	 i2c_stop();
-	 boardsconfig[RGBWBOARDS][RGBWBOARD2] = 1;			   // RGBW Board 2 exist
-  } else {
-	 i2c_stop();
-  	 boardsconfig[RGBWBOARDS][RGBWBOARD2] = 0;			   // RGBW Board 2 not exist
-  }
-
-  // RGBW Board 3
-  if(!(i2c_start(RGBWBOARD_THREE_ADDRESS+I2C_WRITE))) {  // RGBW Board 3 bereit zum schreiben?
-	 i2c_stop();
-	 boardsconfig[RGBWBOARDS][RGBWBOARD3] = 1;			   // RGBW Board 3 exist
-  } else {
-	 i2c_stop();
-  	 boardsconfig[RGBWBOARDS][RGBWBOARD3] = 0;			   // RGBW Board 3 not exist
-  }
- 
-  // RGBW Board 4
-  if(!(i2c_start(RGBWBOARD_FOUR_ADDRESS+I2C_WRITE))) {   // RGBW Board 4 bereit zum schreiben?
-	 i2c_stop();
-	 boardsconfig[RGBWBOARDS][RGBWBOARD4] = 1;			   // RGBW Board 4 exist
-  } else {
-	 i2c_stop();
-  	 boardsconfig[RGBWBOARDS][RGBWBOARD4] = 0;			   // RGBW Board 4 not exist
-  }
-
-  // RGBW Board 5
-  if(!(i2c_start(RGBWBOARD_FIVE_ADDRESS+I2C_WRITE))) {   // RGBW Board 5 bereit zum schreiben?
-	 i2c_stop();
-	 boardsconfig[RGBWBOARDS][RGBWBOARD5] = 1;			   // RGBW Board 5 exist
-  } else {
-	 i2c_stop();
-  	 boardsconfig[RGBWBOARDS][RGBWBOARD5] = 0;			   // RGBW Board 5 not exist
-  }
-  
-  // RGBW Board 6
-  if(!(i2c_start(RGBWBOARD_SIX_ADDRESS+I2C_WRITE))) {    // RGBW Board 6 bereit zum schreiben?
-	 i2c_stop();
-	 boardsconfig[RGBWBOARDS][RGBWBOARD6] = 1;			   // RGBW Board 6 exist
-  } else {
-	 i2c_stop();
-  	 boardsconfig[RGBWBOARDS][RGBWBOARD6] = 0;			   // RGBW Board 6 not exist
-  }
-
-  // RGBW Board 7
-  if(!(i2c_start(RGBWBOARD_SEVEN_ADDRESS+I2C_WRITE))) {  // RGBW Board 7 bereit zum schreiben?
-	 i2c_stop();
-	 boardsconfig[RGBWBOARDS][RGBWBOARD7] = 1;			   // RGBW Board 7 exist
-  } else {
-	 i2c_stop();
-  	 boardsconfig[RGBWBOARDS][RGBWBOARD7] = 0;			   // RGBW Board 7 not exist
-  }
-  
-  // RGBW Board 8
-  if(!(i2c_start(RGBWBOARD_EIGHT_ADDRESS+I2C_WRITE))) {  // RGBW Board 8 bereit zum schreiben?
-	 i2c_stop();
-	 boardsconfig[RGBWBOARDS][RGBWBOARD8] = 1;			   // RGBW Board 8 exist
-  } else {
-	 i2c_stop();
-  	 boardsconfig[RGBWBOARDS][RGBWBOARD8] = 0;			   // RGBW Board 8 not exist
+	 //i2c_stop();
+  	 //boardsconfig[RGBWBOARDS][RGBWBOARD1] = 0;			   // RGBW Board 1 not exist
   }
 
 }
@@ -100,7 +37,7 @@ void dreizweichpwmboards_search(void) {
 	 i2c_stop();
 	 boardsconfig[DREIZWEICHPEMBOARDS][DREIZWEICHBOARD1] = 1;			   // 32CH PWM Board 1 exist
   } else {
-	 i2c_stop();
+	 //i2c_stop();
   	 boardsconfig[DREIZWEICHPEMBOARDS][DREIZWEICHBOARD1] = 0;			   // 32CH PWM Board 1 not exist
   }
   
