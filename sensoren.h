@@ -11,9 +11,6 @@
 
 #define DS1820_DEFAULT_READINTERVAL	5
 
-#define BME280_DEFAULT_READINTERVAL 10
-
-#define BME280_ADDRESS	0x76
 
 // Fotosensoren
 volatile int fotosensor_one_enabled;
@@ -46,21 +43,6 @@ volatile int ds1820_one_enabled;
 volatile int ds1820_two_enabled;
 
 volatile int ds1820_read_interval;
-
-// BME280
-volatile int bme280_enabled;
-volatile int bme280_exist;
-volatile int bme280_readinterval;
-
-volatile float bme280_temperature;
-volatile float bme280_pressure;
-volatile float bme280_humidity;
-volatile float bme280_altitude;
-
-volatile float bme280_temperature_old;
-volatile float bme280_pressure_old;
-volatile float bme280_humidity_old;
-volatile float bme280_altitude_old;
 
 void search_bme280(void);
 void read_bme280(void);

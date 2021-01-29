@@ -17,52 +17,44 @@ void avrrestart(void) {
 }
 
 int main (void) {
+
+  // Initialisiere UART
+  uart_init( UART_BAUD_SELECT(UART_BAUD_RATE,F_CPU) );
+  sei();
+  uart_puts("\n\r");
+  uart_puts("\n\r");
+  uart_puts("piHOME Mainboard Firmware\n\n");
+  uart_puts("Revision: Rev 1.0\n");
+  uart_puts("Softwarecode: 349FTH34\n");
+  uart_puts("Copyright by piHOME\n");
+  uart_puts("https://pihome.net\n\n");
+  uart_puts("Booting Firmware...\n\n");
+  uart_puts("UART Initialisiert\n");
   
   // Initialisiere System LED (Status LED)
   stateled_init();
-  
+  uart_puts("Status LED Initialisiert\n");
+
   // Initialisiere Boards
   boards_init();
-
-  // Initialisiere the Timer
-  timer_init();
-
-  // Initialisiere I2C
-  i2c_init();
-
-  sei();
+  uart_puts("Boards Initialisiert\n");
 
   // Initialisiere Sensoren
   sensoren_init();
+  uart_puts("Sensoren Initialisiert\n");
 
-  // Search Connected BME280
-  search_bme280();
-
-  // Search Connected Boards
-  //rgbwboards_search();
-
-  dreizweichpwmboards_search();
-
-  vierchampboards_search();
-
+  // Initialisiere the Timer
+  timer_init();
+  uart_puts("Timer Initialisiert\n");
   // Start the Timer
   timer_start();
-  
+  uart_puts("Timer started\n");
   // INIT UART
-  //uart_init( UART_BAUD_SELECT(UART_BAUD_RATE,F_CPU) );
-  //uart_puts("System is started and running\n\r\n\r");
 
   systemstate = STATE_RUN;
-  
-  // Test
-  output_enabled = 1;
-  //fotosensor_one_enabled = SENSOR_ENABLED;
-  //fotosensor_two_enabled = SENSOR_ENABLED;
-  //bme280_enabled = SENSOR_ENABLED;
-  // Testend
-  
+
   while(1) {
-  	
+
   	 // Systemled
   	 stateled();
   	 // Systemled end
@@ -103,17 +95,6 @@ int main (void) {
 	   read_pir_two();
 	 }
 
-	 //
-	 // Read the BME280 if Sensor enabled and exist
-	 //
-	 if (bme280_enabled == SENSOR_ENABLED) {
-	 	read_bme280();
-	 } else {
-	   bme280_temperature = 0;
-	   bme280_pressure = 0;
-	   bme280_humidity = 0;
-	 }
-
 	 // Sensorcode end
 
 	 // Systemcode
@@ -125,48 +106,47 @@ int main (void) {
 	 
 	 uartc = uart_getc();
     if ( uartc & UART_NO_DATA ){ /* No data */ } else
-    {  	
+    { 
+       	
 	   if (uartcommand == 1) {
 		  if (uartc == '#') {
-		    docommand = 1;
+		    docommand = 1;  
 			 uartcommand = 0;
-		  } else {
+        } else {
 		    maincmd[uartcommandi] = uartc;
 		  }
 		  uartcommandi++;
 		} else {
-        switch (uartc) {
+			
+           switch (uartc) {
+				 case '$':
+				   uartcommandi = 0;
+				   uartcommand = 1;
+				   break;
+				 case 'b':
+				   uart_puts("\n\rSpringe zum Bootloader...\n\r");
+					timer_stop();
+					cli();
+		         bootloader();
+		         break;
+		       case '\n':
+		         break;
+				 default:
+				   uart_puts("Command not found\n\n\rPress ? for more Information\n\r");
+				   break;
+           }
+		  }
+     }
 
-		  	 case '$':
-			   uartcommandi = 0;
-				uartcommand = 1;
-				break;
-
-			 case 'b':
-				uart_puts("\n\rSpringe zum Bootloader...\n\r");
-				timer_stop();
-				cli();
-		      bootloader();
-		      break;
-
-		    case '\n':
-		      break;
-
-		    default:
-		      break;
-          }
-      }
-    }
-    
-    if (docommand == 1) {
-    	
-    	switch (maincmd[0]) {
-	     
-	     default:
-	       break;
-	   }
-	   docommand = 0;
-	 }
+	  if (docommand == 1) {
+	    maincmd[0] = 0;
+		 maincmd[1] = 0;
+		 maincmd[2] = 0;
+	    maincmd[3] = 0;
+		 maincmd[4] = 0;
+		 maincmd[5] = 0;
+	    docommand = 0;
+	  }
 	 
 	 // UART end
 

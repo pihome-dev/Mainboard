@@ -1,6 +1,6 @@
 TARGET=system
 MCU=atmega128
-SOURCES=system.c timer.c uart.c sensoren.c adc.c boards.c twimaster.c sysled.c bme280.c
+SOURCES=system.c uart.c timer.c sensoren.c adc.c boards.c sysled.c
 
 PROGRAMMER=usbasp
 

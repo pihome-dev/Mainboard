@@ -5,7 +5,6 @@
 #define SCL_CLOCK  100000L			// I2C Clock
 
 // UART
-//#define UART_BAUD_RATE 57600		// UART Baudrate
 #define UART_BAUD_RATE 115200	// UART Baudrate
 
 // Timer
@@ -29,16 +28,14 @@
 
 #include <util/delay.h>
 
-#include "i2cmaster.h"
+#include "uart.h"
 #include "uout.h"
 #include "pins.h"
 #include "boards.h"
 #include "timer.h"
-#include "uart.h"
 #include "sensoren.h"
 #include "adc.h"
 #include "sysled.h"
-#include "bme280.h"
 
 void avrrestart(void);
 

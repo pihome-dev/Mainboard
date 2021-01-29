@@ -26,14 +26,6 @@ void boards_init(void);
 #define RGBWBOARD_SEVEN_ADDRESS						0x3E
 #define RGBWBOARD_EIGHT_ADDRESS						0x40
 
-void rgbwboards_search(void);
-void send_single_pwm_value_to_rgbwboard(int boardnumber, int pwmchannel, int pwmvalue);
-void send_multi_pwm_value_to_rgbwboard(int boardnumber, int redvalue, int greenvalue, int bluevalue, int whitevalue);
-void send_mode_to_rgbwboard(int boardnumber, int modenumber);
-void send_pwmtime_to_rgbwboard(int boardnumber, int uptime, int downtime);
-void send_config_to_rgbwboard(int boardnumber, int defaultuptime, int defaultdowntime, int pwmlimit, int autosave);
-
-
 // 32CH PWM Boards
 
 #define DREIZWEICHBOARD1								0
@@ -54,9 +46,6 @@ void send_config_to_rgbwboard(int boardnumber, int defaultuptime, int defaultdow
 #define DREIZWEICHPWMBOARD_SEVEN_ADDRESS			0x4E
 #define DREIZWEICHPWMBOARD_EIGHT_ADDRESS			0x50
 
-void dreizweichpwmboards_search(void);
-
-
 // 4CH Amplifer Boards
 
 #define VIERCHBOARD1										0
@@ -76,5 +65,3 @@ void dreizweichpwmboards_search(void);
 #define VIERCHAMPBOARD_SIX_ADDRESS					0x5C
 #define VIERCHAMPBOARD_SEVEN_ADDRESS				0x5E
 #define VIERCHAMPBOARD_EIGHT_ADDRESS				0x60
-
-void vierchampboards_search(void);
