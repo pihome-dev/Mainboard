@@ -39,8 +39,8 @@ void read_fotosensor_one(void) {
 
     if (output_enabled == 1) {
       if ( (fotosensor_one_value - fotosensor_one_value_old) > FOTOSENSOR_TOLERANCE || (fotosensor_one_value_old - fotosensor_one_value) > FOTOSENSOR_TOLERANCE) {
-        snprintf(buf, 50, "!%s%d=%d\n\r", UART_DATA, UART_FOTOSENSOR_ONE, fotosensor_one_value);
-//    	  uart_puts(buf);
+        snprintf(buf, 50, "!%s%d=%d\n", UART_DATA, UART_FOTOSENSOR_ONE_VALUE, fotosensor_one_value);
+    	  uart_puts(buf);
 	     fotosensor_one_value_old = fotosensor_one_value;
       }
     }    
@@ -56,8 +56,8 @@ void read_fotosensor_two(void) {
     
     if (output_enabled == 1) {
       if ( (fotosensor_two_value - fotosensor_two_value_old) > FOTOSENSOR_TOLERANCE || (fotosensor_two_value_old - fotosensor_two_value) > FOTOSENSOR_TOLERANCE) {
-        snprintf(buf, 50, "!%s%d=%d\n\r", UART_DATA, UART_FOTOSENSOR_TWO, fotosensor_two_value);
-//    	  uart_puts(buf);
+        snprintf(buf, 50, "!%s%d=%d\n", UART_DATA, UART_FOTOSENSOR_TWO_VALUE, fotosensor_two_value);
+    	  uart_puts(buf);
 	     fotosensor_two_value_old = fotosensor_two_value;
       }
     } 
@@ -73,7 +73,7 @@ void read_pir_one(void) {
 	
   if (pir_one_reset == 0) {
   	
-    if ( !(PINC & (1<<PC1)) ) {
+    if ( !(PIRSENSOR1_PIND & (1<<PIRSENSOR1_PIN)) ) {
       pir_one_value = 0;
     } else {
       pir_one_reset_time = 0;
@@ -85,8 +85,8 @@ void read_pir_one(void) {
 	
   if (output_enabled == 1) {
     if (pir_one_value != pir_one_value_old) {
-      snprintf(buf, 50, "!%s%d=%d\n\r", UART_DATA, UART_PIR_ONE, pir_one_value);
-//    	uart_puts(buf);
+      snprintf(buf, 50, "!%s%d=%d\n", UART_DATA, UART_PIR_ONE_VALUE, pir_one_value);
+    	uart_puts(buf);
     	pir_one_value_old = pir_one_value;
     }
   }
@@ -100,7 +100,7 @@ void read_pir_two(void) {
 	
   if (pir_two_reset == 0) {
   	
-    if ( !(PINC & (1<<PC1)) ) {
+    if ( !(PIRSENSOR2_PIND & (1<<PIRSENSOR2_PIN)) ) {
       pir_two_value = 0;
     } else {
       pir_two_reset_time = 0;
@@ -112,8 +112,8 @@ void read_pir_two(void) {
 	
   if (output_enabled == 1) {
     if (pir_two_value != pir_two_value_old) {
-      snprintf(buf, 50, "!%s%d=%d\n\r", UART_DATA, UART_PIR_TWO, pir_two_value);
-//    	uart_puts(buf);
+      snprintf(buf, 50, "!%s%d=%d\n", UART_DATA, UART_PIR_TWO_VALUE, pir_two_value);
+    	uart_puts(buf);
     	pir_two_value_old = pir_two_value;
     }
   }

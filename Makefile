@@ -1,6 +1,6 @@
 TARGET=system
 MCU=atmega128
-SOURCES=system.c uart.c timer.c sensoren.c adc.c boards.c sysled.c
+SOURCES=system.c uart.c timer.c sensoren.c adc.c boards.c sysled.c uout.c uin.c
 
 PROGRAMMER=usbasp
 

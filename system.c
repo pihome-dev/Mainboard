@@ -21,14 +21,13 @@ int main (void) {
   // Initialisiere UART
   uart_init( UART_BAUD_SELECT(UART_BAUD_RATE,F_CPU) );
   sei();
-  uart_puts("\n\r");
-  uart_puts("\n\r");
+  uart_puts("\n\n");
   uart_puts("piHOME Mainboard Firmware\n\n");
   uart_puts("Revision: Rev 1.0\n");
   uart_puts("Softwarecode: 349FTH34\n");
   uart_puts("Copyright by piHOME\n");
   uart_puts("https://pihome.net\n\n");
-  uart_puts("Booting Firmware...\n\n");
+  uart_puts("... Booting Firmware ...\n\n");
   uart_puts("UART Initialisiert\n");
   
   // Initialisiere System LED (Status LED)
@@ -46,12 +45,15 @@ int main (void) {
   // Initialisiere the Timer
   timer_init();
   uart_puts("Timer Initialisiert\n");
+  
   // Start the Timer
   timer_start();
   uart_puts("Timer started\n");
   // INIT UART
 
   systemstate = STATE_RUN;
+  
+  output_on();
 
   while(1) {
 
@@ -124,21 +126,43 @@ int main (void) {
 				   uartcommand = 1;
 				   break;
 				 case 'b':
-				   uart_puts("\n\rSpringe zum Bootloader...\n\r");
+				   uart_puts("\nSpringe zum Bootloader...\n");
+				   _delay_ms(500);
+				   uart_puts("3.");
+				   _delay_ms(500);
+				   uart_puts(".");
+				   _delay_ms(500);
+				   uart_puts("2.");
+				   _delay_ms(500);
+				   uart_puts(".");
+				   _delay_ms(500);
+				   uart_puts("1.");
+				   _delay_ms(500);
+				   uart_puts(".");
+				   uart_puts("\n\n\n\n");
 					timer_stop();
 					cli();
 		         bootloader();
 		         break;
 		       case '\n':
 		         break;
+		       case 'C':
+		         uart_get_system_config();
+		         break;
+		       case 'D':
+		         uart_get_data();
+		         break;
 				 default:
-				   uart_puts("Command not found\n\n\rPress ? for more Information\n\r");
+				   uart_puts("\nCommand not found\nPress \'?\' for more Information\n");
 				   break;
            }
 		  }
      }
 
 	  if (docommand == 1) {
+	    output_off();
+	    system_command();
+	    output_on();
 	    maincmd[0] = 0;
 		 maincmd[1] = 0;
 		 maincmd[2] = 0;

@@ -30,6 +30,7 @@
 
 #include "uart.h"
 #include "uout.h"
+#include "uin.h"
 #include "pins.h"
 #include "boards.h"
 #include "timer.h"
@@ -44,6 +45,9 @@ volatile int output_enabled;
 
 int uartcommand;
 int uartcommandi;
+
+char tmp[4];
+int inttmp;
 
 int uartc;
 char uartbuffer[30];
