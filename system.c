@@ -10,6 +10,8 @@
 
 #include "system.h"
 
+#define SLAVE_ADRESSE 0x50
+
 void (*bootloader)( void ) = 0xF000;
 
 void avrrestart(void) {
@@ -29,6 +31,10 @@ int main (void) {
   uart_puts("https://pihome.net\n\n");
   uart_puts("... Booting Firmware ...\n\n");
   uart_puts("UART Initialisiert\n");
+  
+  // Initialisiere I2C
+  i2c_init(); 
+  uart_puts("I2C Initialisiert\n");
   
   // Initialisiere System LED (Status LED)
   stateled_init();
@@ -68,7 +74,6 @@ int main (void) {
   output_on();
 
   while(1) {
-
   	 // Systemled
   	 stateled();
   	 // Systemled end
@@ -131,7 +136,7 @@ int main (void) {
 		  }
 		  uartcommandi++;
 		} else {
-			
+			  int t = 0;
            switch (uartc) {
 				 case '$':
 				   uartcommandi = 0;
@@ -163,6 +168,20 @@ int main (void) {
 		         break;
 		       case 'D':
 		         uart_get_data();
+		         break;
+		       case 'T':
+		         if(!(i2c_start(SLAVE_ADRESSE+I2C_WRITE))) {
+		           t = 0;
+		           i2c_stop();
+		         } else {
+		           t = 1;
+		           i2c_stop();
+		         }
+		         if (t == 1) {
+		           uart_puts("not found\n");
+		         } else {
+		           uart_puts("found\n");
+		         }
 		         break;
 				 default:
 				   uart_puts("\nCommand not found\nPress \'?\' for more Information\n");
