@@ -42,6 +42,10 @@ int main (void) {
   sensoren_init();
   uart_puts("Sensoren Initialisiert\n");
 
+  // Initialisiere Lightsystem
+  light_init();
+  uart_puts("Lightsystem Initialisiert\n");
+
   // Initialisiere the Timer
   timer_init();
   uart_puts("Timer Initialisiert\n");
@@ -52,6 +56,14 @@ int main (void) {
   // INIT UART
 
   systemstate = STATE_RUN;
+  
+  // EEPROM
+  if (getEEDefaultExist() != eeDefaultDataExist) {
+    uart_puts("Write Default EEPROM Data\n");
+  	 write_default_eeprom_data();
+  } else {
+    uart_puts("Default EEPROM Data exist\n");
+  }
   
   output_on();
 
@@ -100,7 +112,7 @@ int main (void) {
 	 // Sensorcode end
 
 	 // Systemcode
-
+	 lightsystem();
 
 	 // Systemcode end
 
@@ -184,6 +196,25 @@ int main (void) {
 	 if (stateTimer > 2000) {
 	   stateTimer = 0;
 	 }
+	 
+	 // EEPROM Autosave
+	 if (second_tick == 1) {
+	   second_tick = 0;
+	   
+	   // Check EEPROM Autosave
+	   if (eeprom_autosave_enable == 1) {
+	     if (eeprom_changed == 1) {
+	       if (eeprom_changed_timer >= EEPROM_AUTOSAVE_TIME) {
+	       	eeprom_changed = 0;
+	       	eeprom_write_autosave();
+	       	uart_puts("EEPROM written\n");
+	       } else {
+	         eeprom_changed_timer++;
+	       }
+	     }
+	   }
+	 }
+	 
 
   }
 }

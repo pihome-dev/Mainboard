@@ -20,6 +20,7 @@ void system_command(void) {
 			   } else {
 			     uart_puts("Fotosensor One disabled\n");
 			   }
+			   eeprom_autosave();
 			 }
           break;
           
@@ -33,7 +34,8 @@ void system_command(void) {
 			     uart_puts("Fotosensor Two enabled\n");
 			   } else {
 			     uart_puts("Fotosensor Two disabled\n");
-			   };
+			   }
+			   eeprom_autosave();
 			 }
           break;
           
@@ -48,6 +50,7 @@ void system_command(void) {
 			   } else {
 			     uart_puts("PIR One disabled\n");
 			   }
+			   eeprom_autosave();
 			 }
           break;
           
@@ -61,7 +64,8 @@ void system_command(void) {
 			     uart_puts("PIR Two enabled\n");
 			   } else {
 			     uart_puts("PIR Two disabled\n");
-			   };
+			   }
+			   eeprom_autosave();
 			 }
           break;
           
@@ -76,6 +80,7 @@ void system_command(void) {
 			   } else {
 			     uart_puts("DS1820 One disabled\n");
 			   }
+			   eeprom_autosave();
 			 }
           break;
           
@@ -89,7 +94,48 @@ void system_command(void) {
 			     uart_puts("DS1820 Two enabled\n");
 			   } else {
 			     uart_puts("DS1820 Two disabled\n");
-			   };
+			   }
+			   eeprom_autosave();
+			 }
+          break;
+          
+        case UARTIN_FOTOSENSOR_READ_INTERVAL:
+          tmp[0] = maincmd[3];
+          tmp[1] = maincmd[4];
+			 tmp[2] = '\0';
+			 inttmp = atoi(tmp);
+			 if (inttmp >= 0 && inttmp <= 99) {
+			   fotosensor_read_interval = inttmp;
+			   snprintf(buf, 50, "Fotosensor Readinterval set to %d seconds", inttmp);
+    	  		uart_puts(buf);
+			   eeprom_autosave();
+			 }
+          break;
+          
+        case UARTIN_FOTOSENSOR_READ_TOLERANCE:
+          tmp[0] = maincmd[3];
+          tmp[1] = maincmd[4];
+          tmp[2] = maincmd[5];
+			 tmp[3] = '\0';
+			 inttmp = atoi(tmp);
+			 if (inttmp >= 0 && inttmp <= 999) {
+			   fotosensor_read_tolerance = inttmp;
+			   snprintf(buf, 50, "Fotosensor Readtolerance set to %d", inttmp);
+    	  		uart_puts(buf);
+			   eeprom_autosave();
+			 }
+          break;
+          
+        case UARTIN_DS1820_READ_INTERVAL:
+          tmp[0] = maincmd[3];
+          tmp[1] = maincmd[4];
+			 tmp[2] = '\0';
+			 inttmp = atoi(tmp);
+			 if (inttmp >= 0 && inttmp <= 99) {
+			   ds1820_read_interval = inttmp;
+			   snprintf(buf, 50, "DS1820 Readinterval set to %d seconds", inttmp);
+    	  		uart_puts(buf);
+			   eeprom_autosave();
 			 }
           break;
           

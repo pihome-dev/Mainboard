@@ -37,11 +37,14 @@
 #include "sensoren.h"
 #include "adc.h"
 #include "sysled.h"
+#include "eeprom.h"
+#include "light.h"
 
 void avrrestart(void);
 
 volatile uint16_t sysTimer;
 volatile int output_enabled;
+volatile int second_tick;
 
 int uartcommand;
 int uartcommandi;

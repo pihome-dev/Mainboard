@@ -23,6 +23,9 @@
 #define					UART_DS1820_ONE_ENABLE				19
 #define					UART_DS1820_TWO_ENABLE				20
 
+#define					UART_FOTOSENSOR_READ_INTERVAL		21
+#define					UART_FOTOSENSOR_READ_TOLERANCE	22
+
 void output_on(void);
 void output_off(void);
 void uart_get_system_config(void);

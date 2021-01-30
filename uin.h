@@ -6,5 +6,8 @@
 #define UARTIN_PIR_TWO_ENABLE											 4
 #define UARTIN_DS1820_ONE_ENABLE										 5
 #define UARTIN_DS1820_TWO_ENABLE										 6
+#define UARTIN_FOTOSENSOR_READ_INTERVAL							 7
+#define UARTIN_FOTOSENSOR_READ_TOLERANCE							 8
+#define UARTIN_DS1820_READ_INTERVAL									 9
 
 void system_command(void);

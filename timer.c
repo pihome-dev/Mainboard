@@ -33,7 +33,10 @@ ISR (TIMER1_COMPA_vect)    // Timer1 ISR
 {
 	
   sysTimer++;
-  PORTA ^= (1<<PA0);
+  
+  if ( (sysTimer % 100) == 0 ) {
+    second_tick = 1;
+  }
   
   // Statustimer
   stateTimer+= 10;
