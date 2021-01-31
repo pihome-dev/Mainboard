@@ -19,12 +19,24 @@ void uart_send_system_config(void) {
   snprintf(buf, 50, "!%s%d=%d\n", UART_SENDDATA, UART_FOTOSENSOR_TWO_ENABLE, fotosensor_two_enabled);
   uart_puts(buf);
   
+  // Fotosensor Read Interval
+  snprintf(buf, 50, "!%s%d=%d\n", UART_SENDDATA, UART_FOTOSENSOR_READ_INTERVAL, fotosensor_read_interval);
+  uart_puts(buf);
+  
+  // Fotosensor Read Tolerance
+  snprintf(buf, 50, "!%s%d=%d\n", UART_SENDDATA, UART_FOTOSENSOR_READ_TOLERANCE, fotosensor_read_tolerance);
+  uart_puts(buf);
+  
   // PIR One enabled
   snprintf(buf, 50, "!%s%d=%d\n", UART_SENDDATA, UART_PIR_ONE_ENABLE, pir_one_enabled);
   uart_puts(buf);
   
   // PIR Two enabled
   snprintf(buf, 50, "!%s%d=%d\n", UART_SENDDATA, UART_PIR_TWO_ENABLE, pir_two_enabled);
+  uart_puts(buf);
+  
+  // PIR Resettime
+  snprintf(buf, 50, "!%s%d=%d\n", UART_SENDDATA, UART_PIR_RESET_TIME, pir_hardware_reset_time);
   uart_puts(buf);
   
   // DS1820 One enabled
@@ -35,12 +47,12 @@ void uart_send_system_config(void) {
   snprintf(buf, 50, "!%s%d=%d\n", UART_SENDDATA, UART_DS1820_TWO_ENABLE, ds1820_two_enabled);
   uart_puts(buf);
   
-  // Fotosensor Read Interval
-  snprintf(buf, 50, "!%s%d=%d\n", UART_SENDDATA, UART_FOTOSENSOR_READ_INTERVAL, fotosensor_read_interval);
+  // DS1820 Read Interval
+  snprintf(buf, 50, "!%s%d=%d\n", UART_SENDDATA, UART_DS1820_READ_INTERVAL, ds1820_read_interval);
   uart_puts(buf);
   
-  // Fotosensor Read Tolerance
-  snprintf(buf, 50, "!%s%d=%d\n", UART_SENDDATA, UART_FOTOSENSOR_READ_TOLERANCE, fotosensor_read_tolerance);
+  // BME280 Read Interval
+  snprintf(buf, 50, "!%s%d=%d\n", UART_SENDDATA, UART_BME280_READ_INTERVAL, bme280_read_interval);
   uart_puts(buf);
   
   output_on();
@@ -49,28 +61,40 @@ void uart_send_system_config(void) {
 void uart_send_system_data(void) {
   output_off();
   
-  // Fotosensor One enabled
+  // Fotosensor One value
   snprintf(buf, 50, "!%s%d=%d\n", UART_SENDDATA, UART_FOTOSENSOR_ONE_VALUE, fotosensor_one_value);
   uart_puts(buf);
   
-  // Fotosensor Two enabled
+  // Fotosensor Two value
   snprintf(buf, 50, "!%s%d=%d\n", UART_SENDDATA, UART_FOTOSENSOR_TWO_VALUE, fotosensor_two_value);
   uart_puts(buf);
   
-  // PIR One enabled
+  // PIR One value
   snprintf(buf, 50, "!%s%d=%d\n", UART_SENDDATA, UART_PIR_ONE_VALUE, pir_one_value);
   uart_puts(buf);
   
-  // PIR Two enabled
+  // PIR Two value
   snprintf(buf, 50, "!%s%d=%d\n", UART_SENDDATA, UART_PIR_TWO_VALUE, pir_two_value);
   uart_puts(buf);
   
-  // DS1820 One enabled
+  // DS1820 One value
   snprintf(buf, 50, "!%s%d=%d\n", UART_SENDDATA, UART_DS1820_ONE_VALUE, ds1820_one_value);
   uart_puts(buf);
   
-  // DS1820 Two enabled
+  // DS1820 Two value
   snprintf(buf, 50, "!%s%d=%d\n", UART_SENDDATA, UART_DS1820_TWO_VALUE, ds1820_two_value);
+  uart_puts(buf);
+  
+  // BME280 Temperature
+  snprintf(buf, 50, "!%s%d=%+3li.%02u\n", UART_SENDDATA, UART_BME280_TEMPERATURE, bme280_temperature/100, (uint8_t)(bme280_temperature%100));
+  uart_puts(buf);
+
+  // BME280 Pressure
+  snprintf(buf, 50, "!%s%d=%4li.%02u\n", UART_SENDDATA, UART_BME280_PRESSURE, bme280_pressure/100 , (uint8_t)(bme280_pressure%100));
+  uart_puts(buf);
+
+  // BME280 Humidity
+  snprintf(buf, 50, "!%s%d=%+3li.%02u\n", UART_SENDDATA, UART_BME280_HUMIDITY, bme280_humidity>>10, (uint16_t)((bme280_humidity&0x3FF)*1000)/1024);
   uart_puts(buf);
   
   output_on();

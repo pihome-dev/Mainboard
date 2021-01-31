@@ -14,6 +14,8 @@ uint16_t eePIR_TWO_ENABLE EEMEM												= 14;
 uint16_t eeDS1820_ONE_ENABLE EEMEM											= 15;
 uint16_t eeDS1820_TWO_ENABLE EEMEM											= 16;
 uint16_t eeDS1820_READ_INTERVAL EEMEM										= 19;
+uint16_t eePIR_HARDWARE_RESETTIME EEMEM									= 19;
+uint16_t eeBME280_READ_INTERVAL EEMEM										= 20;
 
 uint8_t getEEDefaultExist(void) {
   uint8_t retByte;
@@ -31,10 +33,13 @@ void write_default_eeprom_data(void) {
   
   eeprom_update_byte(&eePIR_ONE_ENABLE, eeData_PIR_ONE_ENABLE);
   eeprom_update_byte(&eePIR_TWO_ENABLE, eeData_PIR_TWO_ENABLE);
+  eeprom_update_byte(&eePIR_HARDWARE_RESETTIME, eeData_PIR_HARDWARE_RESETTIME);
   
   eeprom_update_byte(&eeDS1820_ONE_ENABLE, eeData_DS1820_ONE_ENABLE);
   eeprom_update_byte(&eeDS1820_TWO_ENABLE, eeData_DS1820_TWO_ENABLE);
   eeprom_update_byte(&eeDS1820_READ_INTERVAL, eeData_DS1820_READ_INTERVAL);
+  
+  eeprom_update_byte(&eeBME280_READ_INTERVAL, eeData_BME280_READ_INTERVAL);
   
   eeprom_update_byte(&eeDefaultExist, eeDefaultDataExist);
   
@@ -50,11 +55,14 @@ void getEEPROMDefaultData(void) {
   
   pir_one_enabled = eeprom_read_byte (&eePIR_ONE_ENABLE);
   pir_two_enabled = eeprom_read_byte (&eePIR_TWO_ENABLE);
+  pir_hardware_reset_time = eeprom_read_byte (&eePIR_HARDWARE_RESETTIME);
   
   ds1820_one_enabled = eeprom_read_byte (&eeDS1820_ONE_ENABLE);
   ds1820_two_enabled = eeprom_read_byte (&eeDS1820_TWO_ENABLE);
   
   ds1820_read_interval = eeprom_read_byte (&eeDS1820_READ_INTERVAL);
+  
+  bme280_read_interval = eeprom_read_byte (&eeBME280_READ_INTERVAL);
   
   eeprom_autosave_enable = 1;
   eeprom_changed = 0;
@@ -70,10 +78,14 @@ void eeprom_write_autosave(void) {
   
   eeprom_update_byte(&eePIR_ONE_ENABLE, pir_one_enabled);
   eeprom_update_byte(&eePIR_TWO_ENABLE, pir_two_enabled);
+  eeprom_update_byte(&eePIR_HARDWARE_RESETTIME, pir_hardware_reset_time);
   
   eeprom_update_byte(&eeDS1820_ONE_ENABLE, ds1820_one_enabled);
   eeprom_update_byte(&eeDS1820_TWO_ENABLE, ds1820_two_enabled);
   eeprom_update_byte(&eeDS1820_READ_INTERVAL, ds1820_read_interval);
+  
+  eeprom_update_byte(&eeBME280_READ_INTERVAL, bme280_read_interval);
+    
 }
 
 void eeprom_autosave(void) {

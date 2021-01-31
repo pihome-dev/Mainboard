@@ -97,11 +97,13 @@ int main (void) {
   
   // EEPROM
   if (getEEDefaultExist() != eeDefaultDataExist) {
-    uart_puts_P("Write Default EEPROM Data\n");
+    uart_puts_P("Write Default Systemdata\n");
   	 write_default_eeprom_data();
+  	 getEEPROMDefaultData();
+  	 uart_puts_P("Systemdata written and loaded\n");
   } else {
   	 getEEPROMDefaultData();
-    uart_puts_P("Default EEPROM Data exist and loaded\n");
+    uart_puts_P("Systemdata loaded\n");
   }
   
   uart_puts_P("\n\n=> Firmware was started and running <=\n\n");
@@ -149,6 +151,13 @@ int main (void) {
 
 	 if (pir_two_enabled == SENSOR_ENABLED) {
 	   read_pir_two();
+	 }
+	 
+	 //
+	 // BME280 Sensor
+	 //
+	 if (bme280_connected == 1) {
+	 	read_bme280();
 	 }
 
 	 // Sensorcode end

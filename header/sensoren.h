@@ -2,13 +2,6 @@
 #define SENSOR_ENABLED	1
 #define SENSOR_DISABLED	0
 
-#define FOTOSENSOR_DEFAULT_VALUE	500
-
-#define PIR_DEFAULT_VALUE 0
-#define PIR_HARDWARE_RESET_TIME 6
-
-#define DS1820_DEFAULT_READINTERVAL	5
-
 
 // Fotosensoren
 volatile int fotosensor_one_enabled;
@@ -23,6 +16,7 @@ volatile int fotosensor_one_value_old;
 volatile int fotosensor_two_value_old;
 
 // PIR Sensoren
+volatile int pir_hardware_reset_time;
 volatile int pir_one_enabled;
 volatile int pir_two_enabled;
 

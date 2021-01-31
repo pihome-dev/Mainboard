@@ -343,7 +343,7 @@ void BME280_MESSURE(void) {
   
   BME280_readout(&bme280_temperature, &bme280_pressure, &bme280_humidity);
   
-  //printf("T:  %+3li.%02u C\n", temp/100, (uint8_t)(temp%100));
-  //printf("P: %4li.%02u hPa\n", press/100 , (uint8_t)(press%100));
-  //printf("H:   %2li.%02u %%RH\n", hum>>10, (uint16_t)((hum&0x3FF)*1000)/1024);
+  //printf("T:  %+3li.%02u C\n", bme280_temperature/100, (uint8_t)(bme280_temperature%100));
+  //printf("P: %4li.%02u hPa\n", bme280_pressure/100 , (uint8_t)(bme280_pressure%100));
+  //printf("H:   %2li.%02u %%RH\n", bme280_humidity>>10, (uint16_t)((bme280_humidity&0x3FF)*1000)/1024);
 }

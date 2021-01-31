@@ -59,7 +59,7 @@ void read_fotosensor_two(void) {
 
 void read_pir_one(void) {
 	
-  if (pir_one_reset_time >= (PIR_HARDWARE_RESET_TIME * 100) ) {
+  if (pir_one_reset_time >= (pir_hardware_reset_time * 100) ) {
     pir_one_reset = 0;
   }	
 	
@@ -86,7 +86,7 @@ void read_pir_one(void) {
 
 void read_pir_two(void) {
 	
-  if (pir_two_reset_time >= (PIR_HARDWARE_RESET_TIME * 100) ) {
+  if (pir_two_reset_time >= (pir_hardware_reset_time * 100) ) {
     pir_two_reset = 0;
   }	
 	
@@ -117,4 +117,31 @@ void read_ds1820_one(void) {
 
 void read_ds1820_two(void) {
 
+}
+
+void read_bme280(void) {
+  if ( sysTimer % (bme280_read_interval * 100) == 0) {
+  	
+    BME280_MESSURE();
+    
+    if (output_enabled == 1) {
+      if ( bme280_temperature != bme280_temperature_old ) {
+        snprintf(buf, 50, "!%s%d=%+3li.%02u\n", UART_SENDDATA, UART_BME280_TEMPERATURE, bme280_temperature/100, (uint8_t)(bme280_temperature%100));
+    	  uart_puts(buf);
+	     bme280_temperature_old = bme280_temperature;
+      }
+      
+      if ( bme280_pressure != bme280_pressure_old ) {
+        snprintf(buf, 50, "!%s%d=%4li.%02u\n", UART_SENDDATA, UART_BME280_PRESSURE, bme280_pressure/100 , (uint8_t)(bme280_pressure%100));
+    	  uart_puts(buf);
+	     bme280_pressure_old = bme280_pressure;
+      }
+      
+      if ( bme280_humidity != bme280_humidity_old ) {
+        snprintf(buf, 50, "!%s%d=%+3li.%02u\n", UART_SENDDATA, UART_BME280_HUMIDITY, bme280_humidity>>10, (uint16_t)((bme280_humidity&0x3FF)*1000)/1024);
+    	  uart_puts(buf);
+	     bme280_humidity_old = bme280_humidity;
+      }
+    } 
+  }
 }

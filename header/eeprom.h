@@ -4,17 +4,17 @@
 // Sensoren
 #define eeData_FOTOSENSOR_ONE_ENABLE 			1
 #define eeData_FOTOSENSOR_TWO_ENABLE 			1
-#define eeData_FOTOSENSOR_READ_TOLERANCE		20
-#define eeData_FOTOSENSOR_READ_INTERVAL		5
+#define eeData_FOTOSENSOR_READ_TOLERANCE		FOTOSENSOR_DEFAULT_READTOLERANCE
+#define eeData_FOTOSENSOR_READ_INTERVAL		FOTOSENSOR_DEFAULT_READINTERVAL
 
 #define eeData_PIR_ONE_ENABLE 					1
 #define eeData_PIR_TWO_ENABLE 					1
 
 #define eeData_DS1820_ONE_ENABLE 				1
 #define eeData_DS1820_TWO_ENABLE 				1
-#define eeData_DS1820_READ_INTERVAL				5
-
-#define EEPROM_AUTOSAVE_TIME						10						
+#define eeData_DS1820_READ_INTERVAL				DS1820_DEFAULT_READINTERVAL
+#define eeData_BME280_READ_INTERVAL				BME280_DEFAULT_READINTERVAL
+#define eeData_PIR_HARDWARE_RESETTIME			PIR_HARDWARE_RESET_TIME					
 
 uint8_t getEEDefaultExist(void);
 void write_default_eeprom_data(void);
