@@ -41,6 +41,13 @@
 #define					UART_BME280_HUMIDITY					35
 #define					UART_BME280_PRESSURE					36
 
+#define					UART_LIGHT_MODE						37
+#define					UART_MOTIONLIGHT_MODE				38
+#define					UART_NIGHTLIGHT_MODE					39
+#define					UART_MOTIONLIGHT_ENABLE				40
+#define					UART_NIGHTLIGHT_ENABLE				41
+
+
 
 // GET
 #define					UART_GET_SYSTEMTIME					1

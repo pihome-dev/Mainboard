@@ -14,7 +14,16 @@
 #define eeData_DS1820_TWO_ENABLE 				1
 #define eeData_DS1820_READ_INTERVAL				DS1820_DEFAULT_READINTERVAL
 #define eeData_BME280_READ_INTERVAL				BME280_DEFAULT_READINTERVAL
-#define eeData_PIR_HARDWARE_RESETTIME			PIR_HARDWARE_RESET_TIME					
+#define eeData_PIR_HARDWARE_RESETTIME			PIR_HARDWARE_RESET_TIME
+
+
+//////////
+#define eeData_LIGHT_MODE			 				1
+#define eeData_MOTIONLIGHT_MODE			 		7
+#define eeData_NIGHTLIGHT_MODE			 		8
+
+#define eeData_MOTIONLIGHT_ENABLE				1
+#define eeData_NIGHTLIGHT_ENABLE			 		0
 
 uint8_t getEEDefaultExist(void);
 void write_default_eeprom_data(void);

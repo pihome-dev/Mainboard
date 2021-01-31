@@ -1,15 +1,39 @@
-#define LIGHTMODE_OFF							0
-#define LIGHTMODE_ON								1
-#define LIGHT_OFF									0
-#define LIGHT_ON									1
+#define LIGHT_ON	1
+#define LIGHT_OFF	0
 
-volatile int manual_light;
-volatile int motion_light;
-volatile int night_light;
+volatile int light_mode;
+volatile int motionlight_mode;
+volatile int nightlight_mode;
 
-volatile int manlight_on;
-volatile int motlight_on;
-volatile int niglight_on;
+volatile int motionlight_enabled;
+volatile int nightlight_enabled;
 
-void light_init(void);
+
+
+
+
+
+
+
+
+
+
+volatile int light_on;
+volatile int motionlight_on;
+volatile int nightlight_on;
+
+volatile int light_mode_run;
+volatile int motionlight_mode_run;
+volatile int nightlight_mode_run;
+
+volatile int nightlight_time_hour;
+volatile int nightlight_time_min;
+
+volatile int motionlight_time;
+volatile int motionlight_timer_time;
+
+volatile int nightlight_time;
+volatile int nightlight_timer_time;
+
+void lightsystem_init(void);
 void lightsystem(void);

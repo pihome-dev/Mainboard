@@ -43,9 +43,13 @@ int main (void) {
   stateled_init();
   uart_puts_P("Status LED Initialisiert\n");
   
-  // Initialisiere Systemtime)
+  // Initialisiere Systemtime
   systemclock_init();
   uart_puts_P("Systemtime Initialisiert\n");
+  
+  // Initialisiere Lightsystem
+  lightsystem_init();
+  uart_puts_P("Lightsystem Initialisiert\n");
 
   // Initialisiere Boards
   boards_init();
@@ -54,10 +58,6 @@ int main (void) {
   // Initialisiere Sensoren
   sensoren_init();
   uart_puts_P("Sensoren Initialisiert\n");
-
-  // Initialisiere Lightsystem
-  light_init();
-  uart_puts_P("Lightsystem Initialisiert\n");
   
   // Initialisiere RGBW Boards
   rgbwboards_seach();

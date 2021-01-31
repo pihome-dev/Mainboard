@@ -138,7 +138,7 @@ void read_bme280(void) {
       }
       
       if ( bme280_humidity != bme280_humidity_old ) {
-        snprintf(buf, 50, "!%s%d=%+3li.%02u\n", UART_SENDDATA, UART_BME280_HUMIDITY, bme280_humidity>>10, (uint16_t)((bme280_humidity&0x3FF)*1000)/1024);
+        snprintf(buf, 50, "!%s%d=%2li.%02u\n", UART_SENDDATA, UART_BME280_HUMIDITY, bme280_humidity>>10, (uint16_t)((bme280_humidity&0x3FF)*1000)/1024);
     	  uart_puts(buf);
 	     bme280_humidity_old = bme280_humidity;
       }

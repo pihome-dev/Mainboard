@@ -55,6 +55,26 @@ void uart_send_system_config(void) {
   snprintf(buf, 50, "!%s%d=%d\n", UART_SENDDATA, UART_BME280_READ_INTERVAL, bme280_read_interval);
   uart_puts(buf);
   
+  // Lightmode
+  snprintf(buf, 50, "!%s%d=%d\n", UART_SENDDATA, UART_LIGHT_MODE, light_mode);
+  uart_puts(buf);
+  
+  // Motionlightmode
+  snprintf(buf, 50, "!%s%d=%d\n", UART_SENDDATA, UART_MOTIONLIGHT_MODE, motionlight_mode);
+  uart_puts(buf);
+  
+  // Nightlightmode
+  snprintf(buf, 50, "!%s%d=%d\n", UART_SENDDATA, UART_NIGHTLIGHT_MODE, nightlight_mode);
+  uart_puts(buf);
+  
+  // Motionlight enabled
+  snprintf(buf, 50, "!%s%d=%d\n", UART_SENDDATA, UART_MOTIONLIGHT_ENABLE, motionlight_enabled);
+  uart_puts(buf);
+  
+  // Nightlight enabled
+  snprintf(buf, 50, "!%s%d=%d\n", UART_SENDDATA, UART_NIGHTLIGHT_ENABLE, nightlight_enabled);
+  uart_puts(buf); 
+  
   output_on();
 }
 
@@ -86,15 +106,15 @@ void uart_send_system_data(void) {
   uart_puts(buf);
   
   // BME280 Temperature
-  snprintf(buf, 50, "!%s%d=%+3li.%02u\n", UART_SENDDATA, UART_BME280_TEMPERATURE, bme280_temperature/100, (uint8_t)(bme280_temperature%100));
+  snprintf(buf, 50, "!%s%d=%+3li.%02u - %d\n", UART_SENDDATA, UART_BME280_TEMPERATURE, bme280_temperature/100, (uint8_t)(bme280_temperature%100), bme280_temperature);
   uart_puts(buf);
 
   // BME280 Pressure
-  snprintf(buf, 50, "!%s%d=%4li.%02u\n", UART_SENDDATA, UART_BME280_PRESSURE, bme280_pressure/100 , (uint8_t)(bme280_pressure%100));
+  snprintf(buf, 50, "!%s%d=%4li.%02u - %d\n", UART_SENDDATA, UART_BME280_PRESSURE, bme280_pressure/100 , (uint8_t)(bme280_pressure%100), bme280_pressure);
   uart_puts(buf);
 
   // BME280 Humidity
-  snprintf(buf, 50, "!%s%d=%+3li.%02u\n", UART_SENDDATA, UART_BME280_HUMIDITY, bme280_humidity>>10, (uint16_t)((bme280_humidity&0x3FF)*1000)/1024);
+  snprintf(buf, 50, "!%s%d=%2li.%02u - %d\n", UART_SENDDATA, UART_BME280_HUMIDITY, bme280_humidity>>10, (uint16_t)((bme280_humidity&0x3FF)*1000)/1024, bme280_humidity);
   uart_puts(buf);
   
   output_on();

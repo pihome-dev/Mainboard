@@ -23,6 +23,6 @@
 #define PIR_HARDWARE_RESET_TIME 					2					// PIR Reset Time in seconds
 
 #define DS1820_DEFAULT_READINTERVAL				5					// DS1820 Readintervall in seconds
-#define BME280_DEFAULT_READINTERVAL				5					// BME280 Readintervall in seconds
+#define BME280_DEFAULT_READINTERVAL				30					// BME280 Readintervall in seconds
 
 #define EEPROM_AUTOSAVE_TIME						10					// EEPROM Autosave after time in seconds
