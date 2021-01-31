@@ -4,6 +4,7 @@ void boards_init(void) {
   
   rgbwboard_connected = 0;
   dreizweichboards_connected = 0;
+  vierchampboards_connected = 0;
   
   for (int i = 0; i < 3; i++) {
     
@@ -87,6 +88,40 @@ unsigned char get_32chboard_addr(int boardnumber) {
   return adr;
 }
 
+unsigned char get_4champboard_addr(int boardnumber) {
+  unsigned char adr;
+  switch(boardnumber) {
+    case 1:
+      adr = VIERCHAMPBOARD_ONE_ADDRESS;
+      break;
+    case 2:
+      adr = VIERCHAMPBOARD_TWO_ADDRESS;
+      break;
+    case 3:
+      adr = VIERCHAMPBOARD_THREE_ADDRESS;
+      break;
+    case 4:
+      adr = VIERCHAMPBOARD_FOUR_ADDRESS;
+      break;
+    case 5:
+      adr = VIERCHAMPBOARD_FIVE_ADDRESS;
+      break;
+    case 6:
+      adr = VIERCHAMPBOARD_SIX_ADDRESS;
+      break;
+    case 7:
+      adr = VIERCHAMPBOARD_SEVEN_ADDRESS;
+      break;
+    case 8:
+      adr = VIERCHAMPBOARD_EIGHT_ADDRESS;
+      break;
+    default:
+      break;
+  }
+  
+  return adr;
+}
+
 void rgbwboards_seach(void) {
   unsigned char addr;
   
@@ -115,6 +150,22 @@ void dreizweichboards_search(void) {
     } else {
 	   i2c_stop();
   	   boardsconfig[DREIZWEICHPEMBOARDS][b] = 0;
+    }
+  }
+}
+
+void vierchampboards_search(void) {
+  unsigned char addr;
+  
+  for (int b = 0; b < 8; b++) {
+    addr = get_4champboard_addr(b);
+    if(!(i2c_start(addr+I2C_WRITE))) { // RGBW Board bereit zum schreiben?
+	   i2c_stop();
+	   boardsconfig[VIERCHAMPBOARDS][b] = 1;
+	   vierchampboards_connected++;
+    } else {
+	   i2c_stop();
+  	   boardsconfig[VIERCHAMPBOARDS][b] = 0;
     }
   }
 }

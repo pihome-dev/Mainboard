@@ -13,7 +13,7 @@
 #define eeData_DS1820_TWO_ENABLE 				1
 #define eeData_DS1820_READ_INTERVAL				5
 
-#define EEPROM_AUTOSAVE_TIME						10
+#define EEPROM_AUTOSAVE_TIME						10						
 
 uint8_t getEEDefaultExist(void);
 void write_default_eeprom_data(void);

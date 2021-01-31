@@ -1,6 +1,6 @@
 TARGET=system
 MCU=atmega128
-SOURCES=source/system.c source/uart.c source/i2cmaster.c source/timer.c source/sensoren.c source/adc.c source/boards.c source/sysled.c source/uout.c source/uin.c source/eeprom.c source/light.c source/bme280.c
+SOURCES=source/system.c source/uart.c source/i2cmaster.c source/timer.c source/sensoren.c source/adc.c source/boards.c source/sysled.c source/uout.c source/uin.c source/eeprom.c source/light.c source/bme280.c source/systemclock.c
 
 PROGRAMMER=usbasp
 

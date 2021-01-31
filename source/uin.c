@@ -139,6 +139,25 @@ void system_command(void) {
 			 }
           break;
           
+        case UARTIN_SET_SYSTEMTIME:
+          tmp[0] = maincmd[3];
+          tmp[1] = maincmd[4];
+			 tmp[2] = '\0';
+			 inttmp = atoi(tmp);
+			 
+			 tmp[0] = maincmd[5];
+			 tmp[1] = maincmd[6];
+			 tmp[2] = '\0';
+			 inttmp2 = atoi(tmp);
+			 
+			 if (inttmp >= 0 && inttmp <= 23 && inttmp2 >= 0 && inttmp2 <= 59) {
+				systemhour = inttmp;
+				systemmin = inttmp2;
+				systemtime_synctimer = 0;
+			   uart_puts_P("Systemtime set\n");
+			 }
+          break;
+          
         default:
           break;
       }

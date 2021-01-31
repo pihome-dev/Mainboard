@@ -18,78 +18,89 @@ void avrrestart(void) {
 
 int main (void) {
   systemstate = STATE_INIT;
+  systemhour = 0;
+  systemmin = 0;
+  systemsec = 0;
+  
   stateled();
   // Initialisiere UART
   uart_init( UART_BAUD_SELECT(UART_BAUD_RATE,F_CPU) );
   sei();
-  uart_puts("\n\n");
-  uart_puts("piHOME Mainboard Firmware\n\n");
-  uart_puts("Revision: Rev 1.0\n");
-  uart_puts("Softwarecode: 349FTH34\n");
-  uart_puts("Copyright by piHOME\n");
-  uart_puts("https://pihome.net\n\n");
-  uart_puts("... Booting Firmware ...\n\n");
-  uart_puts("UART Initialisiert\n");
+  uart_puts_P("\n\n");
+  uart_puts_P("piHOME Mainboard Firmware\n\n");
+  uart_puts_P("Revision: Rev 1.0\n");
+  uart_puts_P("Softwarecode: 349FTH34\n");
+  uart_puts_P("Copyright by piHOME\n");
+  uart_puts_P("https://pihome.net\n\n");
+  uart_puts_P("... Booting Firmware ...\n\n");
+  uart_puts_P("UART Initialisiert\n");
   
   // Initialisiere I2C
   i2c_init(); 
-  uart_puts("I2C Initialisiert\n");
+  uart_puts_P("I2C Initialisiert\n");
   
   // Initialisiere System LED (Status LED)
   stateled_init();
-  uart_puts("Status LED Initialisiert\n");
+  uart_puts_P("Status LED Initialisiert\n");
 
   // Initialisiere Boards
   boards_init();
-  uart_puts("Boards Initialisiert\n");
+  uart_puts_P("Boards Initialisiert\n");
 
   // Initialisiere Sensoren
   sensoren_init();
-  uart_puts("Sensoren Initialisiert\n");
+  uart_puts_P("Sensoren Initialisiert\n");
 
   // Initialisiere Lightsystem
   light_init();
-  uart_puts("Lightsystem Initialisiert\n");
+  uart_puts_P("Lightsystem Initialisiert\n");
   
   // Initialisiere RGBW Boards
   rgbwboards_seach();
-  uart_puts("RGBW Boards Initialisiert\n");
+  uart_puts_P("RGBW Boards Initialisiert\n");
   snprintf(buf, 50, "=> %d <= RGBW Boards connected\n", rgbwboard_connected);
   uart_puts(buf);
   
-// Initialisiere 32CH PWM Boards
+  // Initialisiere 32CH PWM Boards
   dreizweichboards_search();
-  uart_puts("32CH PWM Boards Initialisiert\n");
+  uart_puts_P("32CH PWM Boards Initialisiert\n");
   snprintf(buf, 50, "=> %d <= 32CH PWM Boards connected\n", dreizweichboards_connected);
+  uart_puts(buf);
+  
+  // Initialisiere 4CH Amplifier PWM Boards
+  vierchampboards_search();
+  uart_puts_P("4CH Amplifier Boards Initialisiert\n");
+  snprintf(buf, 50, "=> %d <= 4CH Amplifier Boards connected\n", dreizweichboards_connected);
   uart_puts(buf);
   
   // Search and initialisiere BME280 when exist
   BME280_search();
   if (bme280_connected == 1) {
   	 BME280_init();
-    uart_puts("BME280 found and initalisiert\n");
+    uart_puts_P("BME280 found and initalisiert\n");
   } else {
-    uart_puts("No BME280 found. Skipping initialisierung");
+    uart_puts_P("No BME280 found. Skipping initialisierung");
   }
 
   // Initialisiere the Timer
   timer_init();
-  uart_puts("Timer Initialisiert\n");
+  uart_puts_P("Timer Initialisiert\n");
   
   // Start the Timer
   timer_start();
-  uart_puts("Timer started\n");
+  uart_puts_P("Timer started\n");
   // INIT UART
   
   // EEPROM
   if (getEEDefaultExist() != eeDefaultDataExist) {
-    uart_puts("Write Default EEPROM Data\n");
+    uart_puts_P("Write Default EEPROM Data\n");
   	 write_default_eeprom_data();
   } else {
-    uart_puts("Default EEPROM Data exist\n");
+  	 getEEPROMDefaultData();
+    uart_puts_P("Default EEPROM Data exist and loaded\n");
   }
   
-  uart_puts("\n\n=> Firmware was started and running <=\n\n");
+  uart_puts_P("\n\n=> Firmware was started and running <=\n\n");
   
   output_on();
   systemstate = STATE_RUN;
@@ -165,7 +176,7 @@ int main (void) {
 				   uartcommand = 1;
 				   break;
 				 case 'b':
-				   uart_puts("\nSpringe zum Bootloader...\n");
+				   uart_puts_P("\nSpringe zum Bootloader...\n");
 				   _delay_ms(500);
 				   uart_puts("3.");
 				   _delay_ms(500);
@@ -178,7 +189,7 @@ int main (void) {
 				   uart_puts("1.");
 				   _delay_ms(500);
 				   uart_puts(".");
-				   uart_puts("\n\n\n\n");
+				   uart_puts_P("\n\n\n\n");
 					timer_stop();
 					cli();
 		         bootloader();
@@ -186,15 +197,16 @@ int main (void) {
 		       case '\n':
 		         break;
 		       case 'C':
-		         uart_get_system_config();
+		         uart_send_system_config();
 		         break;
-		       case 'T':
+		       case 'I':
+		         uart_send_system_info();
 		         break;
 		       case 'D':
-		         uart_get_data();
+		         uart_send_system_data();
 		         break;
 				 default:
-				   uart_puts("\nCommand not found\nPress \'?\' for more Information\n");
+				   uart_puts_P("\nCommand not found\nPress \'?\' for more Information\n");
 				   break;
            }
 		  }
@@ -224,19 +236,24 @@ int main (void) {
 
 	 if (stateTimer > 2000) {
 	   stateTimer = 0;
-	 }
+	 }	 
 	 
-	 // EEPROM Autosave
-	 if (second_tick == 1) {
+	 
+	 if (second_tick == 1) {	 	
 	   second_tick = 0;
 	   
+	   // Systemtime
+	   systemclock();
+	   // Systemtime end
+	   
+	   // EEPROM Autosave
 	   // Check EEPROM Autosave
 	   if (eeprom_autosave_enable == 1) {
 	     if (eeprom_changed == 1) {
 	       if (eeprom_changed_timer >= EEPROM_AUTOSAVE_TIME) {
 	       	eeprom_changed = 0;
 	       	eeprom_write_autosave();
-	       	uart_puts("EEPROM written\n");
+	       	uart_puts_P("EEPROM written\n");
 	       } else {
 	         eeprom_changed_timer++;
 	       }

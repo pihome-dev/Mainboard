@@ -2,9 +2,6 @@
 
 void sensoren_init(void) {
   
-  
-  getEEPROMDefaultData();
-  
   fotosensor_one_value = FOTOSENSOR_DEFAULT_VALUE;
   fotosensor_two_value = FOTOSENSOR_DEFAULT_VALUE;
   fotosensor_one_value_old = FOTOSENSOR_DEFAULT_VALUE;
@@ -34,7 +31,7 @@ void read_fotosensor_one(void) {
 
     if (output_enabled == 1) {
       if ( (fotosensor_one_value - fotosensor_one_value_old) > fotosensor_read_tolerance || (fotosensor_one_value_old - fotosensor_one_value) > fotosensor_read_tolerance) {
-        snprintf(buf, 50, "!%s%d=%d\n", UART_DATA, UART_FOTOSENSOR_ONE_VALUE, fotosensor_one_value);
+        snprintf(buf, 50, "!%s%d=%d\n", UART_SENDDATA, UART_FOTOSENSOR_ONE_VALUE, fotosensor_one_value);
     	  uart_puts(buf);
 	     fotosensor_one_value_old = fotosensor_one_value;
       }
@@ -51,7 +48,7 @@ void read_fotosensor_two(void) {
     
     if (output_enabled == 1) {
       if ( (fotosensor_two_value - fotosensor_two_value_old) > fotosensor_read_tolerance || (fotosensor_two_value_old - fotosensor_two_value) > fotosensor_read_tolerance) {
-        snprintf(buf, 50, "!%s%d=%d\n", UART_DATA, UART_FOTOSENSOR_TWO_VALUE, fotosensor_two_value);
+        snprintf(buf, 50, "!%s%d=%d\n", UART_SENDDATA, UART_FOTOSENSOR_TWO_VALUE, fotosensor_two_value);
     	  uart_puts(buf);
 	     fotosensor_two_value_old = fotosensor_two_value;
       }
@@ -80,7 +77,7 @@ void read_pir_one(void) {
 	
   if (output_enabled == 1) {
     if (pir_one_value != pir_one_value_old) {
-      snprintf(buf, 50, "!%s%d=%d\n", UART_DATA, UART_PIR_ONE_VALUE, pir_one_value);
+      snprintf(buf, 50, "!%s%d=%d\n", UART_SENDDATA, UART_PIR_ONE_VALUE, pir_one_value);
     	uart_puts(buf);
     	pir_one_value_old = pir_one_value;
     }
@@ -107,7 +104,7 @@ void read_pir_two(void) {
 	
   if (output_enabled == 1) {
     if (pir_two_value != pir_two_value_old) {
-      snprintf(buf, 50, "!%s%d=%d\n", UART_DATA, UART_PIR_TWO_VALUE, pir_two_value);
+      snprintf(buf, 50, "!%s%d=%d\n", UART_SENDDATA, UART_PIR_TWO_VALUE, pir_two_value);
     	uart_puts(buf);
     	pir_two_value_old = pir_two_value;
     }

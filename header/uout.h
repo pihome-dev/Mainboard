@@ -1,5 +1,8 @@
-#define					UART_DATA								"D"
+#define					UART_SENDDATA							"D"
+#define					UART_GETDATA							"C"
 
+
+// SEND
 #define					UART_BME280_TEMPERATURE_VALUE		5
 #define					UART_BME280_PRESSURE	_VALUE		6
 #define					UART_BME280_HUMIDITY	_VALUE		7
@@ -26,7 +29,12 @@
 #define					UART_FOTOSENSOR_READ_INTERVAL		21
 #define					UART_FOTOSENSOR_READ_TOLERANCE	22
 
+// GET
+#define					UART_GET_SYSTEMTIME					1
+
 void output_on(void);
 void output_off(void);
-void uart_get_system_config(void);
-void uart_get_data(void);
+void uart_send_system_config(void);
+void uart_send_system_data(void);
+void uart_send_system_info(void);
+void uart_get_systemtime(void);

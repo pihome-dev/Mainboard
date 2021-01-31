@@ -27,6 +27,7 @@
 #include "eeprom.h"
 #include "light.h"
 #include "bme280.h"
+#include "systemclock.h"
 
 void avrrestart(void);
 
@@ -34,11 +35,18 @@ volatile uint16_t sysTimer;
 volatile int output_enabled;
 volatile int second_tick;
 
+volatile int systemhour;
+volatile int systemmin;
+volatile int systemsec;
+
+volatile int systemtime_synctimer;
+
 int uartcommand;
 int uartcommandi;
 
 char tmp[4];
 int inttmp;
+int inttmp2;
 
 int uartc;
 char uartbuffer[30];

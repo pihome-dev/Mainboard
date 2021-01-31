@@ -10,4 +10,6 @@
 #define UARTIN_FOTOSENSOR_READ_TOLERANCE							 8
 #define UARTIN_DS1820_READ_INTERVAL									 9
 
+#define UARTIN_SET_SYSTEMTIME											 10
+
 void system_command(void);
