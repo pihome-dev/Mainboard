@@ -29,6 +29,16 @@
 #define					UART_FOTOSENSOR_READ_INTERVAL		21
 #define					UART_FOTOSENSOR_READ_TOLERANCE	22
 
+#define					UART_RGBWBOARD_ONE_CONNECTED		23
+#define					UART_RGBWBOARD_TWO_CONNECTED		24
+#define					UART_RGBWBOARD_THREE_CONNECTED	25
+#define					UART_RGBWBOARD_FOUR_CONNECTED		26
+#define					UART_RGBWBOARD_FIVE_CONNECTED		27
+#define					UART_RGBWBOARD_SIX_CONNECTED		28
+#define					UART_RGBWBOARD_SEVEN_CONNECTED	29
+#define					UART_RGBWBOARD_EIGHT_CONNECTED	30
+
+
 // GET
 #define					UART_GET_SYSTEMTIME					1
 
@@ -38,3 +48,4 @@ void uart_send_system_config(void);
 void uart_send_system_data(void);
 void uart_send_system_info(void);
 void uart_get_systemtime(void);
+void uart_get_connected_rgbwboards(void);

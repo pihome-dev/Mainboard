@@ -84,7 +84,7 @@ void uart_send_system_info(void) {
   snprintf(buf, 50, "%02d:%02d:%02d\n", systemhour, systemmin, systemsec);
   uart_puts(buf);
   
-  uart_puts_P("Systemtime Synctime: ");
+  uart_puts_P("Synctime: ");
   snprintf(buf, 50, "%d min\n", SYSTEMTIME_SYNCTIME);
   uart_puts(buf);
   uart_puts_P("\n\n");
@@ -93,6 +93,36 @@ void uart_send_system_info(void) {
 }
 
 void uart_get_systemtime(void) {
-  snprintf(buf, 50, "!%s%d\n", UART_GETDATA, UART_GET_SYSTEMTIME);
+  snprintf(buf, 50, "!%s%02d\n", UART_GETDATA, UART_GET_SYSTEMTIME);
   uart_puts(buf);
+}
+
+void uart_get_connected_rgbwboards(void) {
+	 output_off();
+	
+	 snprintf(buf, 50, "!%s%d=%d\n", UART_SENDDATA, UART_RGBWBOARD_ONE_CONNECTED, boardsconfig[RGBWBOARDS][RGBWBOARD1]);
+    uart_puts(buf);
+    
+    snprintf(buf, 50, "!%s%d=%d\n", UART_SENDDATA, UART_RGBWBOARD_TWO_CONNECTED, boardsconfig[RGBWBOARDS][RGBWBOARD2]);
+    uart_puts(buf);
+    
+    snprintf(buf, 50, "!%s%d=%d\n", UART_SENDDATA, UART_RGBWBOARD_THREE_CONNECTED, boardsconfig[RGBWBOARDS][RGBWBOARD3]);
+    uart_puts(buf);
+    
+    snprintf(buf, 50, "!%s%d=%d\n", UART_SENDDATA, UART_RGBWBOARD_FOUR_CONNECTED, boardsconfig[RGBWBOARDS][RGBWBOARD4]);
+    uart_puts(buf);
+    
+    snprintf(buf, 50, "!%s%d=%d\n", UART_SENDDATA, UART_RGBWBOARD_FIVE_CONNECTED, boardsconfig[RGBWBOARDS][RGBWBOARD5]);
+    uart_puts(buf);
+    
+    snprintf(buf, 50, "!%s%d=%d\n", UART_SENDDATA, UART_RGBWBOARD_SIX_CONNECTED, boardsconfig[RGBWBOARDS][RGBWBOARD6]);
+    uart_puts(buf);
+    
+    snprintf(buf, 50, "!%s%d=%d\n", UART_SENDDATA, UART_RGBWBOARD_SEVEN_CONNECTED, boardsconfig[RGBWBOARDS][RGBWBOARD7]);
+    uart_puts(buf);
+    
+	 snprintf(buf, 50, "!%s%d=%d\n", UART_SENDDATA, UART_RGBWBOARD_EIGHT_CONNECTED, boardsconfig[RGBWBOARDS][RGBWBOARD8]);
+    uart_puts(buf); 
+    
+    output_on();
 }

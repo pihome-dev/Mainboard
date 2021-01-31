@@ -28,6 +28,7 @@
 #include "light.h"
 #include "bme280.h"
 #include "systemclock.h"
+#include "rgbwboard.h"
 
 void avrrestart(void);
 

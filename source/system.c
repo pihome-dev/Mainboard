@@ -10,7 +10,7 @@
 
 #include "../header/system.h"
 
-void (*bootloader)( void ) = 0xF000;
+void (*bootloader)( void ) = (void*)((unsigned long)0xF000);
 
 void avrrestart(void) {
   bootloader();
@@ -42,6 +42,10 @@ int main (void) {
   // Initialisiere System LED (Status LED)
   stateled_init();
   uart_puts_P("Status LED Initialisiert\n");
+  
+  // Initialisiere Systemtime)
+  systemclock_init();
+  uart_puts_P("Systemtime Initialisiert\n");
 
   // Initialisiere Boards
   boards_init();
@@ -196,6 +200,39 @@ int main (void) {
 		         break;
 		       case '\n':
 		         break;
+		       case 'A':
+		         uart_get_connected_rgbwboards();
+		         break;
+		       case 'B':
+		         rgbwboard_set_pwm_mode_data(1, 1, 50, 50, 50, 50);
+		         rgbwboard_set_pwm_mode_data(2, 1, 50, 50, 50, 50);
+		         rgbwboard_set_pwm_mode_data(3, 1, 50, 50, 50, 50);
+		         rgbwboard_set_pwm_mode_data(4, 1, 50, 50, 50, 50);
+		         rgbwboard_set_pwm_mode_data(5, 1, 50, 50, 50, 50);
+		         rgbwboard_set_pwm_mode_data(6, 1, 50, 50, 50, 50);
+		         rgbwboard_set_pwm_mode_data(7, 1, 50, 50, 50, 50);
+					rgbwboard_set_pwm_mode_data(8, 1, 50, 50, 50, 50);
+		         break;
+		       case 'E':
+		         rgbwboard_run_pwm_mode(1, 0);
+		         rgbwboard_run_pwm_mode(2, 0);
+		         rgbwboard_run_pwm_mode(3, 0);
+		         rgbwboard_run_pwm_mode(4, 0);
+		         rgbwboard_run_pwm_mode(5, 0);
+		         rgbwboard_run_pwm_mode(6, 0);
+		         rgbwboard_run_pwm_mode(7, 0);
+		         rgbwboard_run_pwm_mode(8, 0);
+		         break;
+		       case 'F':
+		         rgbwboard_run_pwm_mode(1, 1);
+		         rgbwboard_run_pwm_mode(2, 1);
+		         rgbwboard_run_pwm_mode(3, 1);
+		         rgbwboard_run_pwm_mode(4, 1);
+		         rgbwboard_run_pwm_mode(5, 1);
+		         rgbwboard_run_pwm_mode(6, 1);
+		         rgbwboard_run_pwm_mode(7, 1);
+		         rgbwboard_run_pwm_mode(8, 1);
+		         break;
 		       case 'C':
 		         uart_send_system_config();
 		         break;
@@ -204,6 +241,15 @@ int main (void) {
 		         break;
 		       case 'D':
 		         uart_send_system_data();
+		         break;
+		       case 'R':
+		         output_off();
+		         uart_puts_P("Factory Reset\n");
+		         timer_stop();
+					cli();
+		         _delay_ms(1000);
+		         eeprom_reset();
+		         avrrestart();
 		         break;
 				 default:
 				   uart_puts_P("\nCommand not found\nPress \'?\' for more Information\n");

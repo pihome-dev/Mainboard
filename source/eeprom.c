@@ -80,3 +80,7 @@ void eeprom_autosave(void) {
   eeprom_changed = 1;
   eeprom_changed_timer = 0;
 }
+
+void eeprom_reset(void) {
+  eeprom_update_byte(&eeDefaultExist, eeDefaultDataExistReset);
+}

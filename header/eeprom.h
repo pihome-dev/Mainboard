@@ -1,4 +1,5 @@
 #define eeDefaultDataExist							23
+#define eeDefaultDataExistReset					1
 
 // Sensoren
 #define eeData_FOTOSENSOR_ONE_ENABLE 			1
@@ -19,6 +20,8 @@ uint8_t getEEDefaultExist(void);
 void write_default_eeprom_data(void);
 void getEEPROMDefaultData(void);
 void eeprom_autosave(void);
+
+void eeprom_reset(void);
 
 void eeprom_write_autosave(void);
 

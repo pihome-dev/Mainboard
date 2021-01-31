@@ -155,6 +155,7 @@ void system_command(void) {
 				systemmin = inttmp2;
 				systemtime_synctimer = 0;
 			   uart_puts_P("Systemtime set\n");
+			   systemclock_synced = 1;
 			 }
           break;
           
