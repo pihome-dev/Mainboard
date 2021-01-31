@@ -1,4 +1,4 @@
-#include "system.h"
+#include "../header/system.h"
 
 void stateled_init(void) {
 	
@@ -60,6 +60,17 @@ void stateled(void) {
         stateled_off();
       }
       if (stateTimer > (STATETIME_ERROR_OFF + STATETIME_ERROR_WAIT) ) {
+        stateTimer = 0;
+      }
+      break;
+      
+    case STATE_INIT:
+      if (stateTimer < STATETIME_INIT_ON ) {
+        stateled_on();
+      } else {
+        stateled_off();
+      }
+      if (stateTimer > (STATETIME_INIT_OFF + STATETIME_INIT_WAIT) ) {
         stateTimer = 0;
       }
       break;

@@ -1,16 +1,4 @@
-// SYSTEM
-#define F_CPU 16000000UL			// Systemfrequency
-
-// I2C
-#define SCL_CLOCK  400000L			// I2C Clock
-
-// UART
-#define UART_BAUD_RATE 115200	// UART Baudrate
-
-// Timer
-#define TIMERFREQ		1000				// Timerfrequenz in ms
-#define TIMERPRE		256			// Timer Prescaler
-
+#include "../config.h"
 #include <avr/io.h>
 #include <inttypes.h>
 #include <compat/twi.h>
@@ -30,7 +18,7 @@
 #include "uart.h"
 #include "uout.h"
 #include "uin.h"
-#include "pins.h"
+#include "../pins.h"
 #include "boards.h"
 #include "timer.h"
 #include "sensoren.h"
@@ -38,6 +26,7 @@
 #include "sysled.h"
 #include "eeprom.h"
 #include "light.h"
+#include "bme280.h"
 
 void avrrestart(void);
 

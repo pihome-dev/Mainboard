@@ -1,4 +1,4 @@
-#include "system.h"
+#include "../header/system.h"
 
 void system_command(void) {
   switch (maincmd[0]) {

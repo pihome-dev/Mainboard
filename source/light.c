@@ -1,4 +1,4 @@
-#include "system.h"
+#include "../header/system.h"
 
 void light_init(void) {
   manual_light = LIGHTMODE_OFF;

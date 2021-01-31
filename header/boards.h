@@ -4,6 +4,12 @@
 
 volatile int boardsconfig[3][8];
 
+volatile int rgbwboard_connected;
+volatile int dreizweichboards_connected;
+
+void rgbwboards_seach(void);
+void dreizweichboards_search(void);
+
 void boards_init(void);
 
 // RGBW Boards

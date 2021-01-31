@@ -1,6 +1,6 @@
 TARGET=system
 MCU=atmega128
-SOURCES=system.c uart.c twimaster.c timer.c sensoren.c adc.c boards.c sysled.c uout.c uin.c eeprom.c light.c
+SOURCES=source/system.c source/uart.c source/i2cmaster.c source/timer.c source/sensoren.c source/adc.c source/boards.c source/sysled.c source/uout.c source/uin.c source/eeprom.c source/light.c source/bme280.c
 
 PROGRAMMER=usbasp
 
@@ -48,3 +48,6 @@ clean:
 	rm -rf *.o
 	rm -rf *.elf
 	rm -rf *.hex
+	
+	rm -rf source/*.o
+	rm -rf source/*.elf

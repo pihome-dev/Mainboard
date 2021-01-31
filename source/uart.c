@@ -39,7 +39,7 @@ LICENSE:
 #include <avr/io.h>
 #include <avr/interrupt.h>
 #include <avr/pgmspace.h>
-#include "system.h"
+#include "../header/system.h"
 
 /*
  *  constants and macros

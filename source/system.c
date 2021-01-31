@@ -8,9 +8,7 @@
  * https://dmant.ovh/
  */
 
-#include "system.h"
-
-#define SLAVE_ADRESSE 0x50
+#include "../header/system.h"
 
 void (*bootloader)( void ) = 0xF000;
 
@@ -19,7 +17,8 @@ void avrrestart(void) {
 }
 
 int main (void) {
-
+  systemstate = STATE_INIT;
+  stateled();
   // Initialisiere UART
   uart_init( UART_BAUD_SELECT(UART_BAUD_RATE,F_CPU) );
   sei();
@@ -51,6 +50,27 @@ int main (void) {
   // Initialisiere Lightsystem
   light_init();
   uart_puts("Lightsystem Initialisiert\n");
+  
+  // Initialisiere RGBW Boards
+  rgbwboards_seach();
+  uart_puts("RGBW Boards Initialisiert\n");
+  snprintf(buf, 50, "=> %d <= RGBW Boards connected\n", rgbwboard_connected);
+  uart_puts(buf);
+  
+// Initialisiere 32CH PWM Boards
+  dreizweichboards_search();
+  uart_puts("32CH PWM Boards Initialisiert\n");
+  snprintf(buf, 50, "=> %d <= 32CH PWM Boards connected\n", dreizweichboards_connected);
+  uart_puts(buf);
+  
+  // Search and initialisiere BME280 when exist
+  BME280_search();
+  if (bme280_connected == 1) {
+  	 BME280_init();
+    uart_puts("BME280 found and initalisiert\n");
+  } else {
+    uart_puts("No BME280 found. Skipping initialisierung");
+  }
 
   // Initialisiere the Timer
   timer_init();
@@ -60,8 +80,6 @@ int main (void) {
   timer_start();
   uart_puts("Timer started\n");
   // INIT UART
-
-  systemstate = STATE_RUN;
   
   // EEPROM
   if (getEEDefaultExist() != eeDefaultDataExist) {
@@ -71,9 +89,13 @@ int main (void) {
     uart_puts("Default EEPROM Data exist\n");
   }
   
+  uart_puts("\n\n=> Firmware was started and running <=\n\n");
+  
   output_on();
-
+  systemstate = STATE_RUN;
+  
   while(1) {
+  
   	 // Systemled
   	 stateled();
   	 // Systemled end
@@ -166,22 +188,10 @@ int main (void) {
 		       case 'C':
 		         uart_get_system_config();
 		         break;
+		       case 'T':
+		         break;
 		       case 'D':
 		         uart_get_data();
-		         break;
-		       case 'T':
-		         if(!(i2c_start(SLAVE_ADRESSE+I2C_WRITE))) {
-		           t = 0;
-		           i2c_stop();
-		         } else {
-		           t = 1;
-		           i2c_stop();
-		         }
-		         if (t == 1) {
-		           uart_puts("not found\n");
-		         } else {
-		           uart_puts("found\n");
-		         }
 		         break;
 				 default:
 				   uart_puts("\nCommand not found\nPress \'?\' for more Information\n");

@@ -6,7 +6,7 @@
 * Target:   any AVR device with hardware TWI 
 * Usage:    API compatible with I2C Software Library i2cmaster.h
 **************************************************************************/
-#include "system.h"
+#include "../header/system.h"
 
 
 /*************************************************************************

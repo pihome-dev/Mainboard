@@ -1,4 +1,4 @@
-#include "system.h"
+#include "../header/system.h"
 
 void output_on(void) {
   output_enabled = SENSOR_ENABLED;

@@ -1,6 +1,9 @@
-#include "system.h"
+#include "../header/system.h"
 
 void boards_init(void) {
+  
+  rgbwboard_connected = 0;
+  dreizweichboards_connected = 0;
   
   for (int i = 0; i < 3; i++) {
     
@@ -82,4 +85,36 @@ unsigned char get_32chboard_addr(int boardnumber) {
   }
   
   return adr;
+}
+
+void rgbwboards_seach(void) {
+  unsigned char addr;
+  
+  for (int b = 0; b < 8; b++) {
+    addr = get_32chboard_addr(b);
+    if(!(i2c_start(addr+I2C_WRITE))) { // RGBW Board bereit zum schreiben?
+	   i2c_stop();
+	   boardsconfig[RGBWBOARDS][b] = 1;
+	   rgbwboard_connected++;
+    } else {
+	   i2c_stop();
+  	   boardsconfig[RGBWBOARDS][b] = 0;
+    }
+  }
+}
+
+void dreizweichboards_search(void) {
+  unsigned char addr;
+  
+  for (int b = 0; b < 8; b++) {
+    addr = get_rgbwboard_addr(b);
+    if(!(i2c_start(addr+I2C_WRITE))) { // RGBW Board bereit zum schreiben?
+	   i2c_stop();
+	   boardsconfig[DREIZWEICHPEMBOARDS][b] = 1;
+	   dreizweichboards_connected++;
+    } else {
+	   i2c_stop();
+  	   boardsconfig[DREIZWEICHPEMBOARDS][b] = 0;
+    }
+  }
 }
