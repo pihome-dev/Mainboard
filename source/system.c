@@ -253,11 +253,26 @@ int main (void) {
 		         break;
 		       case 'R':
 		         output_off();
-		         uart_puts_P("Factory Reset\n");
+		         uart_puts_P("Factory Reset...\n");
+		         _delay_ms(500);
+				   uart_puts("3.");
+				   _delay_ms(500);
+				   uart_puts(".");
+				   _delay_ms(500);
+				   uart_puts("2.");
+				   _delay_ms(500);
+				   uart_puts(".");
+				   _delay_ms(500);
+				   uart_puts("1.");
+				   _delay_ms(500);
+				   uart_puts(".");
+				   uart_puts_P("\n\n\n\n");
+				   _delay_ms(500);
 		         timer_stop();
 					cli();
-		         _delay_ms(1000);
+		         _delay_ms(500);
 		         eeprom_reset();
+		         _delay_ms(500);
 		         avrrestart();
 		         break;
 				 default:
@@ -296,6 +311,10 @@ int main (void) {
 	 
 	 if (second_tick == 1) {	 	
 	   second_tick = 0;
+	   
+	   // Lightsystem Timer
+	   lightsystem_timer();
+	   // Lightsystemtimer end
 	   
 	   // Systemtime
 	   systemclock();

@@ -125,19 +125,19 @@ void read_bme280(void) {
     BME280_MESSURE();
     
     if (output_enabled == 1) {
-      if ( bme280_temperature != bme280_temperature_old ) {
+      if ( (bme280_temperature - bme280_temperature_old) > 50 || (bme280_temperature_old - bme280_temperature) > 50 ) {
         snprintf(buf, 50, "!%s%d=%+3li.%02u\n", UART_SENDDATA, UART_BME280_TEMPERATURE, bme280_temperature/100, (uint8_t)(bme280_temperature%100));
     	  uart_puts(buf);
 	     bme280_temperature_old = bme280_temperature;
       }
       
-      if ( bme280_pressure != bme280_pressure_old ) {
+      if ( (bme280_pressure - bme280_pressure_old) > 50 || (bme280_pressure_old - bme280_pressure) > 50 ) {
         snprintf(buf, 50, "!%s%d=%4li.%02u\n", UART_SENDDATA, UART_BME280_PRESSURE, bme280_pressure/100 , (uint8_t)(bme280_pressure%100));
     	  uart_puts(buf);
 	     bme280_pressure_old = bme280_pressure;
       }
       
-      if ( bme280_humidity != bme280_humidity_old ) {
+      if ( (bme280_humidity - bme280_humidity_old) > 10 || (bme280_humidity_old - bme280_humidity) > 10 ) {
         snprintf(buf, 50, "!%s%d=%2li.%02u\n", UART_SENDDATA, UART_BME280_HUMIDITY, bme280_humidity>>10, (uint16_t)((bme280_humidity&0x3FF)*1000)/1024);
     	  uart_puts(buf);
 	     bme280_humidity_old = bme280_humidity;

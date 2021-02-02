@@ -46,6 +46,8 @@
 #define					UART_NIGHTLIGHT_MODE					39
 #define					UART_MOTIONLIGHT_ENABLE				40
 #define					UART_NIGHTLIGHT_ENABLE				41
+#define					UART_MOTIONLIGHT_TIME				42
+#define					UART_NIGHTLIGHT_TIME					43
 
 
 

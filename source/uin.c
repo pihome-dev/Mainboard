@@ -164,6 +164,57 @@ void system_command(void) {
       }
       
       break;
+      
+    case UARTIN_COMMAND:
+      tmp[0] = maincmd[1];
+	   tmp[1] = maincmd[2];
+		tmp[2] = '\0';
+      switch(atoi(tmp)) {
+        
+        case UART_IN_LIGHT_ON:
+          light_on = LIGHT_ON;
+          break;
+        
+        case UART_IN_LIGHT_OFF:
+          light_on = LIGHT_ON;
+          break;
+          
+        case UART_IN_MOTIONLIGHT_TIME:
+          tmp[0] = maincmd[3];
+          tmp[1] = maincmd[4];
+			 tmp[2] = '\0';
+			 inttmp = atoi(tmp);
+			 if (inttmp >= 10 && inttmp <= 90) {
+			   motionlight_time = inttmp;
+			   eeprom_autosave();
+			   snprintf(buf, 50, "Motionlighttime set to %d seconds", inttmp);
+    	  		uart_puts(buf);
+			 } else {
+			   uart_puts_P("Wrong Motionlighttime. Time must between 10 and 90 seconds.");
+			 }
+          break;
+        
+        case UART_IN_NIGHTLIGHT_TIME:
+          tmp[0] = maincmd[3];
+          tmp[1] = maincmd[4];
+			 tmp[2] = '\0';
+			 inttmp = atoi(tmp);
+			 if (inttmp >= 10 && inttmp <= 90) {
+			   nightlight_time = inttmp;
+			   eeprom_autosave();
+			   snprintf(buf, 50, "Nightlighttime set to %d seconds", inttmp);
+    	  		uart_puts(buf);
+			 } else {
+			   uart_puts_P("Wrong Nightlighttime. Time must between 10 and 90 seconds.");
+			 }
+          break;
+        
+        default:
+          break;
+      }
+      
+      break;      
+      
     default:
       break;
   }

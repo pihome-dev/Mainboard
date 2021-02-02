@@ -18,10 +18,15 @@ uint16_t eePIR_HARDWARE_RESETTIME EEMEM									= 19;
 uint16_t eeBME280_READ_INTERVAL EEMEM										= 20;
 
 uint16_t eeLIGHT_MODE EEMEM													= 21;
+
 uint16_t eeMOTIONLIGHT_MODE EEMEM											= 22;
 uint16_t eeNIGHTLIGHT_MODE EEMEM												= 23;
+
 uint16_t eeMOTIONLIGHT_ENABLE EEMEM											= 24;
 uint16_t eeNIGHTLIGHT_ENABLE EEMEM											= 25;
+
+uint16_t eeMOTIONLIGHT_TIME EEMEM											= 26;
+uint16_t eeNIGHTLIGHT_TIME EEMEM 											= 27;
 
 uint8_t getEEDefaultExist(void) {
   uint8_t retByte;
@@ -53,6 +58,9 @@ void write_default_eeprom_data(void) {
   eeprom_update_byte(&eeMOTIONLIGHT_ENABLE, eeData_MOTIONLIGHT_ENABLE);
   eeprom_update_byte(&eeNIGHTLIGHT_ENABLE, eeData_NIGHTLIGHT_ENABLE);
   
+  eeprom_update_byte(&eeMOTIONLIGHT_TIME, eeData_MOTIONLIGHT_TIME);
+  eeprom_update_byte(&eeNIGHTLIGHT_TIME, eeData_NIGHTLIGHT_TIME);
+  
   eeprom_update_byte(&eeDefaultExist, eeDefaultDataExist);
   
 }
@@ -82,6 +90,9 @@ void getEEPROMDefaultData(void) {
   motionlight_enabled = eeprom_read_byte (&eeMOTIONLIGHT_ENABLE);
   nightlight_enabled = eeprom_read_byte (&eeNIGHTLIGHT_ENABLE);
   
+  motionlight_time = eeprom_read_byte (&eeMOTIONLIGHT_TIME);
+  nightlight_time = eeprom_read_byte (&eeNIGHTLIGHT_TIME);
+  
   eeprom_autosave_enable = 1;
   eeprom_changed = 0;
 }
@@ -103,6 +114,15 @@ void eeprom_write_autosave(void) {
   eeprom_update_byte(&eeDS1820_READ_INTERVAL, ds1820_read_interval);
   
   eeprom_update_byte(&eeBME280_READ_INTERVAL, bme280_read_interval);
+  
+  eeprom_update_byte(&eeLIGHT_MODE, light_mode);
+  eeprom_update_byte(&eeMOTIONLIGHT_MODE, motionlight_mode);
+  eeprom_update_byte(&eeNIGHTLIGHT_MODE, nightlight_mode);
+  eeprom_update_byte(&eeMOTIONLIGHT_ENABLE, motionlight_enabled);
+  eeprom_update_byte(&eeNIGHTLIGHT_ENABLE, nightlight_enabled);
+  
+  eeprom_update_byte(&eeMOTIONLIGHT_TIME, motionlight_time);
+  eeprom_update_byte(&eeNIGHTLIGHT_TIME, nightlight_time);
     
 }
 
