@@ -184,7 +184,7 @@ int wval;
           break;
         
         case UART_IN_LIGHT_OFF:
-          light_on = LIGHT_ON;
+          light_on = LIGHT_OFF;
           break;
           
         case UART_IN_MOTIONLIGHT_TIME:
@@ -271,7 +271,7 @@ int wval;
   			       if (rval >= 0 && rval <= 255 && gval >= 0 && gval <= 255 && bval >= 0 && bval <= 255 && wval >= 0 && wval <= 255) {
   			       	if (boardsconfig[RGBWBOARDS][boardnr - 1] == 1) {
   			       	  rgbwboard_set_pwm_mode_data(boardnr, modenr, rval, gval, bval, wval);
-  			           snprintf(buf, 50, "RGBWBoard %d Mode %d set to R %d | G %d | B %d | w %d\n", boardnr, modenr, rval, gval, bval, wval);
+  			           snprintf(buf, 50, "RGBWBoard %d Mode %d set R%d | G%d | B%d | w%d\n", boardnr, modenr, rval, gval, bval, wval);
      	  		        uart_puts(buf);
      	  		      } else {
      	  		        snprintf(buf, 50, "RGBWBoard %d not connected\n", boardnr);
