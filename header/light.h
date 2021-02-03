@@ -1,31 +1,31 @@
 #define LIGHT_ON	1
 #define LIGHT_OFF	0
 
-volatile int light_mode;
-volatile int motionlight_mode;
-volatile int nightlight_mode;
+volatile uint8_t light_mode;
+volatile uint8_t motionlight_mode;
+volatile uint8_t nightlight_mode;
 
-volatile int motionlight_enabled;
-volatile int nightlight_enabled;
+volatile uint8_t motionlight_enabled;
+volatile uint8_t nightlight_enabled;
 
-volatile int light_on;
-volatile int motionlight_on;
-volatile int nightlight_on;
+volatile uint8_t light_on;
+volatile uint8_t motionlight_on;
+volatile uint8_t nightlight_on;
 
-volatile int light_mode_run;
-volatile int motionlight_mode_run;
-volatile int nightlight_mode_run;
+volatile uint8_t light_mode_run;
+volatile uint8_t motionlight_mode_run;
+volatile uint8_t nightlight_mode_run;
 
 
 
-volatile int nightlight_time_hour;
-volatile int nightlight_time_min;
+volatile uint8_t nightlight_time_hour;
+volatile uint8_t nightlight_time_min;
 
-volatile int motionlight_time;
-volatile int motionlight_timer_time;
+volatile uint8_t motionlight_time;
+volatile uint8_t motionlight_timer_time;
 
-volatile int nightlight_time;
-volatile int nightlight_timer_time;
+volatile uint8_t nightlight_time;
+volatile uint8_t nightlight_timer_time;
 
 
 

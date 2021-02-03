@@ -20,6 +20,8 @@
 #define UART_IN_LIGHT_OFF												 2
 #define UART_IN_MOTIONLIGHT_TIME										 3
 #define UART_IN_NIGHTLIGHT_TIME										 4
+#define UART_IN_SET_LIGHT_MODE										 5
+#define UART_IN_SET_RGBWBOARD_DATA									 6
 
 
 void system_command(void);
