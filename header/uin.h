@@ -23,5 +23,12 @@
 #define UART_IN_SET_LIGHT_MODE										 5
 #define UART_IN_SET_RGBWBOARD_DATA									 6
 
+int boardnr;
+int modenr;
+
+uint8_t rval;
+uint8_t gval;
+uint8_t bval;
+uint8_t wval;
 
 void system_command(void);

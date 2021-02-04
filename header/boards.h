@@ -16,14 +16,6 @@ unsigned char get_rgbwboard_addr(int boardnumber);
 unsigned char get_32chboard_addr(int boardnumber);
 unsigned char get_4champboard_addr(int boardnumber);
 
-void rgbwboard_run_pwm_mode(int boardnumber, int modenumber);
-void rgbwboard_set_pwm_mode_data(int boardnumber, int modenumber, uint8_t rchannel, uint8_t gchannel, uint8_t bchannel, uint8_t wchannel);
-void rgbwboard_set_pwm_defaultchangetime(int boardnumber, int changetime);
-void rgbwboard_set_pwm_defaultchangetimeR(int boardnumber, int changetime);
-void rgbwboard_set_pwm_defaultchangetimeG(int boardnumber, int changetime);
-void rgbwboard_set_pwm_defaultchangetimeB(int boardnumber, int changetime);
-void rgbwboard_set_pwm_defaultchangetimeW(int boardnumber, int changetime);
-
 void boards_init(void);
 
 // RGBW Boards

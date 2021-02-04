@@ -43,6 +43,22 @@ int main (void) {
   stateled_init();
   uart_puts_P("Status LED Initialisiert\n");
   
+  // Initialisiere oLED
+  oled_init();
+  if (oled_connected == 1) {
+    oled_gotoxy(0,0);
+	 oled_write("****************");
+	 oled_gotoxy(0,1);
+	 oled_write("* Ulrich Radig *");
+	 oled_gotoxy(0,2);
+	 oled_write("****************");
+	 oled_font_size(1);
+	 oled_gotoxy(0,4);
+	 oled_write("%8i",tmp);	
+	 oled_font_size(0);
+  }
+  uart_puts_P("oLED Initialisiert\n");
+  
   // Initialisiere Systemtime
   systemclock_init();
   uart_puts_P("Systemtime Initialisiert\n");
