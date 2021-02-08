@@ -109,7 +109,6 @@ int main (void) {
   // Start the Timer
   timer_start();
   uart_puts_P("Timer started\n");
-  // INIT UART
   
   // EEPROM
   if (getEEDefaultExist() != eeDefaultDataExist) {

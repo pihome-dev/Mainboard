@@ -1,6 +1,6 @@
 #include "../header/system.h"
 
-void rgbwboard_run_pwm_mode(int boardnumber, int modenumber) {
+void rgbwboard_run_pwm_mode(int boardnumber, uint8_t modenumber) {
 
   unsigned char address;
   address = get_rgbwboard_addr(boardnumber);
@@ -15,7 +15,7 @@ void rgbwboard_run_pwm_mode(int boardnumber, int modenumber) {
   }
 }
 
-void rgbwboard_set_pwm_mode_data(int boardnumber, int modenumber, uint8_t rchannel, uint8_t gchannel, uint8_t bchannel, uint8_t wchannel) {
+void rgbwboard_set_pwm_mode_data(int boardnumber, uint8_t modenumber, uint8_t rchannel, uint8_t gchannel, uint8_t bchannel, uint8_t wchannel) {
 
   unsigned char address;
   address = get_rgbwboard_addr(boardnumber);

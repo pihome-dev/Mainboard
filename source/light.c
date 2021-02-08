@@ -14,15 +14,8 @@ void lightsystem_init(void) {
   nightlight_timer_time = 0;
 }
 
-void lightsystem_sendlightmode(int modenr) {
+void lightsystem_sendlightmode(uint8_t modenr) {
   for (int zz = 0; zz<8; zz++) {
-    rgbwboard_run_pwm_mode(zz +1, modenr);
-    rgbwboard_run_pwm_mode(zz +1, modenr);
-    rgbwboard_run_pwm_mode(zz +1, modenr);
-    rgbwboard_run_pwm_mode(zz +1, modenr);
-    rgbwboard_run_pwm_mode(zz +1, modenr);
-    rgbwboard_run_pwm_mode(zz +1, modenr);
-    rgbwboard_run_pwm_mode(zz +1, modenr);
     rgbwboard_run_pwm_mode(zz +1, modenr);
   }
 }

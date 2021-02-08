@@ -1,4 +1,4 @@
-#define eeDefaultDataExist							23
+#define eeDefaultDataExist							8
 #define eeDefaultDataExistReset					1
 
 // Sensoren

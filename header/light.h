@@ -33,4 +33,4 @@ void lightsystem_init(void);
 void lightsystem(void);
 void lightsystem_timer(void);
 
-void lightsystem_sendlightmode(int modenr);
+void lightsystem_sendlightmode(uint8_t modenr);

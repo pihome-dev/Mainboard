@@ -2,11 +2,11 @@
 #define DREIZWEICHPEMBOARDS							1
 #define VIERCHAMPBOARDS									2
 
-volatile int boardsconfig[3][8];
+volatile uint8_t boardsconfig[3][8];
 
-volatile int rgbwboard_connected;
-volatile int dreizweichboards_connected;
-volatile int vierchampboards_connected;
+volatile uint8_t rgbwboard_connected;
+volatile uint8_t dreizweichboards_connected;
+volatile uint8_t vierchampboards_connected;
 
 void rgbwboards_seach(void);
 void dreizweichboards_search(void);
