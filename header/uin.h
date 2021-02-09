@@ -24,11 +24,11 @@
 #define UART_IN_SET_RGBWBOARD_DATA									 6
 
 int boardnr;
-int modenr;
+uint16_t modenr;
 
-uint8_t rval;
-uint8_t gval;
-uint8_t bval;
-uint8_t wval;
+uint16_t rval;
+uint16_t gval;
+uint16_t bval;
+uint16_t wval;
 
 void system_command(void);

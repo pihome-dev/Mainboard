@@ -67,8 +67,6 @@ void lightsystem_timer(void) {
 
   if (motionlight_on == LIGHT_ON) {
     motionlight_timer_time++;
-    snprintf(buf, 50, "Motiontimer=%d\n", motionlight_timer_time);
-    uart_puts(buf);
   }
   
   if (nightlight_on == LIGHT_ON) {
