@@ -14,6 +14,9 @@
 
 #define UARTIN_SET_SYSTEMTIME											 10
 
+#define UARTIN_BME280_READ_INTERVAL									 11
+#define UARTIN_BME280_ENABLE											 12
+
 
 // Commanddata
 #define UART_IN_LIGHT_ON												 1
@@ -22,13 +25,26 @@
 #define UART_IN_NIGHTLIGHT_TIME										 4
 #define UART_IN_SET_LIGHT_MODE										 5
 #define UART_IN_SET_RGBWBOARD_DATA									 6
+#define UART_IN_SET_RGBWBOARD_CONFIG								 7
+#define UART_IN_SET_WS2812_MODE										 8
+#define UART_IN_SET_WS2812_CONFIG									 9
+#define UART_IN_RGBWBOARD_REBOOT										 10
+#define UART_IN_RGBWBOARD_FACTORY_RESET							 11
+
+int myerr;
 
 int boardnr;
-uint16_t modenr;
+int modenr;
 
-uint16_t rval;
-uint16_t gval;
-uint16_t bval;
-uint16_t wval;
+int rval;
+int gval;
+int bval;
+int wval;
+
+int i2cchangemode;
+int i2crchangetime;
+int i2cgchangetime;
+int i2cbchangetime;
+int i2cwchangetime;
 
 void system_command(void);

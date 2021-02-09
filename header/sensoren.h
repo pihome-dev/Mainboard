@@ -40,6 +40,9 @@ volatile int ds1820_two_value;
 
 volatile int ds1820_read_interval;
 
+volatile int bme280_enabled;
+volatile int bme280_read_interval;
+
 void search_bme280(void);
 void read_bme280(void);
 

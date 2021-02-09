@@ -48,8 +48,8 @@ int uartcommand;
 int uartcommandi;
 
 char tmp[4];
-uint16_t inttmp;
-uint16_t inttmp2;
+int inttmp;
+int inttmp2;
 
 int uartc;
 char uartbuffer[30];
@@ -58,4 +58,4 @@ char uartrxbuffer[50];
 int maincmd[20];
 int docommand;
 
-char buf[40];
+char buf[80];

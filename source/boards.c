@@ -126,7 +126,7 @@ void rgbwboards_seach(void) {
   unsigned char addr;
   
   for (int b = 0; b < 8; b++) {
-    addr = get_rgbwboard_addr(b);
+    addr = get_rgbwboard_addr(b + 1);
     if(!(i2c_start(addr+I2C_WRITE))) { // RGBW Board bereit zum schreiben?
 	   i2c_stop();
 	   boardsconfig[RGBWBOARDS][b] = 1;
@@ -142,7 +142,7 @@ void dreizweichboards_search(void) {
   unsigned char addr;
   
   for (int b = 0; b < 8; b++) {
-    addr = get_32chboard_addr(b);
+    addr = get_32chboard_addr(b + 1);
     if(!(i2c_start(addr+I2C_WRITE))) { // RGBW Board bereit zum schreiben?
 	   i2c_stop();
 	   boardsconfig[DREIZWEICHPEMBOARDS][b] = 1;
@@ -158,7 +158,7 @@ void vierchampboards_search(void) {
   unsigned char addr;
   
   for (int b = 0; b < 8; b++) {
-    addr = get_4champboard_addr(b);
+    addr = get_4champboard_addr(b + 1);
     if(!(i2c_start(addr+I2C_WRITE))) { // RGBW Board bereit zum schreiben?
 	   i2c_stop();
 	   boardsconfig[VIERCHAMPBOARDS][b] = 1;

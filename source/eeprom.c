@@ -27,6 +27,7 @@ uint16_t eeNIGHTLIGHT_ENABLE EEMEM											= 25;
 
 uint16_t eeMOTIONLIGHT_TIME EEMEM											= 26;
 uint16_t eeNIGHTLIGHT_TIME EEMEM 											= 27;
+uint16_t eeBME280_ENABLE EEMEM												= 28;
 
 uint8_t getEEDefaultExist(void) {
   uint8_t retByte;
@@ -38,6 +39,8 @@ void write_default_eeprom_data(void) {
 	
   eeprom_update_byte(&eeFOTOSENSOR_ONE_ENABLE, eeData_FOTOSENSOR_ONE_ENABLE);
   eeprom_update_byte(&eeFOTOSENSOR_TWO_ENABLE, eeData_FOTOSENSOR_TWO_ENABLE);
+  
+  eeprom_update_byte(&eeBME280_ENABLE, eeData_BME280_ENABLE);
   
   eeprom_update_byte(&eeFOTOSENSOR_READ_TOLERANCE, eeData_FOTOSENSOR_READ_TOLERANCE);
   eeprom_update_byte(&eeFOTOSENSOR_READ_INTERVAL, eeData_FOTOSENSOR_READ_INTERVAL);
@@ -83,6 +86,7 @@ void getEEPROMDefaultData(void) {
   ds1820_read_interval = eeprom_read_byte (&eeDS1820_READ_INTERVAL);
   
   bme280_read_interval = eeprom_read_byte (&eeBME280_READ_INTERVAL);
+  bme280_enabled = eeprom_read_byte (&eeBME280_ENABLE);
   
   light_mode = eeprom_read_byte (&eeLIGHT_MODE);
   motionlight_mode = eeprom_read_byte (&eeMOTIONLIGHT_MODE);
@@ -113,6 +117,7 @@ void eeprom_write_autosave(void) {
   eeprom_update_byte(&eeDS1820_TWO_ENABLE, ds1820_two_enabled);
   eeprom_update_byte(&eeDS1820_READ_INTERVAL, ds1820_read_interval);
   
+  eeprom_update_byte(&eeBME280_ENABLE, bme280_enabled);
   eeprom_update_byte(&eeBME280_READ_INTERVAL, bme280_read_interval);
   
   eeprom_update_byte(&eeLIGHT_MODE, light_mode);

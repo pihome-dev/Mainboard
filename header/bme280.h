@@ -27,8 +27,6 @@ int32_t bme280_temperature_old;
 uint32_t bme280_pressure_old;
 uint32_t bme280_humidity_old;
 
-volatile int bme280_read_interval;
-
 void BME280_MESSURE(void);
 
 uint8_t BME280_init(void);

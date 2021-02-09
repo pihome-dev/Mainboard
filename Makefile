@@ -13,7 +13,7 @@ EFUSE=0xFC
 
 #Ab hier nichts verändern
 OBJECTS=$(SOURCES:.c=.o)
-CFLAGS=-c -Os -DF_CPU=16000000UL
+CFLAGS=-c -Os
 LDFLAGS=
 
 all: hex eeprom

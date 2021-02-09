@@ -1,15 +1,15 @@
 #include "../header/system.h"
 
-void rgbwboard_run_pwm_mode(int boardnumber, uint16_t modenumber) {
+void rgbwboard_run_pwm_mode(int boardnumber, uint8_t modenumber) {
 
   unsigned char address;
   address = get_rgbwboard_addr(boardnumber);
   
   if(!(i2c_start(address+I2C_WRITE))) { // RGBW Board bereit zum schreiben?
 
-    i2c_write(1);  // Buffer Addr
-    i2c_write(2);  // Board Select (Running Mode)
-	 i2c_write(modenumber);  // PWM Mode Number to run
+    i2c_write(1);  					// Buffer Addr
+    i2c_write(2);  					// Board Select (Running Mode)
+	 i2c_write(modenumber);  		// PWM Mode Number to run
 	 
 	 i2c_stop();
   } else {
@@ -18,22 +18,15 @@ void rgbwboard_run_pwm_mode(int boardnumber, uint16_t modenumber) {
   
 }
 
-void rgbwboard_set_pwm_mode_data(int boardnumber, uint16_t modenumber, uint16_t rchannel, uint16_t gchannel, uint16_t bchannel, uint16_t wchannel) {
-  
-  snprintf(buf, 50, "Boardnumber %d\n", boardnumber);
-  snprintf(buf, 50, "Modenumber %d\n", modenumber);
-  snprintf(buf, 50, "RChannel %d\n", rchannel);
-  snprintf(buf, 50, "GChannel %d\n", gchannel);
-  snprintf(buf, 50, "BChannel %d\n", bchannel);
-  snprintf(buf, 50, "WChannel: %d\n", wchannel);
+void rgbwboard_set_pwm_mode_data(int boardnumber, uint8_t modenumber, uint8_t rchannel, uint8_t gchannel, uint8_t bchannel, uint8_t wchannel) {
   
   unsigned char address;
   address = get_rgbwboard_addr(boardnumber);
 
   if(!(i2c_start(address+I2C_WRITE))) { // RGBW Board bereit zum schreiben?
   
-    i2c_write(1);  // Buffer Addr
-    i2c_write(1);  // Board Select (PWM Data)
+    i2c_write(1);  			 // Buffer Addr
+    i2c_write(1);  			 // Board Select (PWM Data)
     i2c_write(modenumber);  // PWM Mode Number to write
     i2c_write(rchannel);    // R PWM Channel Value
     i2c_write(gchannel);    // G PWM Channel Value
@@ -46,7 +39,7 @@ void rgbwboard_set_pwm_mode_data(int boardnumber, uint16_t modenumber, uint16_t 
   }
 }
 
-void rgbwboard_set_pwm_mode_config(int boardnumber, uint16_t modenumber, uint16_t changemode, uint16_t changetimer, uint16_t changetimeg, uint16_t changetimeb, uint16_t changetimew) {
+void rgbwboard_set_pwm_mode_config(int boardnumber, uint8_t modenumber, uint8_t changemode, uint8_t changetimer, uint8_t changetimeg, uint8_t changetimeb, uint8_t changetimew) {
   
 unsigned char address;
   address = get_rgbwboard_addr(boardnumber);
@@ -72,8 +65,7 @@ unsigned char address;
 
 
 
-
-void rgbwboard_set_ws2812_mode_data(int boardnumber, uint16_t modenumber, uint16_t lednumber,  uint16_t rchannel, uint16_t gchannel, uint16_t bchannel) {
+void rgbwboard_set_ws2812_mode_data(int boardnumber, uint8_t modenumber, uint8_t lednumber,  uint8_t rchannel, uint8_t gchannel, uint8_t bchannel) {
 
   unsigned char address;
   address = get_rgbwboard_addr(boardnumber);
@@ -95,7 +87,7 @@ void rgbwboard_set_ws2812_mode_data(int boardnumber, uint16_t modenumber, uint16
 
 }
 
-void rgbwboard_run_ws2812_mode(int boardnumber, uint16_t modenumber) {
+void rgbwboard_run_ws2812_mode(int boardnumber, uint8_t modenumber) {
 
   unsigned char address;
   address = get_rgbwboard_addr(boardnumber);
@@ -131,6 +123,8 @@ void rgbwboard_reboot(int boardnumber) {
     i2c_write(1);  // PWM Mode Number to write
 
     i2c_stop();
+    snprintf(buf, 50, "RGBWBoard %d => Reboot\n", boardnumber);
+    uart_puts(buf);
   } else {
     i2c_stop();
   }
@@ -147,6 +141,8 @@ void rgbwboard_factory_reset(int boardnumber){
     i2c_write(1);  // PWM Mode Number to write
 
     i2c_stop();
+    snprintf(buf, 50, "RGBWBoard %d => Factory Reset\n", boardnumber);
+    uart_puts(buf);
   } else {
     i2c_stop();
   }
