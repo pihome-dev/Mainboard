@@ -19,7 +19,14 @@ void rgbwboard_run_pwm_mode(int boardnumber, uint16_t modenumber) {
 }
 
 void rgbwboard_set_pwm_mode_data(int boardnumber, uint16_t modenumber, uint16_t rchannel, uint16_t gchannel, uint16_t bchannel, uint16_t wchannel) {
-
+  
+  snprintf(buf, 50, "Boardnumber %d\n", boardnumber);
+  snprintf(buf, 50, "Modenumber %d\n", modenumber);
+  snprintf(buf, 50, "RChannel %d\n", rchannel);
+  snprintf(buf, 50, "GChannel %d\n", gchannel);
+  snprintf(buf, 50, "BChannel %d\n", bchannel);
+  snprintf(buf, 50, "WChannel: %d\n", wchannel);
+  
   unsigned char address;
   address = get_rgbwboard_addr(boardnumber);
 
