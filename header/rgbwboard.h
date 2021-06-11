@@ -7,3 +7,9 @@ void rgbwboard_run_ws2812_mode(int boardnumber, uint8_t modenumber);
 
 void rgbwboard_reboot(int boardnumber);
 void rgbwboard_factory_reset(int boardnumber);
+void rgbwboard_set_num_ws2812(int boardnumber, uint8_t num_of_leds);
+
+void rgbwboard_set_all_ws2812_red(int boardnumber, uint8_t brightness);
+void rgbwboard_set_all_ws2812_green(int boardnumber, uint8_t brightness);
+void rgbwboard_set_all_ws2812_blue(int boardnumber, uint8_t brightness);
+void rgbwboard_ws2812_off(int boardnumber);

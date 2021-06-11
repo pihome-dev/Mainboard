@@ -15,6 +15,9 @@ volatile int fotosensor_two_value;
 volatile int fotosensor_one_value_old;
 volatile int fotosensor_two_value_old;
 
+volatile int roombrightness_value;
+volatile int roombrightness_value_old;
+
 // PIR Sensoren
 volatile int pir_hardware_reset_time;
 volatile int pir_one_enabled;
@@ -24,6 +27,9 @@ volatile int pir_one_value;
 volatile int pir_two_value;
 volatile int pir_one_value_old;
 volatile int pir_two_value_old;
+
+volatile int roommotion_value;
+volatile int roommotion_value_old;
 
 volatile int pir_one_reset;
 volatile int pir_one_reset_time;
@@ -56,3 +62,6 @@ void read_pir_two(void);
 
 void read_ds1820_one(void);
 void read_ds1820_two(void);
+
+void roommotion(void);
+void roombrightness(void);

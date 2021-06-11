@@ -9,6 +9,7 @@ void lightsystem_init(void) {
   light_mode_run = 0;
   motionlight_mode_run = 0;
   nightlight_mode_run = 0;
+  nightlight_run = 0;
   
   motionlight_timer_time = 0;
   nightlight_timer_time = 0;
@@ -38,16 +39,26 @@ void lightsystem(void) {
     light_mode_run = 0;
   }
   
-  if (motionlight_enabled == 1 && light_on == LIGHT_OFF && motionlight_on == LIGHT_OFF) {
+  // Motionlight  
+  
+  if (motionlight_enabled == 1 && light_on == LIGHT_OFF && motionlight_on == LIGHT_OFF && nightlight_run == 0) {
   	 
   	 if (pir_one_value == 1 || pir_two_value == 1) {
-  	 	lightsystem_sendlightmode(motionlight_mode);
-  	   motionlight_timer_time = 0;
-      motionlight_on = LIGHT_ON;
+  	 	if (light_brightness_on == 1) {
+  	 	  if (roombrightness_value > light_brightness) {
+  	 	    lightsystem_sendlightmode(motionlight_mode);
+  	       motionlight_timer_time = 0;
+          motionlight_on = LIGHT_ON;
+  	 	  }
+  	 	} else {
+  	 	  lightsystem_sendlightmode(motionlight_mode);
+  	     motionlight_timer_time = 0;
+        motionlight_on = LIGHT_ON;
+      }
     }
   }
   
-  if (motionlight_enabled == 1 && light_on == LIGHT_OFF && motionlight_on == LIGHT_ON) {
+  if (motionlight_enabled == 1 && light_on == LIGHT_OFF && motionlight_on == LIGHT_ON && nightlight_run == 0) {
 
     if (pir_one_value == 1 || pir_two_value == 1) {
       motionlight_timer_time = 0;
@@ -57,6 +68,46 @@ void lightsystem(void) {
     	  motionlight_timer_time = 0;
     	  lightsystem_sendlightmode(0);
         motionlight_on = LIGHT_OFF;
+      }
+    }
+  }
+  
+  // Nightlight
+  
+  if (nightlight_enabled == 1 && light_on == LIGHT_OFF && nightlight_on == LIGHT_OFF && nightlight_run == 1) {
+  	 
+  	 if (pir_one_value == 1 || pir_two_value == 1) {
+  	 	lightsystem_sendlightmode(nightlight_mode);
+  	   nightlight_timer_time = 0;
+      nightlight_on = LIGHT_ON;
+    }
+  }
+  
+  if (nightlight_enabled == 1 && light_on == LIGHT_OFF && nightlight_on == LIGHT_ON && nightlight_run == 1) {
+
+    if (pir_one_value == 1 || pir_two_value == 1) {
+      nightlight_timer_time = 0;
+    } else {
+    	if (nightlight_timer_time > nightlight_time) {
+    	  nightlight_timer_time = 0;
+    	  lightsystem_sendlightmode(0);
+        nightlight_on = LIGHT_OFF;
+      }
+    }
+  }
+
+  // Check Nightlighttime
+  
+  if (nightlight_enabled == 1 && nightlight_run == 0) {
+    if (systemhour >= nightlight_time_hour_on && systemmin >= nightlight_time_minute_on && systemhour <= nightlight_time_hour_off && systemmin <= nightlight_time_minute_off) {
+      nightlight_run = 1;
+    }
+  }
+  if (nightlight_enabled == 1 && nightlight_run == 1) {
+	 if (systemhour >= nightlight_time_hour_off && systemmin >= nightlight_time_minute_off && systemhour <= nightlight_time_hour_on && systemmin <= nightlight_time_minute_on) {
+      nightlight_run = 0;
+      if (nightlight_on == LIGHT_ON) {
+      	lightsystem_sendlightmode(0);
       }
     }
   }

@@ -17,6 +17,7 @@ void avrrestart(void) {
 }
 
 int main (void) {
+  wdt_disable();
   systemstate = STATE_INIT;
   systemhour = 0;
   systemmin = 0;
@@ -121,6 +122,7 @@ int main (void) {
     uart_puts_P("Systemdata loaded\n");
   }
   
+  wdt_enable(WDTO_2S);
   uart_puts_P("\n\n=> Firmware was started and running <=\n\n");
   
   output_on();
@@ -174,6 +176,9 @@ int main (void) {
 	 if (bme280_connected == 1) {
 	 	read_bme280();
 	 }
+
+	 roommotion();
+	 roombrightness();
 
 	 // Sensorcode end
 
@@ -321,6 +326,7 @@ int main (void) {
 	   }
 	 }
 	 
+  wdt_reset();
 
   }
 }

@@ -11,6 +11,7 @@
 #include <stdlib.h>
 #include <avr/pgmspace.h>
 #include <util/crc16.h>
+#include <avr/wdt.h>
 
 #include <util/delay.h>
 
@@ -47,9 +48,11 @@ volatile int systemtime_synctimer;
 int uartcommand;
 int uartcommandi;
 
-char tmp[4];
-int inttmp;
-int inttmp2;
+char tmp[5];
+uint8_t inttmp;
+uint8_t inttmp2;
+
+uint16_t inttmp16;
 
 int uartc;
 char uartbuffer[30];

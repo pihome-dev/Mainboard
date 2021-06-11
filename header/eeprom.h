@@ -23,11 +23,18 @@
 #define eeData_MOTIONLIGHT_MODE			 		7
 #define eeData_NIGHTLIGHT_MODE			 		8
 
+#define eeData_LIGHT_BRIGHTNESS					LIGHT_BRIGHTNESS_DEFAULT_VALUE
+#define eeData_LIGHT_BRIGHTNESS_ON				LIGHT_BRIGHTNESS_DEFAULT_ON
+
 #define eeData_MOTIONLIGHT_ENABLE				1
 #define eeData_NIGHTLIGHT_ENABLE			 		0
 
 #define eeData_MOTIONLIGHT_TIME					30
 #define eeData_NIGHTLIGHT_TIME			 		30
+
+#define eeData_NIGHTLIGHT_HOUR					22
+#define eeData_NIGHTLIGHT_MINUTE					00
+
 
 uint8_t getEEDefaultExist(void);
 void write_default_eeprom_data(void);

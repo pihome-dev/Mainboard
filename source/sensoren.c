@@ -17,6 +17,12 @@ void sensoren_init(void) {
   pir_one_value_old = PIR_DEFAULT_VALUE;
   pir_two_value_old = PIR_DEFAULT_VALUE;
   
+  roommotion_value = 0;
+  roommotion_value_old = 1;
+  
+  roombrightness_value = 0;
+  roombrightness_value_old = 1;
+  
   pir_one_reset = 0;
   pir_one_reset_time = 0;
   pir_two_reset = 0;
@@ -107,6 +113,39 @@ void read_pir_two(void) {
       snprintf(buf, 50, "!%s%d=%d\n", UART_SENDDATA, UART_PIR_TWO_VALUE, pir_two_value);
     	uart_puts(buf);
     	pir_two_value_old = pir_two_value;
+    }
+  }
+}
+
+void roommotion(void) {
+	if (pir_one_value == 1 | pir_two_value == 1) {
+	  roommotion_value = 1;
+	  if (roommotion_value != roommotion_value_old) {
+	    snprintf(buf, 50, "!%s%d=%d\n", UART_SENDDATA, UART_ROOMMOTION, roommotion_value);
+    	 uart_puts(buf);
+	    roommotion_value_old = roommotion_value;
+	  }
+	}
+	
+	if (pir_one_value == 0 && pir_two_value == 0) {
+	  roommotion_value = 0;
+	  if (output_enabled == 1) {
+  	    if (roommotion_value != roommotion_value_old) {
+	      snprintf(buf, 50, "!%s%d=%d\n", UART_SENDDATA, UART_ROOMMOTION, roommotion_value);
+    	   uart_puts(buf);
+    	   roommotion_value_old = roommotion_value;
+	    }
+	  }
+	}
+}
+
+void roombrightness(void) {
+  roombrightness_value = (fotosensor_one_value + fotosensor_two_value) / 2;
+  if (output_enabled == 1) {
+    if (roombrightness_value != roombrightness_value_old) {
+    	roombrightness_value_old = roombrightness_value;
+    	snprintf(buf, 50, "!%s%d=%d\n", UART_SENDDATA, UART_ROOMBRIGHTNESS, roombrightness_value);
+      uart_puts(buf);
     }
   }
 }

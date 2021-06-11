@@ -25,6 +25,21 @@ void system_command(void) {
 			 }
           break;
           
+        case UARTIN_LIGHT_BRIGHTNESS_ENABLE:
+          tmp[0] = maincmd[3];
+			 tmp[1] = '\0';
+			 inttmp = atoi(tmp);
+			 if (inttmp >= 0 && inttmp <= 1) {
+			   light_brightness_on = inttmp;
+			   if (inttmp == 1) {
+			     uart_puts_P("Brightnesslight enabled\n");
+			   } else {
+			     uart_puts_P("Brightnesslight disabled\n");
+			   }
+			   eeprom_autosave();
+			 }
+          break;
+          
         case UARTIN_FOTOSENSOR_TWO_ENABLE:
           tmp[0] = maincmd[3];
 			 tmp[1] = '\0';
@@ -188,6 +203,50 @@ void system_command(void) {
 			 }
           break;
           
+        case UARTIN_MOTIONLIGHT_ENABLE:
+          tmp[0] = maincmd[3];
+			 tmp[1] = '\0';
+			 inttmp = atoi(tmp);
+			 if (inttmp >= 0 && inttmp <= 1) {
+			   motionlight_enabled = inttmp;
+			   if (inttmp == 1) {
+			     uart_puts_P("Motionlight enabled\n");
+			   } else {
+			     uart_puts_P("Motionlight disabled\n");
+			   }
+			   eeprom_autosave();
+			 }
+          break;
+          
+        case UARTIN_NIGHTLIGHT_ENABLE:
+          tmp[0] = maincmd[3];
+			 tmp[1] = '\0';
+			 inttmp = atoi(tmp);
+			 if (inttmp >= 0 && inttmp <= 1) {
+			   nightlight_enabled = inttmp;
+			   if (inttmp == 1) {
+			     uart_puts_P("Nightlight enabled\n");
+			   } else {
+			     uart_puts_P("Nightlight disabled\n");
+			   }
+			   eeprom_autosave();
+			 }
+          break;
+          
+        case UARTIN_LIGHT_BRIGHTNESS:
+          tmp[0] = maincmd[3];
+          tmp[1] = maincmd[4];
+          tmp[2] = maincmd[5];
+			 tmp[3] = '\0';
+			 inttmp16 = atoi(tmp);
+			 if (inttmp16 >= 0 && inttmp16 <= 999) {
+			   light_brightness = inttmp16;
+			   snprintf(buf, 50, "Lightbrightness set to %d \n", inttmp16);
+    	  		uart_puts(buf);
+			   eeprom_autosave();
+			 }
+          break;
+          
         default:
           break;
       }
@@ -237,6 +296,55 @@ void system_command(void) {
 			   uart_puts_P("Wrong Nightlighttime. Time must between 10 and 90 seconds.\n");
 			 }
           break;
+          
+          
+          
+        case UART_IN_NIGHTLIGHT_TIME_ON:
+          tmp[0] = maincmd[3];
+          tmp[1] = maincmd[4];
+			 tmp[2] = '\0';
+			 temphour = atoi(tmp);
+			 
+			 tmp[0] = maincmd[5];
+          tmp[1] = maincmd[6];
+			 tmp[2] = '\0';
+			 tempmin = atoi(tmp);
+			 
+			 if (temphour >= 0 && temphour <= 24 && tempmin >= 0 && tempmin <= 60) {
+			   nightlight_time_hour_on = temphour;
+			   nightlight_time_minute_on = tempmin;
+			   eeprom_autosave();
+			   snprintf(buf, 50, "Nightlight On set to %d:%d \n", temphour, tempmin);
+    	  		uart_puts(buf);
+			 } else {
+			   uart_puts_P("Wrong Nightlight On Time data.\n");
+			 }
+          break;
+          
+          
+        case UART_IN_NIGHTLIGHT_TIME_OFF:
+          tmp[0] = maincmd[3];
+          tmp[1] = maincmd[4];
+			 tmp[2] = '\0';
+			 temphour = atoi(tmp);
+			 
+			 tmp[0] = maincmd[5];
+          tmp[1] = maincmd[6];
+			 tmp[2] = '\0';
+			 tempmin = atoi(tmp);
+			 
+			 if (temphour >= 0 && temphour <= 24 && tempmin >= 0 && tempmin <= 60) {
+			   nightlight_time_hour_off = temphour;
+			   nightlight_time_minute_off = tempmin;
+			   eeprom_autosave();
+			   snprintf(buf, 50, "Nightlight Off set to %d:%d \n", temphour, tempmin);
+    	  		uart_puts(buf);
+			 } else {
+			   uart_puts_P("Wrong Nightlight Off Time data.\n");
+			 }
+          break;          
+          
+          
           
         case UART_IN_SET_LIGHT_MODE:
           tmp[0] = maincmd[3];
@@ -422,6 +530,86 @@ void system_command(void) {
   			       
 		          rgbwboard_set_ws2812_mode_data(boardnr, modenr, lednumber,  rval, gval, bval);
                 uart_puts_P("OK\n");
+		        }
+		      }
+		      break;
+		      
+		    case UART_IN_RGBWBOARD_WS2812_OFF:
+		      tmp[0] = maincmd[3];
+			   tmp[1] = '\0';
+			   boardnr = atoi(tmp);
+						 
+			   if (boardnr >= 1 && boardnr <= 8) {
+		        rgbwboard_ws2812_off(boardnr);
+		        uart_puts_P("OK\n");
+		      }
+		      break;
+		      
+		    case UART_IN_RGBWBOARD_WS2812_RED:
+		      tmp[0] = maincmd[3];
+			   tmp[1] = '\0';
+			   boardnr = atoi(tmp);
+						 
+			   if (boardnr >= 1 && boardnr <= 8) {
+			     uint8_t bright;
+			     
+			     tmp[0] = maincmd[4];
+			     tmp[1] = maincmd[5];
+			     tmp[2] = maincmd[6];
+  			     tmp[3] = '\0';
+  			     bright = atoi(tmp);
+  			     
+  			     if (bright >= 0 && bright <= 100) {
+		          rgbwboard_set_all_ws2812_red(boardnr, bright);
+		          uart_puts_P("OK\n");
+		        } else {
+		          uart_puts_P("Error\n");
+		        }
+		      }
+		      break;
+		      
+		    case UART_IN_RGBWBOARD_WS2812_GREEN:
+		      tmp[0] = maincmd[3];
+			   tmp[1] = '\0';
+			   boardnr = atoi(tmp);
+						 
+			   if (boardnr >= 1 && boardnr <= 8) {
+			     uint8_t bright;
+			     
+			     tmp[0] = maincmd[4];
+			     tmp[1] = maincmd[5];
+			     tmp[2] = maincmd[6];
+  			     tmp[3] = '\0';
+  			     bright = atoi(tmp);
+  			     
+  			     if (bright >= 0 && bright <= 100) {
+		          rgbwboard_set_all_ws2812_green(boardnr, bright);
+		          uart_puts_P("OK\n");
+		        } else {
+		          uart_puts_P("Error\n");
+		        }
+		      }
+		      break;
+		      
+		    case UART_IN_RGBWBOARD_WS2812_BLUE:
+		      tmp[0] = maincmd[3];
+			   tmp[1] = '\0';
+			   boardnr = atoi(tmp);
+						 
+			   if (boardnr >= 1 && boardnr <= 8) {
+			     uint8_t bright;
+			     
+			     tmp[0] = maincmd[4];
+			     tmp[1] = maincmd[5];
+			     tmp[2] = maincmd[6];
+  			     tmp[3] = '\0';
+  			     bright = atoi(tmp);
+  			     
+  			     if (bright >= 0 && bright <= 100) {
+		          rgbwboard_set_all_ws2812_blue(boardnr, bright);
+		          uart_puts_P("OK\n");
+		        } else {
+		          uart_puts_P("Error\n");
 		        }
 		      }
 		      break;

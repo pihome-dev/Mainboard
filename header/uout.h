@@ -49,6 +49,15 @@
 #define					UART_MOTIONLIGHT_TIME				42
 #define					UART_NIGHTLIGHT_TIME					43
 
+#define					UART_ROOMMOTION						44
+#define					UART_ROOMBRIGHTNESS					45
+
+#define					UART_NIGHTLIGHT_HOUR_ON				46
+#define					UART_NIGHTLIGHT_MINUTE_ON			47
+#define					UART_NIGHTLIGHT_HOUR_OFF			48
+#define					UART_NIGHTLIGHT_MINUTE_OFF			49
+#define					UART_LIGHT_BRIGHTNESS				50
+
 
 
 // GET

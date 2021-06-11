@@ -2,7 +2,7 @@
 #define F_CPU 											16000000UL		// Systemfrequency
 
 // I2C
-#define SCL_CLOCK  									400000L			// I2C Clock
+#define SCL_CLOCK  									100000L			// I2C Clock
 
 // UART
 #define UART_BAUD_RATE 								115200			// UART Baudrate
@@ -16,11 +16,14 @@
 // Sensoren
 
 #define FOTOSENSOR_DEFAULT_VALUE					500				// Fotosensor Default Value
+#define LIGHT_BRIGHTNESS_DEFAULT_VALUE			999				// Lightbrightness Default Value
 #define FOTOSENSOR_DEFAULT_READINTERVAL		5					// Fotosensor Readintervall in seconds
 #define FOTOSENSOR_DEFAULT_READTOLERANCE		20					// Fotosensor Readtolerance
 
+#define LIGHT_BRIGHTNESS_DEFAULT_ON				1
+
 #define PIR_DEFAULT_VALUE 							0					// PIR Sensor Default Value
-#define PIR_HARDWARE_RESET_TIME 					2					// PIR Reset Time in seconds
+#define PIR_HARDWARE_RESET_TIME 					3					// PIR Reset Time in seconds
 
 #define DS1820_DEFAULT_READINTERVAL				5					// DS1820 Readintervall in seconds
 #define BME280_DEFAULT_READINTERVAL				30					// BME280 Readintervall in seconds

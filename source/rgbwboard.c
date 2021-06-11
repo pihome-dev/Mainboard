@@ -105,9 +105,82 @@ void rgbwboard_run_ws2812_mode(int boardnumber, uint8_t modenumber) {
   
 }
 
+void rgbwboard_set_num_ws2812(int boardnumber, uint8_t num_of_leds) {
 
+  unsigned char address;
+  address = get_rgbwboard_addr(boardnumber);
+  
+  if(!(i2c_start(address+I2C_WRITE))) { // RGBW Board bereit zum schreiben?
+  
+    i2c_write(1);  				// Buffer Addr
+    i2c_write(8);  				// Set WS2812 Number of LED Mode
+    i2c_write(num_of_leds);   // Number of LEDs
 
+    i2c_stop();
+    snprintf(buf, 50, "RGBWBoard %d => Number of WS2812 Set to %d\n", boardnumber, num_of_leds);
+    uart_puts(buf);
+  } else {
+    i2c_stop();
+  }
+}
 
+void rgbwboard_set_all_ws2812_red(int boardnumber, uint8_t brightness) {
+  unsigned char address;
+  address = get_rgbwboard_addr(boardnumber);
+  
+  if(!(i2c_start(address+I2C_WRITE))) { // RGBW Board bereit zum schreiben?
+  
+    i2c_write(1);  				// Buffer Addr
+    i2c_write(9);  				// Set all WS2812 Red
+    i2c_write(brightness);    // Red Brightness
+
+    i2c_stop();
+    snprintf(buf, 50, "RGBWBoard %d => All WS2812 Set to Red (%d %)\n", boardnumber, brightness);
+    uart_puts(buf);
+  } else {
+    i2c_stop();
+  }
+}
+
+void rgbwboard_set_all_ws2812_green(int boardnumber, uint8_t brightness) {
+  unsigned char address;
+  address = get_rgbwboard_addr(boardnumber);
+  
+  if(!(i2c_start(address+I2C_WRITE))) { // RGBW Board bereit zum schreiben?
+  
+    i2c_write(1);  				// Buffer Addr
+    i2c_write(10);  				// Set all WS2812 Green
+    i2c_write(brightness);    // Green Brightness
+
+    i2c_stop();
+    snprintf(buf, 50, "RGBWBoard %d => All WS2812 Set to Green (%d %)\n", boardnumber, brightness);
+    uart_puts(buf);
+  } else {
+    i2c_stop();
+  }
+}
+
+void rgbwboard_set_all_ws2812_blue(int boardnumber, uint8_t brightness) {
+  unsigned char address;
+  address = get_rgbwboard_addr(boardnumber);
+  
+  if(!(i2c_start(address+I2C_WRITE))) { // RGBW Board bereit zum schreiben?
+  
+    i2c_write(1);  				// Buffer Addr
+    i2c_write(11);  				// Set all WS2812 Blue
+    i2c_write(brightness);    // Blue Brightness
+
+    i2c_stop();
+    snprintf(buf, 50, "RGBWBoard %d => All WS2812 Set to Blue (%d %)\n", boardnumber, brightness);
+    uart_puts(buf);
+  } else {
+    i2c_stop();
+  }
+}
+
+void rgbwboard_ws2812_off(int boardnumber) {
+  rgbwboard_run_ws2812_mode(boardnumber, 0);
+}
 
 
 
@@ -129,6 +202,7 @@ void rgbwboard_reboot(int boardnumber) {
     i2c_stop();
   }
 }
+
 void rgbwboard_factory_reset(int boardnumber){
 
   unsigned char address;
