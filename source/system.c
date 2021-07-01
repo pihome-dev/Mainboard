@@ -91,7 +91,7 @@ int main (void) {
   // Initialisiere 4CH Amplifier PWM Boards
   vierchampboards_search();
   uart_puts_P("4CH Amplifier Boards Initialisiert\n");
-  snprintf(buf, 50, "=> %d <= 4CH Amplifier Boards connected\n", dreizweichboards_connected);
+  snprintf(buf, 50, "=> %d <= 4CH Amplifier Boards connected\n", vierchampboards_connected);
   uart_puts(buf);
   
   // Search and initialisiere BME280 when exist
@@ -100,7 +100,7 @@ int main (void) {
   	 BME280_init();
     uart_puts_P("BME280 found and initalisiert\n");
   } else {
-    uart_puts_P("No BME280 found. Skipping initialisierung");
+    uart_puts_P("No BME280 found. Skipping initialisierung\n");
   }
 
   // Initialisiere the Timer
@@ -232,6 +232,8 @@ int main (void) {
 		         break;
 		       case 'A':
 		         uart_get_connected_rgbwboards();
+		         uart_get_connected_4champboards();
+					uart_get_connected_32chboards();
 		         break;
 		       case 'C':
 		         uart_send_system_config();
@@ -241,7 +243,7 @@ int main (void) {
 		         break;
 		       case 'D':
 		         uart_send_system_data();
-		         break;
+		         break;		       
 		       case 'R':
 		         output_off();
 		         uart_puts_P("Factory Reset...\n");

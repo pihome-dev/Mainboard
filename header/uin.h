@@ -41,11 +41,27 @@
 #define UART_IN_NIGHTLIGHT_TIME_ON									 16
 #define UART_IN_NIGHTLIGHT_TIME_OFF									 17
 
+#define UART_IN_4CH_MUTE												 18
+#define UART_IN_4CH_INPUT												 19
+#define UART_IN_4CH_GAIN												 20
+#define UART_IN_4CH_VOLUME												 21
+#define UART_IN_4CH_TREBLE												 22
+#define UART_IN_4CH_MIDDLE												 23
+#define UART_IN_4CH_BASS												 24
+#define UART_IN_4CH_REBOOT												 25
+#define UART_IN_4CH_FACTORY_RESET									 26
+
+#define UART_IN_PWMBOARD_FACTORY_RESET								 27
+#define UART_IN_PWMBOARD_REBOOT										 28
+#define UART_IN_PWMBOARD_SET_RUNMODE								 29
+#define UART_IN_PWMBOARD_SET_MODEDATA								 30
 
 int myerr;
 
 int boardnr;
 int modenr;
+uint8_t tmpval;
+uint8_t tmpchannel;
 
 int rval;
 int gval;

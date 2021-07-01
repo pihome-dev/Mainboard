@@ -58,6 +58,24 @@
 #define					UART_NIGHTLIGHT_MINUTE_OFF			49
 #define					UART_LIGHT_BRIGHTNESS				50
 
+#define					UART_4CHAMP_ONE_CONNECTED			51
+#define					UART_4CHAMP_TWO_CONNECTED			52
+#define					UART_4CHAMP_THREE_CONNECTED		53
+#define					UART_4CHAMP_FOUR_CONNECTED			54
+#define					UART_4CHAMP_FIVE_CONNECTED			55
+#define					UART_4CHAMP_SIX_CONNECTED			56
+#define					UART_4CHAMP_SEVEN_CONNECTED		57
+#define					UART_4CHAMP_EIGHT_CONNECTED		58
+
+#define					UART_32CHPWM_ONE_CONNECTED			59
+#define					UART_32CHPWM_TWO_CONNECTED			60
+#define					UART_32CHPWM_THREE_CONNECTED		61
+#define					UART_32CHPWM_FOUR_CONNECTED		62
+#define					UART_32CHPWM_FIVE_CONNECTED		63
+#define					UART_32CHPWM_SIX_CONNECTED			64
+#define					UART_32CHPWM_SEVEN_CONNECTED		65
+#define					UART_32CHPWM_EIGHT_CONNECTED		66
+
 
 
 // GET
@@ -70,3 +88,5 @@ void uart_send_system_data(void);
 void uart_send_system_info(void);
 void uart_get_systemtime(void);
 void uart_get_connected_rgbwboards(void);
+void uart_get_connected_4champboards(void);
+void uart_get_connected_32chboards(void);

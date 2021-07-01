@@ -173,20 +173,24 @@ void uart_send_system_info(void) {
   snprintf(buf, 50, "%02d:%02d:%02d\n", systemhour, systemmin, systemsec);
   uart_puts(buf);
   
-  uart_puts_P("Systemtime in minutes: ");
+  uart_puts_P("Systemtime: ");
   snprintf(buf, 50, "%d\n", (systemhour * 60) + systemmin);
   uart_puts(buf);
   
-  uart_puts_P("Nightlight On in minutes: ");
-  snprintf(buf, 50, "%d\n", (nightlight_time_hour_on * 60) + nightlight_time_minute_on);
+  uart_puts_P("Nightlight On: ");
+  snprintf(buf, 50, "%02d:%02d\n", nightlight_time_hour_on, nightlight_time_minute_on);
   uart_puts(buf);
   
-  uart_puts_P("Nightlight Off in minutes: ");
-  snprintf(buf, 50, "%d\n", (nightlight_time_hour_off * 60) + nightlight_time_minute_off);
+  uart_puts_P("Nightlight Off: ");
+  snprintf(buf, 50, "%02d:%02d\n", nightlight_time_hour_off, nightlight_time_minute_off);
   uart_puts(buf);
   
   uart_puts_P("Synctime: ");
   snprintf(buf, 50, "%d min\n", SYSTEMTIME_SYNCTIME);
+  uart_puts(buf);
+  
+  uart_puts_P("Nightlight Run: ");
+  snprintf(buf, 50, "%d\n", nightlight_run);
   uart_puts(buf);
   
   uart_puts_P("\n-------- Mainboard Information Ende --------\n\n");
@@ -229,6 +233,74 @@ void uart_get_connected_rgbwboards(void) {
     uart_puts(buf);
     
 	 uart_puts_P("\n-------- RGBW Boards Ende --------\n\n");
+    
+    output_on();
+}
+
+void uart_get_connected_4champboards(void) {
+	 output_off();
+	
+	 uart_puts_P("\n-------- piHOME System Connected 4CH Audio Boards --------\n\n");
+	
+	 snprintf(buf, 50, "!%s%d=%d\n", UART_SENDDATA, UART_4CHAMP_ONE_CONNECTED, boardsconfig[VIERCHAMPBOARDS][VIERCHBOARD1]);
+    uart_puts(buf);
+    
+    snprintf(buf, 50, "!%s%d=%d\n", UART_SENDDATA, UART_4CHAMP_TWO_CONNECTED, boardsconfig[VIERCHAMPBOARDS][VIERCHBOARD2]);
+    uart_puts(buf);
+    
+    snprintf(buf, 50, "!%s%d=%d\n", UART_SENDDATA, UART_4CHAMP_THREE_CONNECTED, boardsconfig[VIERCHAMPBOARDS][VIERCHBOARD3]);
+    uart_puts(buf);
+    
+    snprintf(buf, 50, "!%s%d=%d\n", UART_SENDDATA, UART_4CHAMP_FOUR_CONNECTED, boardsconfig[VIERCHAMPBOARDS][VIERCHBOARD4]);
+    uart_puts(buf);
+    
+    snprintf(buf, 50, "!%s%d=%d\n", UART_SENDDATA, UART_4CHAMP_FIVE_CONNECTED, boardsconfig[VIERCHAMPBOARDS][VIERCHBOARD5]);
+    uart_puts(buf);
+    
+    snprintf(buf, 50, "!%s%d=%d\n", UART_SENDDATA, UART_4CHAMP_SIX_CONNECTED, boardsconfig[VIERCHAMPBOARDS][VIERCHBOARD6]);
+    uart_puts(buf);
+    
+    snprintf(buf, 50, "!%s%d=%d\n", UART_SENDDATA, UART_4CHAMP_SEVEN_CONNECTED, boardsconfig[VIERCHAMPBOARDS][VIERCHBOARD7]);
+    uart_puts(buf);
+    
+	 snprintf(buf, 50, "!%s%d=%d\n", UART_SENDDATA, UART_4CHAMP_EIGHT_CONNECTED, boardsconfig[VIERCHAMPBOARDS][VIERCHBOARD8]);
+    uart_puts(buf);
+    
+	 uart_puts_P("\n-------- 4CH Audio Boards Ende --------\n\n");
+    
+    output_on();
+}
+
+void uart_get_connected_32chboards(void) {
+	 output_off();
+	
+	 uart_puts_P("\n-------- piHOME System Connected PWM Boards --------\n\n");
+	
+	 snprintf(buf, 50, "!%s%d=%d\n", UART_SENDDATA, UART_32CHPWM_ONE_CONNECTED, boardsconfig[DREIZWEICHPEMBOARDS][DREIZWEICHBOARD1]);
+    uart_puts(buf);
+    
+    snprintf(buf, 50, "!%s%d=%d\n", UART_SENDDATA, UART_32CHPWM_TWO_CONNECTED, boardsconfig[DREIZWEICHPEMBOARDS][DREIZWEICHBOARD2]);
+    uart_puts(buf);
+    
+    snprintf(buf, 50, "!%s%d=%d\n", UART_SENDDATA, UART_32CHPWM_THREE_CONNECTED, boardsconfig[DREIZWEICHPEMBOARDS][DREIZWEICHBOARD3]);
+    uart_puts(buf);
+    
+    snprintf(buf, 50, "!%s%d=%d\n", UART_SENDDATA, UART_32CHPWM_FOUR_CONNECTED, boardsconfig[DREIZWEICHPEMBOARDS][DREIZWEICHBOARD4]);
+    uart_puts(buf);
+    
+    snprintf(buf, 50, "!%s%d=%d\n", UART_SENDDATA, UART_32CHPWM_FIVE_CONNECTED, boardsconfig[DREIZWEICHPEMBOARDS][DREIZWEICHBOARD5]);
+    uart_puts(buf);
+    
+    snprintf(buf, 50, "!%s%d=%d\n", UART_SENDDATA, UART_32CHPWM_SIX_CONNECTED, boardsconfig[DREIZWEICHPEMBOARDS][DREIZWEICHBOARD6]);
+    uart_puts(buf);
+    
+    snprintf(buf, 50, "!%s%d=%d\n", UART_SENDDATA, UART_32CHPWM_SEVEN_CONNECTED, boardsconfig[DREIZWEICHPEMBOARDS][DREIZWEICHBOARD7]);
+    uart_puts(buf);
+    
+	 snprintf(buf, 50, "!%s%d=%d\n", UART_SENDDATA, UART_32CHPWM_EIGHT_CONNECTED, boardsconfig[DREIZWEICHPEMBOARDS][DREIZWEICHBOARD8]);
+    uart_puts(buf);
+    
+	 uart_puts_P("\n-------- PWM Boards Ende --------\n\n");
     
     output_on();
 }

@@ -18,6 +18,7 @@ void lightsystem_init(void) {
 void lightsystem_sendlightmode(uint8_t modenr) {
   for (int zz = 0; zz<8; zz++) {
     rgbwboard_run_pwm_mode(zz +1, modenr);
+    pwmboard_setmode(zz +1, modenr);
   }
 }
 
@@ -99,19 +100,29 @@ void lightsystem(void) {
   // Check Nightlighttime
   
   if (nightlight_enabled == 1 && nightlight_run == 0) {
-    if (systemhour >= nightlight_time_hour_on && systemmin >= nightlight_time_minute_on && systemhour <= nightlight_time_hour_off && systemmin <= nightlight_time_minute_off) {
+    if (systemhour >= nightlight_time_hour_on && systemmin >= nightlight_time_minute_on) {
       nightlight_run = 1;
-    }
-  }
-  if (nightlight_enabled == 1 && nightlight_run == 1) {
-	 if (systemhour >= nightlight_time_hour_off && systemmin >= nightlight_time_minute_off && systemhour <= nightlight_time_hour_on && systemmin <= nightlight_time_minute_on) {
-      nightlight_run = 0;
-      if (nightlight_on == LIGHT_ON) {
-      	lightsystem_sendlightmode(0);
+      if (nightlight_time_hour_on > nightlight_time_hour_off) {
+        nightwait = 1;
+      } else {
+        nightwait = 0;
       }
     }
   }
-
+  if (nightlight_enabled == 1 && nightlight_run == 1) {
+  	 if (nightwait == 1) {
+  	   if (systemhour <  nightlight_time_hour_off) {
+  	     nightwait = 0;
+  	   }
+  	 } else {
+	   if (systemhour >= nightlight_time_hour_off && systemmin >= nightlight_time_minute_off && systemhour <= nightlight_time_hour_on && systemmin <= nightlight_time_minute_on) {
+        nightlight_run = 0;
+        if (nightlight_on == LIGHT_ON) {
+      	  lightsystem_sendlightmode(0);
+        }
+      }
+    } 
+  }
 }
 
 void lightsystem_timer(void) {

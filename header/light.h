@@ -5,6 +5,8 @@ volatile uint8_t light_mode;
 volatile uint8_t motionlight_mode;
 volatile uint8_t nightlight_mode;
 
+int nightwait;
+
 volatile uint8_t motionlight_enabled;
 volatile uint8_t nightlight_enabled;
 

@@ -30,8 +30,10 @@
 #include "bme280.h"
 #include "systemclock.h"
 #include "rgbwboard.h"
+#include "audioboards.h"
 #include "font.h"
 #include "oled.h"
+#include "pwmboards.h"
 
 void avrrestart(void);
 

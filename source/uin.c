@@ -635,6 +635,302 @@ void system_command(void) {
 		        uart_puts_P("OK\n");
 		      }
 		      break;
+		      
+		    
+		    
+		    
+		    case UART_IN_4CH_MUTE:
+		      tmp[0] = maincmd[3];
+			   tmp[1] = '\0';
+			   boardnr = atoi(tmp);
+						 
+			   if (boardnr >= 1 && boardnr <= 8) {
+			     uint8_t ampdata;
+			     uint8_t mutedata;
+			     
+			     tmp[0] = maincmd[4];
+  			     tmp[1] = '\0';
+  			     ampdata = atoi(tmp);
+  			     
+  			     tmp[0] = maincmd[5];
+  			     tmp[1] = '\0';
+  			     mutedata = atoi(tmp);
+  			     
+  			     if (ampdata >= 1 && ampdata <= 2) {
+		          fourchamp_mute(boardnr, ampdata, mutedata);
+		          uart_puts_P("OK\n");
+		        } else {
+		          uart_puts_P("Error\n");
+		        }
+		      }
+		      break;
+		      
+		    case UART_IN_4CH_INPUT:
+		      tmp[0] = maincmd[3];
+			   tmp[1] = '\0';
+			   boardnr = atoi(tmp);
+						 
+			   if (boardnr >= 1 && boardnr <= 8) {
+			     uint8_t ampdata;
+			     uint8_t inputch;
+			     
+			     tmp[0] = maincmd[4];
+  			     tmp[1] = '\0';
+  			     ampdata = atoi(tmp);
+  			     
+  			     tmp[0] = maincmd[5];
+  			     tmp[1] = '\0';
+  			     inputch = atoi(tmp);
+  			     
+  			     if (ampdata >= 1 && ampdata <= 2) {
+		          fourchamp_input(boardnr, ampdata, inputch);
+		          uart_puts_P("OK\n");
+		        } else {
+		          uart_puts_P("Error\n");
+		        }
+		      }
+		      break;
+		      
+		    case UART_IN_4CH_GAIN:
+		      tmp[0] = maincmd[3];
+			   tmp[1] = '\0';
+			   boardnr = atoi(tmp);
+						 
+			   if (boardnr >= 1 && boardnr <= 8) {
+			     uint8_t ampdata;
+			     uint8_t gaindata;
+			     
+			     tmp[0] = maincmd[4];
+  			     tmp[1] = '\0';
+  			     ampdata = atoi(tmp);
+  			     
+  			     tmp[0] = maincmd[5];
+  			     tmp[1] = maincmd[6];
+  			     tmp[2] = '\0';
+  			     gaindata = atoi(tmp);
+  			     
+  			     if (ampdata >= 1 && ampdata <= 2) {
+		          fourchamp_gain(boardnr, ampdata, gaindata);
+		          uart_puts_P("OK\n");
+		        } else {
+		          uart_puts_P("Error\n");
+		        }
+		      }
+		      break;
+		      
+		    case UART_IN_4CH_VOLUME:
+		      tmp[0] = maincmd[3];
+			   tmp[1] = '\0';
+			   boardnr = atoi(tmp);
+						 
+			   if (boardnr >= 1 && boardnr <= 8) {
+			     uint8_t ampdata;
+			     uint8_t volumedata;
+			     
+			     tmp[0] = maincmd[4];
+  			     tmp[1] = '\0';
+  			     ampdata = atoi(tmp);
+  			     
+  			     tmp[0] = maincmd[5];
+  			     tmp[1] = maincmd[6];
+  			     tmp[2] = '\0';
+  			     volumedata = atoi(tmp);
+  			     
+  			     if (ampdata >= 1 && ampdata <= 2) {
+		          fourchamp_volume(boardnr, ampdata, volumedata);
+		          uart_puts_P("OK\n");
+		        } else {
+		          uart_puts_P("Error\n");
+		        }
+		      }
+		      break;
+		      
+		    case UART_IN_4CH_TREBLE:
+		      tmp[0] = maincmd[3];
+			   tmp[1] = '\0';
+			   boardnr = atoi(tmp);
+						 
+			   if (boardnr >= 1 && boardnr <= 8) {
+			     uint8_t ampdata;
+			     uint8_t trebledata;
+			     
+			     tmp[0] = maincmd[4];
+  			     tmp[1] = '\0';
+  			     ampdata = atoi(tmp);
+  			     
+  			     tmp[0] = maincmd[5];
+  			     tmp[1] = maincmd[6];
+  			     tmp[2] = '\0';
+  			     trebledata = atoi(tmp);
+  			     
+  			     if (ampdata >= 1 && ampdata <= 2) {
+		          fourchamp_treble(boardnr, ampdata, trebledata);
+		          uart_puts_P("OK\n");
+		        } else {
+		          uart_puts_P("Error\n");
+		        }
+		      }
+		      break;
+		      
+		    case UART_IN_4CH_MIDDLE:
+		      tmp[0] = maincmd[3];
+			   tmp[1] = '\0';
+			   boardnr = atoi(tmp);
+						 
+			   if (boardnr >= 1 && boardnr <= 8) {
+			     uint8_t ampdata;
+			     uint8_t middledata;
+			     
+			     tmp[0] = maincmd[4];
+  			     tmp[1] = '\0';
+  			     ampdata = atoi(tmp);
+  			     
+  			     tmp[0] = maincmd[5];
+  			     tmp[1] = maincmd[6];
+  			     tmp[2] = '\0';
+  			     middledata = atoi(tmp);
+  			     
+  			     if (ampdata >= 1 && ampdata <= 2) {
+		          fourchamp_middle(boardnr, ampdata, middledata);
+		          uart_puts_P("OK\n");
+		        } else {
+		          uart_puts_P("Error\n");
+		        }
+		      }
+		      break;
+		      
+		    case UART_IN_4CH_BASS:
+		      tmp[0] = maincmd[3];
+			   tmp[1] = '\0';
+			   boardnr = atoi(tmp);
+						 
+			   if (boardnr >= 1 && boardnr <= 8) {
+			     uint8_t ampdata;
+			     uint8_t bassdata;
+			     
+			     tmp[0] = maincmd[4];
+  			     tmp[1] = '\0';
+  			     ampdata = atoi(tmp);
+  			     
+  			     tmp[0] = maincmd[5];
+  			     tmp[1] = maincmd[6];
+  			     tmp[2] = '\0';
+  			     bassdata = atoi(tmp);
+  			     
+  			     if (ampdata >= 1 && ampdata <= 2) {
+		          fourchamp_bass(boardnr, ampdata, bassdata);
+		          uart_puts_P("OK\n");
+		        } else {
+		          uart_puts_P("Error\n");
+		        }
+		      }
+		      break;
+		    
+		    case UART_IN_4CH_REBOOT:
+		      tmp[0] = maincmd[3];
+			   tmp[1] = '\0';
+			   boardnr = atoi(tmp);
+						 
+			   if (boardnr >= 1 && boardnr <= 8) {
+		        fourchamp_reboot(boardnr);
+		        uart_puts_P("OK\n");
+		      }
+		      break;
+		      
+		    case UART_IN_4CH_FACTORY_RESET:
+		      tmp[0] = maincmd[3];
+			   tmp[1] = '\0';
+			   boardnr = atoi(tmp);
+						 
+			   if (boardnr >= 1 && boardnr <= 8) {
+		        fourchamp_factory_reset(boardnr);
+		        uart_puts_P("OK\n");
+		      }
+		      break;
+		      
+		    case UART_IN_PWMBOARD_REBOOT:
+		      tmp[0] = maincmd[3];
+			   tmp[1] = '\0';
+			   boardnr = atoi(tmp);
+						 
+			   if (boardnr >= 1 && boardnr <= 8) {
+		        pwmboard_reboot(boardnr);
+		        uart_puts_P("OK\n");
+		      }
+		      break;
+		      
+		    case UART_IN_PWMBOARD_FACTORY_RESET:
+		      tmp[0] = maincmd[3];
+			   tmp[1] = '\0';
+			   boardnr = atoi(tmp);
+						 
+			   if (boardnr >= 1 && boardnr <= 8) {
+		        pwmboard_factory_reset(boardnr);
+		        uart_puts_P("OK\n");
+		      }
+		      break;
+		      
+		    case UART_IN_PWMBOARD_SET_RUNMODE:
+		      tmp[0] = maincmd[3];
+			   tmp[1] = '\0';
+			   boardnr = atoi(tmp);
+			   
+			   tmp[0] = maincmd[4];
+			   tmp[1] = '\0';
+			   modenr = atoi(tmp);
+						 
+			   if (boardnr >= 1 && boardnr <= 8) {
+			     if (modenr >= 0 && modenr <= 10) {
+		          pwmboard_setmode(boardnr, modenr);
+		          uart_puts_P("OK\n");
+		        } else {
+		          uart_puts_P("Wrong Modenumber\n");
+		        }
+		      } else {
+		        uart_puts_P("Wrong Boardnumber\n");
+		      }
+		      break;
+		      
+		    case UART_IN_PWMBOARD_SET_MODEDATA:
+		      tmp[0] = maincmd[3];
+			   tmp[1] = '\0';
+			   boardnr = atoi(tmp);
+			   
+			   tmp[0] = maincmd[4];
+			   tmp[1] = maincmd[5];
+			   tmp[2] = '\0';
+			   modenr = atoi(tmp);
+			   
+			   tmp[0] = maincmd[6];
+			   tmp[1] = maincmd[7];
+			   tmp[2] = '\0';
+			   tmpchannel = atoi(tmp);
+			   
+			   tmp[0] = maincmd[8];
+			   tmp[1] = maincmd[9];
+			   tmp[2] = maincmd[10];
+			   tmp[3] = '\0';
+			   tmpval = atoi(tmp);
+						 
+			   if (boardnr >= 1 && boardnr <= 8) {
+			     if (modenr >= 0 && modenr <= 10) {
+			       if (tmpchannel >= 1 && tmpchannel <= 32) {
+			         if (tmpval >= 0 && tmpval <= 255) {
+		              pwmboard_setmodevalue(boardnr, modenr, tmpchannel, tmpval);
+		              uart_puts_P("OK\n");
+		            } else {
+		              uart_puts_P("Wrong Value Data\n");
+		            }
+		          } else {
+		            uart_puts_P("Wrong Channel Data\n");
+		          }
+		        } else {
+		          uart_puts_P("Wrong Modenumber\n");
+		        }
+		      } else {
+		        uart_puts_P("Wrong Boardnumber\n");
+		      }
+		      break;
         
         default:
           break;
