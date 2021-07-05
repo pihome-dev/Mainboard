@@ -465,9 +465,9 @@ void system_command(void) {
 			       tmp[2] = maincmd[17];
   			       tmp[3] = '\0';
   			       i2cwchangetime = atoi(tmp);  			       
-			 
 			 	    rgbwboard_set_pwm_mode_config(boardnr, modenr, i2cchangemode, i2crchangetime, i2cgchangetime, i2cbchangetime, i2cwchangetime);
-			 	    uart_puts_P("OK\n");
+			     } else {
+			       uart_puts_P("Wrong Modenumber\n");
 			     }
 			 } else {
 			   myerr = 1;
@@ -487,9 +487,12 @@ void system_command(void) {
   			     tmp[1] = '\0';
   			     modenr = atoi(tmp);
 			     if (modenr >= 1 && modenr <= 8) {
-			       rgbwboard_run_ws2812_mode(boardnr, modenr);
-					 uart_puts_P("OK\n");
+			       rgbwboard_run_ws2812_mode(boardnr, modenr); 
+			     } else {
+			       uart_puts_P("Wrong Boardnumber\n");
 			     }
+			   } else {
+			     uart_puts_P("Wrong Boardnumber\n");
 			   }
             break;
 		      
@@ -526,11 +529,13 @@ void system_command(void) {
 			       tmp[1] = maincmd[14];
 			       tmp[2] = maincmd[15];
   			       tmp[3] = '\0';
-  			       bval = atoi(tmp);
-  			       
+  			       bval = atoi(tmp);  
 		          rgbwboard_set_ws2812_mode_data(boardnr, modenr, lednumber,  rval, gval, bval);
-                uart_puts_P("OK\n");
+		        } else {
+		          uart_puts_P("Wrong Modenumber\n");
 		        }
+		      } else {
+		        uart_puts_P("Wrong Boardnumber\n");
 		      }
 		      break;
 		      
@@ -541,7 +546,8 @@ void system_command(void) {
 						 
 			   if (boardnr >= 1 && boardnr <= 8) {
 		        rgbwboard_ws2812_off(boardnr);
-		        uart_puts_P("OK\n");
+		      } else {
+		        uart_puts_P("Wrong Boardnumber\n");
 		      }
 		      break;
 		      
@@ -560,11 +566,12 @@ void system_command(void) {
   			     bright = atoi(tmp);
   			     
   			     if (bright >= 0 && bright <= 100) {
-		          rgbwboard_set_all_ws2812_red(boardnr, bright);
-		          uart_puts_P("OK\n");
+		          rgbwboard_set_all_ws2812_red(boardnr, bright);  
 		        } else {
-		          uart_puts_P("Error\n");
+		          uart_puts_P("Wrong Bright. Brightness must between 0 and 100\n");
 		        }
+		      } else {
+		        uart_puts_P("Wrong Boardnumber\n");
 		      }
 		      break;
 		      
@@ -584,10 +591,12 @@ void system_command(void) {
   			     
   			     if (bright >= 0 && bright <= 100) {
 		          rgbwboard_set_all_ws2812_green(boardnr, bright);
-		          uart_puts_P("OK\n");
+		          
 		        } else {
-		          uart_puts_P("Error\n");
+		          uart_puts_P("Wrong Bright. Brightness must between 0 and 100\n");
 		        }
+		      } else {
+		        uart_puts_P("Wrong Boardnumber\n");
 		      }
 		      break;
 		      
@@ -606,11 +615,12 @@ void system_command(void) {
   			     bright = atoi(tmp);
   			     
   			     if (bright >= 0 && bright <= 100) {
-		          rgbwboard_set_all_ws2812_blue(boardnr, bright);
-		          uart_puts_P("OK\n");
+		          rgbwboard_set_all_ws2812_blue(boardnr, bright);  
 		        } else {
-		          uart_puts_P("Error\n");
+		          uart_puts_P("Wrong Bright. Brightness must between 0 and 100\n");
 		        }
+		      } else {
+		        uart_puts_P("Wrong Boardnumber\n");
 		      }
 		      break;
 		      
@@ -621,7 +631,8 @@ void system_command(void) {
 						 
 			   if (boardnr >= 1 && boardnr <= 8) {
 		        rgbwboard_reboot(boardnr);
-		        uart_puts_P("OK\n");
+		      } else {
+		        uart_puts_P("Wrong Boardnumber\n");
 		      }
 		      break;
 		      
@@ -632,12 +643,13 @@ void system_command(void) {
 						 
 			   if (boardnr >= 1 && boardnr <= 8) {
 		        rgbwboard_factory_reset(boardnr);
-		        uart_puts_P("OK\n");
+		      } else {
+		        uart_puts_P("Wrong Boardnumber\n");
 		      }
 		      break;
 		      
 		    
-		    
+		    // 4 CH Audio Amplifer		    
 		    
 		    case UART_IN_4CH_MUTE:
 		      tmp[0] = maincmd[3];
@@ -658,10 +670,12 @@ void system_command(void) {
   			     
   			     if (ampdata >= 1 && ampdata <= 2) {
 		          fourchamp_mute(boardnr, ampdata, mutedata);
-		          uart_puts_P("OK\n");
+		          
 		        } else {
-		          uart_puts_P("Error\n");
+		          uart_puts_P("Wrong Amplifer Number\n");
 		        }
+		      } else {
+		        uart_puts_P("Wrong Boardnumber\n");
 		      }
 		      break;
 		      
@@ -684,10 +698,12 @@ void system_command(void) {
   			     
   			     if (ampdata >= 1 && ampdata <= 2) {
 		          fourchamp_input(boardnr, ampdata, inputch);
-		          uart_puts_P("OK\n");
+		          
 		        } else {
-		          uart_puts_P("Error\n");
+		          uart_puts_P("Wrong Amplifer Number\n");
 		        }
+		      } else {
+		        uart_puts_P("Wrong Boardnumber\n");
 		      }
 		      break;
 		      
@@ -711,10 +727,12 @@ void system_command(void) {
   			     
   			     if (ampdata >= 1 && ampdata <= 2) {
 		          fourchamp_gain(boardnr, ampdata, gaindata);
-		          uart_puts_P("OK\n");
+		          
 		        } else {
-		          uart_puts_P("Error\n");
+		          uart_puts_P("Wrong Amplifer Number\n");
 		        }
+		      } else {
+		        uart_puts_P("Wrong Boardnumber\n");
 		      }
 		      break;
 		      
@@ -738,10 +756,11 @@ void system_command(void) {
   			     
   			     if (ampdata >= 1 && ampdata <= 2) {
 		          fourchamp_volume(boardnr, ampdata, volumedata);
-		          uart_puts_P("OK\n");
 		        } else {
-		          uart_puts_P("Error\n");
+		          uart_puts_P("Wrong Amplifer Number\n");
 		        }
+		      } else {
+		        uart_puts_P("Wrong Boardnumber\n");
 		      }
 		      break;
 		      
@@ -765,10 +784,11 @@ void system_command(void) {
   			     
   			     if (ampdata >= 1 && ampdata <= 2) {
 		          fourchamp_treble(boardnr, ampdata, trebledata);
-		          uart_puts_P("OK\n");
 		        } else {
-		          uart_puts_P("Error\n");
+		          uart_puts_P("Wrong Amplifer Number\n");
 		        }
+		      } else {
+		        uart_puts_P("Wrong Boardnumber\n");
 		      }
 		      break;
 		      
@@ -792,10 +812,11 @@ void system_command(void) {
   			     
   			     if (ampdata >= 1 && ampdata <= 2) {
 		          fourchamp_middle(boardnr, ampdata, middledata);
-		          uart_puts_P("OK\n");
 		        } else {
-		          uart_puts_P("Error\n");
+		          uart_puts_P("Wrong Amplifer Number\n");
 		        }
+		      } else {
+		        uart_puts_P("Wrong Boardnumber\n");
 		      }
 		      break;
 		      
@@ -819,10 +840,11 @@ void system_command(void) {
   			     
   			     if (ampdata >= 1 && ampdata <= 2) {
 		          fourchamp_bass(boardnr, ampdata, bassdata);
-		          uart_puts_P("OK\n");
 		        } else {
-		          uart_puts_P("Error\n");
+		          uart_puts_P("Wrong Amplifer Number\n");
 		        }
+		      } else {
+		        uart_puts_P("Wrong Boardnumber\n");
 		      }
 		      break;
 		    
@@ -833,7 +855,8 @@ void system_command(void) {
 						 
 			   if (boardnr >= 1 && boardnr <= 8) {
 		        fourchamp_reboot(boardnr);
-		        uart_puts_P("OK\n");
+		      } else {
+		        uart_puts_P("Wrong Boardnumber\n");
 		      }
 		      break;
 		      
@@ -844,9 +867,14 @@ void system_command(void) {
 						 
 			   if (boardnr >= 1 && boardnr <= 8) {
 		        fourchamp_factory_reset(boardnr);
-		        uart_puts_P("OK\n");
+		      } else {
+		        uart_puts_P("Wrong Boardnumber\n");
 		      }
 		      break;
+		      
+		      
+		      
+			 // 32 CH PWM Board		      
 		      
 		    case UART_IN_PWMBOARD_REBOOT:
 		      tmp[0] = maincmd[3];
@@ -855,7 +883,8 @@ void system_command(void) {
 						 
 			   if (boardnr >= 1 && boardnr <= 8) {
 		        pwmboard_reboot(boardnr);
-		        uart_puts_P("OK\n");
+		      } else {
+		        uart_puts_P("Wrong Boardnumber\n");
 		      }
 		      break;
 		      
@@ -866,7 +895,8 @@ void system_command(void) {
 						 
 			   if (boardnr >= 1 && boardnr <= 8) {
 		        pwmboard_factory_reset(boardnr);
-		        uart_puts_P("OK\n");
+		      } else {
+		        uart_puts_P("Wrong Boardnumber\n");
 		      }
 		      break;
 		      
@@ -882,7 +912,6 @@ void system_command(void) {
 			   if (boardnr >= 1 && boardnr <= 8) {
 			     if (modenr >= 0 && modenr <= 10) {
 		          pwmboard_setmode(boardnr, modenr);
-		          uart_puts_P("OK\n");
 		        } else {
 		          uart_puts_P("Wrong Modenumber\n");
 		        }
@@ -917,7 +946,6 @@ void system_command(void) {
 			       if (tmpchannel >= 1 && tmpchannel <= 32) {
 			         if (tmpval >= 0 && tmpval <= 255) {
 		              pwmboard_setmodevalue(boardnr, modenr, tmpchannel, tmpval);
-		              uart_puts_P("OK\n");
 		            } else {
 		              uart_puts_P("Wrong Value Data\n");
 		            }
