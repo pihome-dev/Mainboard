@@ -9,6 +9,7 @@ volatile int fotosensor_two_enabled;
 
 volatile int fotosensor_read_interval;
 volatile int fotosensor_read_tolerance;
+volatile int roombrightness_tolerance;
 
 volatile int fotosensor_one_value;
 volatile int fotosensor_two_value;

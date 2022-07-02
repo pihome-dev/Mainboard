@@ -1,3 +1,6 @@
+#define	SYS_ON	1
+#define	SYS_OFF	0
+
 #include "../config.h"
 #include <avr/io.h>
 #include <inttypes.h>

@@ -118,7 +118,7 @@ void read_pir_two(void) {
 }
 
 void roommotion(void) {
-	if (pir_one_value == 1 | pir_two_value == 1) {
+	if (pir_one_value == 1 || pir_two_value == 1) {
 	  roommotion_value = 1;
 	  if (roommotion_value != roommotion_value_old) {
 	    snprintf(buf, 50, "!%s%d=%d\n", UART_SENDDATA, UART_ROOMMOTION, roommotion_value);
@@ -142,7 +142,7 @@ void roommotion(void) {
 void roombrightness(void) {
   roombrightness_value = (fotosensor_one_value + fotosensor_two_value) / 2;
   if (output_enabled == 1) {
-    if (roombrightness_value != roombrightness_value_old) {
+  	 if ( (roombrightness_value - roombrightness_value_old) > roombrightness_tolerance || (roombrightness_value_old - roombrightness_value) > roombrightness_tolerance ) {
     	roombrightness_value_old = roombrightness_value;
     	snprintf(buf, 50, "!%s%d=%d\n", UART_SENDDATA, UART_ROOMBRIGHTNESS, roombrightness_value);
       uart_puts(buf);

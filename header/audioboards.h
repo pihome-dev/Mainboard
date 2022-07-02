@@ -7,3 +7,6 @@ void fourchamp_volume(int boardnumber, uint8_t ampnumber, uint8_t volume);
 void fourchamp_treble(int boardnumber, uint8_t ampnumber, uint8_t treble);
 void fourchamp_middle(int boardnumber, uint8_t ampnumber, uint8_t middle);
 void fourchamp_bass(int boardnumber, uint8_t ampnumber, uint8_t bass);
+
+int get_inputgain_value(int data);
+int get_volume_value(int data);

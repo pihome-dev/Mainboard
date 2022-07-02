@@ -90,6 +90,8 @@ void getEEPROMDefaultData(void) {
   fotosensor_read_tolerance = eeprom_read_byte (&eeFOTOSENSOR_READ_TOLERANCE);
   fotosensor_read_interval = eeprom_read_byte (&eeFOTOSENSOR_READ_INTERVAL);
   
+  roombrightness_tolerance = eeprom_read_byte (&eeFOTOSENSOR_READ_TOLERANCE);
+  
   pir_one_enabled = eeprom_read_byte (&eePIR_ONE_ENABLE);
   pir_two_enabled = eeprom_read_byte (&eePIR_TWO_ENABLE);
   pir_hardware_reset_time = eeprom_read_byte (&eePIR_HARDWARE_RESETTIME);

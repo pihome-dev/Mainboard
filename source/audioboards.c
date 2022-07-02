@@ -115,7 +115,7 @@ void fourchamp_volume(int boardnumber, uint8_t ampnumber, uint8_t volume) {
     i2c_write(volume);		// Volume (0-14)
 
     i2c_stop();
-    snprintf(buf, 50, "4CH Amp %d => Volume Amp %d set to %d db (%d)\n", boardnumber, ampnumber, get_volume_value(volume) volume);
+    snprintf(buf, 50, "4CH Amp %d => Volume Amp %d set to %d db (%d)\n", boardnumber, ampnumber, get_volume_value(volume), volume);
     uart_puts(buf);
   } else {
     i2c_stop();
@@ -183,7 +183,7 @@ void fourchamp_bass(int boardnumber, uint8_t ampnumber, uint8_t bass) {
 }
 
 int get_inputgain_value(int data) {
-  int //senddata, outval;
+  int senddata, outval;
   switch (data) {
     case 1:
       //senddata = TDA7439_INPUT_GAIN_0DB;
@@ -257,7 +257,7 @@ int get_inputgain_value(int data) {
 }
 
 int get_volume_value(int data) {
-  int //senddata, outval;
+  int senddata, outval;
   switch (data) {
     case 1:
       //senddata = TDA7439_VOLUME_0DB;
