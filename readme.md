@@ -31,6 +31,8 @@ Different configuration values can be set in Config.h. The most important values
 
 It is mandatory The F_CPU is set with the right CPU clock being set as it can otherwise come to an undesirable behavior.
 
+#### //System
+
   Setting|Value|Description
   --------|---|-------
   F_CPU|12000000 - 16000000|Set the CPU Frequency
@@ -38,6 +40,8 @@ It is mandatory The F_CPU is set with the right CPU clock being set as it can ot
   TIMERFREQ|0-0|Data
   TIMERPRE|0-0|Data
   SYSTEMTIME_SYNCTIME|0-0|Data
+  
+#### //Sensoren
   
   Setting|Value|Description
   --------|---|-------
