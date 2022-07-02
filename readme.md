@@ -30,3 +30,24 @@ Different configuration values can be set in Config.h. The most important values
 *** Important
 
 It is mandatory The F_CPU is set with the right CPU clock being set as it can otherwise come to an undesirable behavior.
+
+  Setting|Value|Description
+  --------|---|-------
+  F_CPU|12000000 - 16000000|Set the CPU Frequency
+  UART_BAUD_RATE|0-0|Data
+  TIMERFREQ|0-0|Data
+  TIMERPRE|0-0|Data
+  SYSTEMTIME_SYNCTIME|0-0|Data
+  
+  Setting|Value|Description
+  --------|---|-------
+  FOTOSENSOR_DEFAULT_VALUE|12000000 - 16000000|Set the CPU Frequency
+  LIGHT_BRIGHTNESS_DEFAULT_VALUE|0-0|Data
+  FOTOSENSOR_DEFAULT_READINTERVAL|0-0|Data
+  FOTOSENSOR_DEFAULT_READTOLERANCE|0-0|Data
+  LIGHT_BRIGHTNESS_DEFAULT_ON|0-0|Data
+  PIR_DEFAULT_VALUE|12000000 - 16000000|Set the CPU Frequency
+  PIR_HARDWARE_RESET_TIME|0-0|Data
+  DS1820_DEFAULT_READINTERVAL|0-0|Data
+  BME280_DEFAULT_READINTERVAL|0-0|Data
+  EEPROM_AUTOSAVE_TIME|0-0|Data
