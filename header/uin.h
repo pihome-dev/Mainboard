@@ -55,6 +55,7 @@
 #define UART_IN_PWMBOARD_REBOOT										 28
 #define UART_IN_PWMBOARD_SET_RUNMODE								 29
 #define UART_IN_PWMBOARD_SET_MODEDATA								 30
+#define UART_IN_PWMBOARD_READ_MODEDATA								 31
 
 int myerr;
 

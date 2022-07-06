@@ -920,6 +920,26 @@ void system_command(void) {
 		      }
 		      break;
 		      
+		    case UART_IN_PWMBOARD_READ_MODEDATA:
+		      tmp[0] = maincmd[3];
+			   tmp[1] = '\0';
+			   boardnr = atoi(tmp);
+			   
+			   tmp[0] = maincmd[4];
+			   tmp[1] = '\0';
+			   modenr = atoi(tmp);
+						 
+			   if (boardnr >= 1 && boardnr <= 8) {
+			     if (modenr >= 0 && modenr <= 10) {
+		          pwmboard_readmodevalues(boardnr, modenr);
+		        } else {
+		          uart_puts_P("Wrong Modenumber\n");
+		        }
+		      } else {
+		        uart_puts_P("Wrong Boardnumber\n");
+		      }
+		      break;
+		      
 		    case UART_IN_PWMBOARD_SET_MODEDATA:
 		      tmp[0] = maincmd[3];
 			   tmp[1] = '\0';
