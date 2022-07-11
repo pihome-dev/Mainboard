@@ -13,3 +13,9 @@ void rgbwboard_set_all_ws2812_red(int boardnumber, uint8_t brightness);
 void rgbwboard_set_all_ws2812_green(int boardnumber, uint8_t brightness);
 void rgbwboard_set_all_ws2812_blue(int boardnumber, uint8_t brightness);
 void rgbwboard_ws2812_off(int boardnumber);
+
+void rgbwboard_readmodevalues(int boardnumber, uint8_t modenumber);
+void rgbwboard_readlivevalues(int boardnumber);
+
+volatile uint8_t readcount;
+volatile uint8_t readdata[50];

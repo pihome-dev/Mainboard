@@ -624,6 +624,40 @@ void system_command(void) {
 		      }
 		      break;
 		      
+		    case UART_IN_RGBWBOARD_READ_MODEDATA:
+		      tmp[0] = maincmd[3];
+			   tmp[1] = '\0';
+			   boardnr = atoi(tmp);
+			   
+			   tmp[0] = maincmd[4];
+			   tmp[1] = maincmd[5];
+			   tmp[2] = '\0';
+			   modenr = atoi(tmp);
+						 
+			   if (boardnr >= 1 && boardnr <= 8) {
+			     if (modenr >= 0 && modenr <= 10) {
+		               uart_puts_P("Read Modedata\n");
+		               rgbwboard_readmodevalues(boardnr, modenr);
+		        } else {
+		          uart_puts_P("Wrong Modenumber\n");
+		        }
+		      } else {
+		        uart_puts_P("Wrong Boardnumber\n");
+		      }
+		      break;
+		      
+		    case UART_IN_RGBWBOARD_READ_LIVEDATA:
+		      tmp[0] = maincmd[3];
+		      tmp[1] = '\0';
+		      boardnr = atoi(tmp);
+
+		      if (boardnr >= 1 && boardnr <= 8) {
+		        rgbwboard_readlivevalues(boardnr);
+		      } else {
+		        uart_puts_P("Wrong Boardnumber\n");
+		      }
+		      break;
+		      
 		    case UART_IN_RGBWBOARD_REBOOT:
 		      tmp[0] = maincmd[3];
 			   tmp[1] = '\0';
@@ -926,12 +960,55 @@ void system_command(void) {
 			   boardnr = atoi(tmp);
 			   
 			   tmp[0] = maincmd[4];
-			   tmp[1] = '\0';
+			   tmp[1] = maincmd[5];
+			   tmp[2] = '\0';
 			   modenr = atoi(tmp);
 						 
 			   if (boardnr >= 1 && boardnr <= 8) {
 			     if (modenr >= 0 && modenr <= 10) {
 		          pwmboard_readmodevalues(boardnr, modenr);
+		        } else {
+		          uart_puts_P("Wrong Modenumber\n");
+		        }
+		      } else {
+		        uart_puts_P("Wrong Boardnumber\n");
+		      }
+		      break;
+		      
+		    case UART_IN_PWMBOARD_READ_MODESPEED:
+		      tmp[0] = maincmd[3];
+			   tmp[1] = '\0';
+			   boardnr = atoi(tmp);
+			   
+			   tmp[0] = maincmd[4];
+			   tmp[1] = maincmd[5];
+			   tmp[2] = '\0';
+			   modenr = atoi(tmp);
+						 
+			   if (boardnr >= 1 && boardnr <= 8) {
+			     if (modenr >= 0 && modenr <= 10) {
+		          pwmboard_readmodespeed(boardnr, modenr);
+		        } else {
+		          uart_puts_P("Wrong Modenumber\n");
+		        }
+		      } else {
+		        uart_puts_P("Wrong Boardnumber\n");
+		      }
+		      break;
+		      
+		    case UART_IN_PWMBOARD_READ_MODECHANGE:
+		      tmp[0] = maincmd[3];
+			   tmp[1] = '\0';
+			   boardnr = atoi(tmp);
+			   
+			   tmp[0] = maincmd[4];
+			   tmp[1] = maincmd[5];
+			   tmp[2] = '\0';
+			   modenr = atoi(tmp);
+						 
+			   if (boardnr >= 1 && boardnr <= 8) {
+			     if (modenr >= 0 && modenr <= 10) {
+		          pwmboard_readmodechange(boardnr, modenr);
 		        } else {
 		          uart_puts_P("Wrong Modenumber\n");
 		        }
@@ -979,6 +1056,48 @@ void system_command(void) {
 		        uart_puts_P("Wrong Boardnumber\n");
 		      }
 		      break;
+		      
+		    case UART_IN_PWMBOARD_SET_MODECONFIG:
+		           tmp[0] = maincmd[3];
+			   tmp[1] = '\0';
+			   boardnr = atoi(tmp);
+			   
+			   tmp[0] = maincmd[4];
+			   tmp[1] = maincmd[5];
+			   tmp[2] = '\0';
+			   modenr = atoi(tmp);
+			   
+			   tmp[0] = maincmd[6];
+			   tmp[1] = maincmd[7];
+			   tmp[2] = '\0';
+			   tmpchannel = atoi(tmp);
+			   
+			   tmp[0] = maincmd[8];
+			   tmp[1] = '\0';
+			   tmpspeed = atoi(tmp);
+			   
+			   tmp[0] = maincmd[9];
+			   tmp[1] = '\0';
+			   tmpchange = atoi(tmp);
+						 
+			   if (boardnr >= 1 && boardnr <= 8) {
+			     if (modenr >= 0 && modenr <= 10) {
+			       if (tmpspeed >= 1 && tmpspeed <= 5) {
+			         if (tmpchange >= 0 && tmpchange <= 1) {
+		              	   pwmboard_setmodeconfig(boardnr, modenr, tmpchannel, tmpspeed, tmpchange);
+		                 } else {
+		                   uart_puts_P("Wrong Change Data\n");
+		                 }
+		               } else {
+		                 uart_puts_P("Wrong Speed Data\n");
+		               }
+		             } else {
+		               uart_puts_P("Wrong Modenumber\n");
+		             }
+		           } else {
+		             uart_puts_P("Wrong Boardnumber\n");
+		           }
+		           break;
         
         default:
           break;

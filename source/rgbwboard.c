@@ -221,3 +221,114 @@ void rgbwboard_factory_reset(int boardnumber){
     i2c_stop();
   }
 }
+
+void rgbwboard_readmodevalues(int boardnumber, uint8_t modenumber) {
+  
+  unsigned char address;
+  address = get_rgbwboard_addr(boardnumber);
+  
+  snprintf(buf, 50, "I2C Start Write\n");
+  uart_puts(buf);
+  if(!(i2c_start(address+I2C_WRITE))) { // RGBW Board bereit zum schreiben?
+    snprintf(buf, 50, "Ok\n");
+    uart_puts(buf);
+    i2c_write(1);             // Buffer Addr
+    i2c_write(12);	      // Read Channelvalues from Modenumber
+    i2c_write(modenumber);
+    i2c_stop();
+    
+    snprintf(buf, 50, "I2C Stop OK\n");
+    uart_puts(buf);    
+
+    readdata[0] = 0;
+    
+    wdt_reset();
+    _delay_ms(50);
+    wdt_reset();
+    
+    snprintf(buf, 50, "I2C Start Read\n");
+    uart_puts(buf);
+    
+    if (!(i2c_rep_start(address+I2C_READ))) {        // set device address and read mode
+      snprintf(buf, 50, "Ok\n");
+      uart_puts(buf);
+      wdt_reset();
+      
+      readcount = i2c_readAck();
+      readdata[0] = readcount;
+      
+      snprintf(buf, 50, "I2C Read 0: %d\n", readdata[0]);
+      uart_puts(buf);
+      
+      for (int i=1;i<readdata[0];i++) {
+        wdt_reset();
+        if (i==readdata[0]-1) {
+          readdata[i] = i2c_readNak();      // read last byte
+        } else {
+          readdata[i] = i2c_readAck();      // read bytes
+        }
+        snprintf(buf, 50, "I2C Read %d: %d\n", i, readdata[i]);
+        uart_puts(buf);
+        wdt_reset();
+      }
+      i2c_stop();
+      snprintf(buf, 50, "I2C Stop OK\n");
+      uart_puts(buf);
+    }      
+  }
+}
+
+void rgbwboard_readlivevalues(int boardnumber) {
+  
+  unsigned char address;
+  address = get_rgbwboard_addr(boardnumber);
+  
+  snprintf(buf, 50, "I2C Start Write\n");
+  uart_puts(buf);
+  if(!(i2c_start(address+I2C_WRITE))) { // RGBW Board bereit zum schreiben?
+    snprintf(buf, 50, "Ok\n");
+    uart_puts(buf);
+    i2c_write(1);             // Buffer Addr
+    i2c_write(13);	      // Read Channelvalues from Modenumber
+    i2c_stop();
+    
+    snprintf(buf, 50, "I2C Stop OK\n");
+    uart_puts(buf);    
+
+    readdata[0] = 0;
+    
+    wdt_reset();
+    _delay_ms(50);
+    wdt_reset();
+    
+    snprintf(buf, 50, "I2C Start Read\n");
+    uart_puts(buf);
+    
+    if (!(i2c_rep_start(address+I2C_READ))) {        // set device address and read mode
+      snprintf(buf, 50, "Ok\n");
+      uart_puts(buf);
+      wdt_reset();
+      
+      readcount = i2c_readAck();
+      readdata[0] = readcount;
+      
+      snprintf(buf, 50, "I2C Read 0: %d\n", readdata[0]);
+      uart_puts(buf);
+      
+      for (int i=1;i<readdata[0];i++) {
+        wdt_reset();
+        if (i==readdata[0]-1) {
+          readdata[i] = i2c_readNak();      // read last byte
+        } else {
+          readdata[i] = i2c_readAck();      // read bytes
+        }
+        snprintf(buf, 50, "I2C Read %d: %d\n", i, readdata[i]);
+        uart_puts(buf);
+        wdt_reset();
+      }
+      i2c_stop();
+      snprintf(buf, 50, "I2C Stop OK\n");
+      uart_puts(buf);
+    }      
+  }
+}

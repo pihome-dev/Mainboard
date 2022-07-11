@@ -38,6 +38,8 @@
 #define UART_IN_RGBWBOARD_WS2812_RED								 13
 #define UART_IN_RGBWBOARD_WS2812_GREEN								 14
 #define UART_IN_RGBWBOARD_WS2812_BLUE								 15
+#define UART_IN_RGBWBOARD_READ_MODEDATA								 35
+#define UART_IN_RGBWBOARD_READ_LIVEDATA								 36
 #define UART_IN_NIGHTLIGHT_TIME_ON									 16
 #define UART_IN_NIGHTLIGHT_TIME_OFF									 17
 
@@ -55,7 +57,10 @@
 #define UART_IN_PWMBOARD_REBOOT										 28
 #define UART_IN_PWMBOARD_SET_RUNMODE								 29
 #define UART_IN_PWMBOARD_SET_MODEDATA								 30
-#define UART_IN_PWMBOARD_READ_MODEDATA								 31
+#define UART_IN_PWMBOARD_SET_MODECONFIG								 31
+#define UART_IN_PWMBOARD_READ_MODEDATA								 32
+#define UART_IN_PWMBOARD_READ_MODESPEED							 	 33
+#define UART_IN_PWMBOARD_READ_MODECHANGE							 34
 
 int myerr;
 
@@ -63,6 +68,8 @@ int boardnr;
 int modenr;
 uint8_t tmpval;
 uint8_t tmpchannel;
+uint8_t tmpspeed;
+uint8_t tmpchange;
 
 int rval;
 int gval;
