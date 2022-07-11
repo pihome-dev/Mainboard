@@ -37,6 +37,7 @@
 #include "font.h"
 #include "oled.h"
 #include "pwmboards.h"
+#include "debug.h"
 
 void avrrestart(void);
 
